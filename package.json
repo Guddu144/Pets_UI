@@ -1,0 +1,36 @@
+{
+  "name": "pets",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:watch:tw": "yarn build:tw --watch",
+    "start:dev": "concurrently --kill-all --handle-input \"yarn dev\" \"yarn build:watch:tw\"",
+    "preview": "vite preview",
+    "build:tw": "tailwindcss -i ./src/css/style.css -o ./public/css/style.css",
+    "eslint:fix": "./node_modules/.bin/eslint . --ext .js --ext .jsx --fix"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.7.7",
+    "@tabler/icons": "^1.118.0",
+    "lodash": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.41.1",
+    "react-hot-toast": "^2.4.0",
+    "react-router-dom": "^6.6.1",
+    "swiper": "^8.4.5"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
+    "@vitejs/plugin-react": "^3.0.0",
+    "concurrently": "^7.6.0",
+    "eslint": "^8.30.0",
+    "eslint-plugin-react": "^7.31.11",
+    "tailwindcss": "^3.2.4",
+    "vite": "^4.0.3"
+  }
+}
