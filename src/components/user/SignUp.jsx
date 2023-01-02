@@ -9,6 +9,7 @@ import { Button, Input, Icon, FieldGroup } from '../inputs';
 import lockIcon from '../../icons/lock-icon.svg'
 import emailIcon from '../../icons/email-icon.svg';
 import userIcon from '../../icons/user-icon.svg';
+import { addUser } from '../../infra';
 
 const SignUp = () => {
 
@@ -16,6 +17,20 @@ const SignUp = () => {
 
   const navigate = useNavigate();
   const { handleSubmit, register, control, setValue, setError, clearErrors, formState: { errors, isSubmitting } } = useForm();
+
+  const onSubmit = setError => payload => {
+    return addUser(payload)
+      .then(data => {
+        if (data.status === 200) {
+          navigate('/dashboard');
+        } else {
+          handleError(null, null, data.error_msg);
+        }
+      })
+      .catch(err => {
+        handleError(null, null, err.message);
+      });
+  };
 
   return (
     <div className="min-h-screen flex">
@@ -37,19 +52,19 @@ const SignUp = () => {
       <div className="flex flex-col my-auto w-1/2">
         <div className="justify-center py-12 px-4 sm:px-6 lg:px-20 xl:px-24">
           <div className="mx-auto w-full max-w-sm lg:w-96">
-            <form className="my-1 w-full" >
+            <form onSubmit={handleSubmit(onSubmit(setError))} className="my-1 w-full" >
               <label className="block text-gray-800 font-semibold text-2xl mb-2">Sign Up</label>
               <label className="block text-black-50 font-normal mb-6">Hey, Enter your details to create new account</label>
 
-              <FieldGroup name="fullname" className="mb-4" label="Full Name" hideLabel={true} showLabelOnMobile={false} error={errors.fullname}>
+              <FieldGroup name="username" className="mb-4" label="User Name" hideLabel={true} showLabelOnMobile={false} error={errors.username}>
                 <Input
                   type="text"
                   icon={<Icon icon={userIcon} />}
                   placeholder="Enter your name"
-                  hasError={errors.fullname}
-                  name="fullname"
+                  hasError={errors.username}
+                  name="username"
                   autoComplete="off"
-                  {...register('fullname', { required: 'Please enter your full name' })}
+                  {...register('username', { required: 'Please enter your user name' })}
                 />
               </FieldGroup>
 
@@ -77,15 +92,15 @@ const SignUp = () => {
                 />
               </FieldGroup>
 
-              <FieldGroup name="confirmPassword" className="mb-11 mt-4" label="Password" hideLabel={true} showLabelOnMobile={false} error={errors.password}>
+              <FieldGroup name="confirmPassword" className="mb-11 mt-4" label="confirmPassword" hideLabel={true} showLabelOnMobile={false} error={errors.confirmPassword}>
                 <Input
                   type="password"
                   icon={<Icon icon={lockIcon} />}
                   placeholder="Confirm your password"
-                  hasError={errors.password}
+                  hasError={errors.confirmPassword}
                   name="confirmPassword"
                   autoComplete="off"
-                  {...register('password', { required: 'Please enter your password again' })}
+                  {...register('confirmPassword', { required: 'Please enter your password again' })}
                 />
               </FieldGroup>
 
