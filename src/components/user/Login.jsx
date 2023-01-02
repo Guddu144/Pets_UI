@@ -15,6 +15,26 @@ const Login = () => {
   const navigate = useNavigate();
   const handleError = useHandleError();
 
+  const onSubmit = setError => payload => {
+    return loginUser(payload)
+      .then(data => {
+        if (data.status === 200) {
+          const loginData = data.data;
+          localStorage.setItem('token', loginData.token);
+          navigate('/dashboard');
+        } else {
+          handleError({ 'errors': { 'username': ['Invalid login credentials'] } }, setError);
+        }
+      })
+      .catch((err => {
+        if (err.message.includes('User')) {
+          handleError({ 'errors': { 'username': [`${err.message}`] } }, setError);
+        } else {
+          handleError({ 'errors': { 'password': [`${err.message}`] } }, setError);
+        }
+      }));
+  };
+
   return (
     <div className="min-h-screen flex">
       <div className="hidden lg:block relative py-14 px-20 bg-blue-500 w-1/2">
@@ -39,7 +59,7 @@ const Login = () => {
               <h1 className="text-2xl font-semibold mb-2">Login</h1>
               <h2 className="mt-1 text-sm text-gray-400">Welcome to PETS, Enter your credentials to access your account</h2>
             </div>
-            <form className="mt-8">
+            <form onSubmit={handleSubmit(onSubmit(setError))} className="mt-8">
               <div className="space-y-5">
                 <FieldGroup className="text-sm" name="username" label="Username" error={errors.username}>
                   <Input
