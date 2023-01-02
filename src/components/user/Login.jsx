@@ -59,7 +59,7 @@ const Login = () => {
               <h1 className="text-2xl font-semibold mb-2">Login</h1>
               <h2 className="mt-1 text-sm text-gray-400">Welcome to PETS, Enter your credentials to access your account</h2>
             </div>
-            <form onSubmit={handleSubmit(onSubmit(setError))} className="mt-8 w-screen pr-4 lg:pr-0 lg:w-full 
+            <form onSubmit={handleSubmit(onSubmit(setError))} className="mt-8 w-screen pr-4 lg:pr-0 lg:w-full"> 
 
               <div className="space-y-5">
                 <FieldGroup className="text-sm" name="username" label="Username" error={errors.username}>
