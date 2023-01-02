@@ -38,7 +38,7 @@ const Login = () => {
   return (
     <div className="min-h-screen flex">
       <div className="hidden lg:block relative py-14 px-20 bg-blue-500 w-1/2">
-        <div className="flex justify-center d-block text-left">
+        <div className="flex justify-center text-left">
           <img height={150} width={150} src={petsIcon}></img>
         </div>
         <div className="mt-48 flex flex-col justify-center">
@@ -59,7 +59,7 @@ const Login = () => {
               <h1 className="text-2xl font-semibold mb-2">Login</h1>
               <h2 className="mt-1 text-sm text-gray-400">Welcome to PETS, Enter your credentials to access your account</h2>
             </div>
-            <form onSubmit={handleSubmit(onSubmit(setError))} className="mt-8">
+            <form onSubmit={handleSubmit(onSubmit(setError))} className="mt-8 w-screen pr-4 lg:pr-0 lg:w-full ">
               <div className="space-y-5">
                 <FieldGroup className="text-sm" name="username" label="Username" error={errors.username}>
                   <Input

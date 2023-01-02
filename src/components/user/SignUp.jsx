@@ -52,7 +52,7 @@ const SignUp = () => {
       <div className="flex flex-col my-auto w-1/2">
         <div className="justify-center py-12 px-4 sm:px-6 lg:px-20 xl:px-24">
           <div className="mx-auto w-full max-w-sm lg:w-96">
-            <form onSubmit={handleSubmit(onSubmit(setError))} className="my-1 w-full" >
+            <form onSubmit={handleSubmit(onSubmit(setError))} className="my-1 w-screen pr-4 lg:pr-0 lg:w-full" >
               <label className="block text-gray-800 font-semibold text-2xl mb-2">Sign Up</label>
               <label className="block text-black-50 font-normal mb-6">Hey, Enter your details to create new account</label>
 
