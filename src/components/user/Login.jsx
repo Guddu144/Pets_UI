@@ -1,16 +1,14 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-
 import { Link, useNavigate } from 'react-router-dom';
-
-import { FieldGroup, Input, Button } from '../../components/inputs';
+import { FieldGroup, Input, Button, Icon } from '../../components/inputs';
 import { useHandleError } from '../../hooks';
 import { classNames } from '../../utils';
-import petsIcon from '../../icons/pets_icon.png';
+import petsIcon from '../../icons/pets-icon.svg';
 import { loginUser } from '../../infra';
 
 const Login = () => {
-
+  localStorage.clear();
   const { handleSubmit, register, setError, formState: { errors, isSubmitting } } = useForm();
   const navigate = useNavigate();
   const handleError = useHandleError();
@@ -21,7 +19,8 @@ const Login = () => {
         if (data.status === 200) {
           const loginData = data.data;
           localStorage.setItem('token', loginData.token);
-          navigate('/dashboard');
+          localStorage.setItem('message', data.message);
+          navigate('/');
         } else {
           handleError({ 'errors': { 'username': ['Invalid login credentials'] } }, setError);
         }
@@ -39,7 +38,7 @@ const Login = () => {
     <div className="min-h-screen flex">
       <div className="hidden lg:block relative py-14 px-20 bg-blue-500 w-1/2">
         <div className="flex justify-center text-left">
-          <img height={150} width={150} src={petsIcon}></img>
+          {<Icon icon={petsIcon} />}
         </div>
         <div className="mt-48 flex flex-col justify-center">
           <div className="w-full">
@@ -59,7 +58,7 @@ const Login = () => {
               <h1 className="text-2xl font-semibold mb-2">Login</h1>
               <h2 className="mt-1 text-sm text-gray-400">Welcome to PETS, Enter your credentials to access your account</h2>
             </div>
-            <form onSubmit={handleSubmit(onSubmit(setError))} className="mt-8 w-screen pr-4 lg:pr-0 lg:w-full"> 
+            <form onSubmit={handleSubmit(onSubmit(setError))} className="mt-8 w-screen pr-4 lg:pr-0 lg:w-full">
 
               <div className="space-y-5">
                 <FieldGroup className="text-sm" name="username" label="Username" error={errors.username}>
