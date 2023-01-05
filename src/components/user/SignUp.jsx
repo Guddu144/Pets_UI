@@ -9,6 +9,7 @@ import { Button, Input, Icon, FieldGroup } from '../inputs';
 import lockIcon from '../../icons/lock-icon.svg'
 import emailIcon from '../../icons/email-icon.svg';
 import userIcon from '../../icons/user-icon.svg';
+import petsIcon from '../../icons/pets-icon.svg';
 import { addUser } from '../../infra';
 
 const SignUp = () => {
@@ -36,7 +37,7 @@ const SignUp = () => {
     <div className="min-h-screen flex">
       <div className="hidden lg:block relative py-14 px-20 bg-blue-500 w-1/2">
         <div className="flex justify-center d-block text-left">
-          <img height={150} width={150} ></img>
+          {<Icon icon={petsIcon} />}
         </div>
         <div className="mt-48 flex flex-col justify-center">
           <div className="w-full">
