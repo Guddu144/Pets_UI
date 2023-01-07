@@ -35,7 +35,7 @@ const SignUp = () => {
 
   return (
     <div className="min-h-screen flex">
-      <div className="hidden lg:block relative py-14 px-20 bg-blue-500 w-1/2">
+      <div className="hidden lg:block relative py-14 px-20 bg-green-120 w-1/2">
         <div className="flex justify-center d-block text-left">
           {<Icon icon={petsIcon} />}
         </div>
