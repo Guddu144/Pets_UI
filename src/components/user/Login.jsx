@@ -42,7 +42,6 @@ const Login = () => {
         <div className="flex items-center justify-center h-full">
           <div className="absolute top-[40px] left-[60px]">
             {<Icon className=" h-6" icon={logoIcon} />}
-
           </div>
           <div className="flex-col ">
             <div className="flex justify-center text-left">
