@@ -6,7 +6,6 @@ import { useHandleError } from '../../hooks';
 import { classNames } from '../../utils';
 import petsIcon from '../../icons/Pets-icon.svg';
 import logoIcon from '../../icons/Logo-white.svg';
-
 import { loginUser } from '../../infra';
 
 const Login = () => {
@@ -42,7 +41,6 @@ const Login = () => {
         <div className="flex items-center justify-center h-full">
           <div className="absolute top-[40px] left-[60px]">
             {<Icon className=" h-6" icon={logoIcon} />}
-
           </div>
           <div className="flex-col ">
             <div className="flex justify-center text-left">
