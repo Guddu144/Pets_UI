@@ -12,7 +12,7 @@ const Dropdown = ({ menuButton }) => {
     <div className="relative w-full">
       <Menu as="div" className="relative inline-block w-full">
         <div>
-          <Menu.Button className="inline-flex w-full border  border-blue-400 justify-center rounded-md bg-black bg-opacity-20 p-2.5 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+          <Menu.Button className="inline-flex w-full border justify-center rounded-md bg-black bg-opacity-20 p-2.5 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
             {menuButton}
           </Menu.Button>
         </div>
@@ -25,7 +25,7 @@ const Dropdown = ({ menuButton }) => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 mt-1 w-full origin-top-right divide-y divide-gray-100 rounded-md bg-blue-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute right-0 mt-1 w-full origin-top-right divide-y divide-gray-100 rounded-md bg-green-120 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="px-1 py-1">
               {
                 items.map(elem => (
