@@ -1,40 +1,35 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FieldGroup, Input, Button, Icon } from '../../components/inputs';
 import { useHandleError } from '../../hooks';
-import { classNames } from '../../utils';
 import petsIcon from '../../icons/Pets-icon.svg';
 import logoIcon from '../../icons/Logo-white.svg';
+import { updatePassword } from '../../infra';
 
-import { loginUser } from '../../infra';
+const UpdatePassword = () => {
+  const { id } = useParams()
+  const [token, setToken] = useState()
+  const [msg, setMsg] = useState()
 
-const Login = () => {
-  localStorage.clear();
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const token1 = searchParams.get('token');
+    setToken(token1)
+  }, []);
+
   const { handleSubmit, register, setError, formState: { errors, isSubmitting } } = useForm();
   const navigate = useNavigate();
   const handleError = useHandleError();
 
   const onSubmit = setError => payload => {
-    console.log(payload)
-    return loginUser(payload)
+    updatePassword(payload, id, token)
       .then(data => {
         if (data.status === 200) {
-          const loginData = data.data;
-          localStorage.setItem('token', loginData.token);
-          localStorage.setItem('message', data.message);
-          navigate('/');
-        } else {
-          handleError({ 'errors': { 'username': ['Invalid login credentials'] } }, setError);
+          setMsg(data.message)
         }
       })
-      .catch((err => {
-        if (err.message.includes('User')) {
-          handleError({ 'errors': { 'username': [`${err.message}`] } }, setError);
-        } else {
-          handleError({ 'errors': { 'password': [`${err.message}`] } }, setError);
-        }
-      }));
+      .catch(err => handleError(err, setError))
   };
 
   return (
@@ -66,24 +61,14 @@ const Login = () => {
         <div className="justify-center py-12 px-4 sm:px-6 lg:px-20 xl:px-24">
           <div className="mx-auto w-full max-w-sm lg:w-96">
             <div>
-              <h1 className="text-2xl font-semibold mb-2">Login</h1>
-              <h2 className="mt-1 text-sm text-gray-400">Welcome to PETS, Enter your credentials to access your account</h2>
+              <h1 className="text-2xl font-semibold mb-2">Update Password</h1>
+              <h2 className="mt-1 text-sm text-gray-400">Please enter your new password here</h2>
             </div>
             <form onSubmit={handleSubmit(onSubmit(setError))} className="mt-8 w-screen pr-4 lg:pr-0 lg:w-full">
+              <div className="text-green-500">{msg}</div>
 
               <div className="space-y-5">
-                <FieldGroup className="text-sm" name="username" label="Username" error={errors.username}>
-                  <Input
-                    id="username"
-                    type="text"
-                    hasError={errors.username}
-                    {...register('username', {
-                      required: 'please provide your email, phone number, or username',
-                    })}
-                    placeholder="Enter your username"
-                  />
-                </FieldGroup>
-                <FieldGroup className="text-sm" name="password" label="Password" error={errors.password}>
+                <FieldGroup className="text-sm" name="password" label="New Password" error={errors.password}>
                   <Input
                     id="password"
                     type="password"
@@ -91,22 +76,15 @@ const Login = () => {
                     {...register('password', {
                       required: 'please enter your password',
                     })}
-                    placeholder="Enter your password"
+                    placeholder="Enter your new password"
                   />
                 </FieldGroup>
               </div>
-              <div className="flex justify-end">
-                <Link to="/forgetpassword" className="text-blue-700 font-normal text-sm mt-3">Forgot Password?</Link>
-              </div>
               <div className="mt-6">
                 <Button className=" bg-green-120 font-normal" full isLoading={isSubmitting} type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? 'Logging in' : 'Login'}
+                  {isSubmitting ? 'Updating' : 'Update'}
                 </Button>
               </div>
-              <label className="block text-black-50 font-normal text-sm mt-4 text-center">
-                Don&apos;t have an account?
-                <Link to="/signup" className="text-orange-500 ml-1">Register</Link>
-              </label>
             </form>
           </div>
         </div>
@@ -115,4 +93,4 @@ const Login = () => {
   );
 }
 
-export default Login;
+export default UpdatePassword;

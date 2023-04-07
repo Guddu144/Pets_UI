@@ -1,19 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { FieldGroup, Input, Button, Icon } from '../../components/inputs';
 import { useHandleError } from '../../hooks';
-import { classNames } from '../../utils';
 import petsIcon from '../../icons/Pets-icon.svg';
 import logoIcon from '../../icons/Logo-white.svg';
+import { forgetPassword } from '../../infra';
 
 const ForgottenPassword = () => {
   const { handleSubmit, register, setError, formState: { errors, isSubmitting } } = useForm();
   const navigate = useNavigate();
   const handleError = useHandleError();
+  const [msg, setMsg] = useState()
 
   const onSubmit = setError => payload => {
-
+    console.log(payload)
+    forgetPassword(payload)
+      .then(data => {
+        if (data.status === 200) {
+          setMsg(data.message)
+        }
+      })
+      .catch(err => handleError(err, setError))
   };
 
   return (
@@ -49,15 +57,16 @@ const ForgottenPassword = () => {
               <h2 className="mt-1 text-sm text-gray-400">Reset your password</h2>
             </div>
             <form onSubmit={handleSubmit(onSubmit(setError))} className="mt-8 w-screen pr-4 lg:pr-0 lg:w-full">
+              <div className="text-green-500">{msg}</div>
 
               <div className="space-y-5">
-                <FieldGroup className="text-sm" name="username" label="Enter your email address" error={errors.username}>
+                <FieldGroup className="text-sm" name="email" label="Enter your email address" error={errors.email}>
                   <Input
-                    id="username"
+                    id="email"
                     type="text"
-                    hasError={errors.username}
-                    {...register('username', {
-                      required: 'please provide your email, phone number, or username',
+                    hasError={errors.email}
+                    {...register('email', {
+                      required: 'please provide your email',
                     })}
                     placeholder="Enter your email"
                   />
@@ -65,7 +74,7 @@ const ForgottenPassword = () => {
               </div>
               <div className="mt-6">
                 <Button className=" bg-green-120 font-normal" full isLoading={isSubmitting} type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? 'Logging in' : 'Login'}
+                  {isSubmitting ? 'Submitting' : 'Submit'}
                 </Button>
               </div>
             </form>
