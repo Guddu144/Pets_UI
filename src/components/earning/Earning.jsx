@@ -20,7 +20,7 @@ const Earning = () => {
           <div className="flex mt-2">
             <Button onClick={() => {
               setIsEarningFormOpen(true)
-            }} full="true" size="xs" kind="primary" className="mr-2 w-28"><IconPlus size="20px" className="mr-2" />Add Earning
+            }} full="true" size="xs" kind="primary" className="mr-2 "><IconPlus size="20px" className="mr-2" />Add Earning
             </Button>
           </div>
         }
