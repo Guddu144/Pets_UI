@@ -6,7 +6,9 @@ import { classNames } from '../../utils';
 import spinnerIcon from '../../icons/spinner.svg';
 
 const colors = {
-  'primary': 'text-white bg-green-120 hover:bg-green-600 focus:ring-blue-800 font-semibold shadow-sm border border-transparent',
+
+
+  'primary': 'text-white bg-green-150 hover:bg-green-200 focus:ring-blue-800 font-semibold shadow-sm border border-transparent',
   'secondary': 'bg-gray-200 text-gray-500 hover:bg-gray-300 focus:ring-gray-300 font-semibold shadow-sm border border-transparent',
   'alternate': 'text-white bg-black-100 hover:bg-blue-800 focus:ring-blue-600 font-semibold shadow-sm border border-transparent',
   'light': 'text-blue-900 bg-gray-50 hover:bg-blue-200 focus:ring-blue-500 font-semibold shadow-sm border border-transparent',

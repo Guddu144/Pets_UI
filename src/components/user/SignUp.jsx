@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { useHandleError, useHandleSuccess } from '../../hooks';
+import logoIcon from '../../icons/Logo-white.svg';
+import { useHandleError } from '../../hooks';
 // import { addUser } from '../../infra';
 import { Button, Input, Icon, FieldGroup } from '../inputs';
 
@@ -38,17 +39,24 @@ const SignUp = () => {
   return (
     <div className="min-h-screen flex">
       <div className="hidden lg:block relative py-14 px-20 bg-green-120 w-1/2">
-        <div className="flex justify-center d-block text-left">
-          {<Icon icon={petsIcon} />}
-        </div>
-        <div className="mt-48 flex flex-col justify-center">
-          <div className="w-full">
+        <div className="flex items-center justify-center h-full">
+          <div className="absolute top-[40px] left-[60px]">
+            {<Icon className=" h-6" icon={logoIcon} />}
           </div>
-          <div className="text-center">
-            <h1 className="text-2xl font-semibold text-white mt-10 mb-3">PETS</h1>
-            <p className="text-sm text-blue-300 max-w-[450px] mx-auto">
-              PETS is a Personal Expenditure Tracking System which is used to keep track of personal finances.
-            </p>
+          <div className="flex-col ">
+            <div className="flex justify-center text-left">
+              {<Icon icon={petsIcon} />}
+            </div>
+            <div className="flex flex-col justify-center">
+              <div className="w-full">
+              </div>
+              <div className="text-center">
+                <p className="text-sm text-white max-w-[450px] mx-auto">
+                  Personal Expenditure Tracking System helps individuals manage their finances by tracking their spending
+                  and providing a clear overview of their financial situation
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -107,7 +115,7 @@ const SignUp = () => {
                 />
               </FieldGroup>
 
-              <Button full="true" size="xl" type="submit" isLoading={isSubmitting} disabled={isSubmitting}>Sign Up</Button>
+              <Button className=" bg-green-120 font-normal " full="true" type="submit" isLoading={isSubmitting} disabled={isSubmitting}>Sign Up</Button>
 
               <label className="block text-black-50 font-normal text-sm mt-4 text-center">
                 Already have an account?
