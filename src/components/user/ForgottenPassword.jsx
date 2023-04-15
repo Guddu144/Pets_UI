@@ -1,39 +1,27 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { FieldGroup, Input, Button, Icon } from '../../components/inputs';
 import { useHandleError } from '../../hooks';
-import { classNames } from '../../utils';
 import petsIcon from '../../icons/Pets-icon.svg';
 import logoIcon from '../../icons/Logo-white.svg';
-import { loginUser } from '../../infra';
+import { forgetPassword } from '../../infra';
 
-const Login = () => {
-  localStorage.clear();
+const ForgottenPassword = () => {
   const { handleSubmit, register, setError, formState: { errors, isSubmitting } } = useForm();
   const navigate = useNavigate();
   const handleError = useHandleError();
+  const [msg, setMsg] = useState()
 
   const onSubmit = setError => payload => {
     console.log(payload)
-    return loginUser(payload)
+    forgetPassword(payload)
       .then(data => {
         if (data.status === 200) {
-          const loginData = data.data;
-          localStorage.setItem('token', loginData.token);
-          localStorage.setItem('message', data.message);
-          navigate('/');
-        } else {
-          handleError({ 'errors': { 'username': ['Invalid login credentials'] } }, setError);
+          setMsg(data.message)
         }
       })
-      .catch((err => {
-        if (err.message.includes('User')) {
-          handleError({ 'errors': { 'username': [`${err.message}`] } }, setError);
-        } else {
-          handleError({ 'errors': { 'password': [`${err.message}`] } }, setError);
-        }
-      }));
+      .catch(err => handleError(err, setError))
   };
 
   return (
@@ -42,6 +30,7 @@ const Login = () => {
         <div className="flex items-center justify-center h-full">
           <div className="absolute top-[40px] left-[60px]">
             {<Icon className=" h-6" icon={logoIcon} />}
+
           </div>
           <div className="flex-col ">
             <div className="flex justify-center text-left">
@@ -64,53 +53,36 @@ const Login = () => {
         <div className="justify-center py-12 px-4 sm:px-6 lg:px-20 xl:px-24">
           <div className="mx-auto w-full max-w-sm lg:w-96">
             <div>
-              <h1 className="text-2xl font-semibold mb-2">Login</h1>
-              <h2 className="mt-1 text-sm text-gray-400">Welcome to PETS, Enter your credentials to access your account</h2>
+              <h1 className="text-2xl font-semibold mb-2">Password Reset</h1>
+              <h2 className="mt-1 text-sm text-gray-400">Reset your password</h2>
             </div>
             <form onSubmit={handleSubmit(onSubmit(setError))} className="mt-8 w-screen pr-4 lg:pr-0 lg:w-full">
+              <div className="text-green-500">{msg}</div>
 
               <div className="space-y-5">
-                <FieldGroup className="text-sm" name="username" label="Username" error={errors.username}>
+                <FieldGroup className="text-sm" name="email" label="Enter your email address" error={errors.email}>
                   <Input
-                    id="username"
+                    id="email"
                     type="text"
-                    hasError={errors.username}
-                    {...register('username', {
-                      required: 'please provide your email, phone number, or username',
+                    hasError={errors.email}
+                    {...register('email', {
+                      required: 'please provide your email',
                     })}
-                    placeholder="Enter your username"
+                    placeholder="Enter your email"
                   />
                 </FieldGroup>
-                <FieldGroup className="text-sm" name="password" label="Password" error={errors.password}>
-                  <Input
-                    id="password"
-                    type="password"
-                    hasError={errors.password}
-                    {...register('password', {
-                      required: 'please enter your password',
-                    })}
-                    placeholder="Enter your password"
-                  />
-                </FieldGroup>
-              </div>
-              <div className="flex justify-end">
-                <Link to="/forgetpassword" className="text-blue-700 font-normal text-sm mt-3">Forgot Password?</Link>
               </div>
               <div className="mt-6">
                 <Button className=" bg-green-120 font-normal" full isLoading={isSubmitting} type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? 'Logging in' : 'Login'}
+                  {isSubmitting ? 'Submitting' : 'Submit'}
                 </Button>
               </div>
-              <label className="block text-black-50 font-normal text-sm mt-4 text-center">
-                Don&apos;t have an account?
-                <Link to="/signup" className="text-orange-500 ml-1">Register</Link>
-              </label>
             </form>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Login;
+export default ForgottenPassword

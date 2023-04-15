@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-
 import logoIcon from '../../icons/Logo-white.svg';
 import { useHandleError } from '../../hooks';
-// import { addUser } from '../../infra';
 import { Button, Input, Icon, FieldGroup } from '../inputs';
-
 import lockIcon from '../../icons/lock-icon.svg'
 import emailIcon from '../../icons/email-icon.svg';
 import userIcon from '../../icons/user-icon.svg';
 import petsIcon from '../../icons/pets-icon.svg';
 import { addUser } from '../../infra';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { ToastContainer } from 'react-toastify';
 
-const SignUp = () => {
-  const handleSuccess = useHandleSuccess();
+const SignUp2 = () => {
+  const [msg, setMsg] = useState();
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  }
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  }
+
   const handleError = useHandleError();
 
   const navigate = useNavigate();
@@ -24,16 +32,16 @@ const SignUp = () => {
     return addUser(payload)
       .then(data => {
         if (data.status === 200) {
-          setTimeout(() => {
-            navigate('/');
-          }, 1000);
+          setMsg(data.message)
         } else {
           handleError(null, null, data.error_msg);
+
         }
       })
       .catch(err => {
         handleError(null, null, err.message);
       });
+
   };
 
   return (
@@ -61,6 +69,7 @@ const SignUp = () => {
         </div>
       </div>
       <div className="flex flex-col my-auto w-1/2">
+        <div className="flex text-green-500 justify-end p-3">{msg}</div>
         <div className="justify-center py-12 px-4 sm:px-6 lg:px-20 xl:px-24">
           <div className="mx-auto w-full max-w-sm lg:w-96">
             <form onSubmit={handleSubmit(onSubmit(setError))} className="my-1 w-screen pr-4 lg:pr-0 lg:w-full" >
@@ -91,9 +100,9 @@ const SignUp = () => {
                 />
               </FieldGroup>
 
-              <FieldGroup name="password" className="mt-4" label="Password" hideLabel={true} showLabelOnMobile={false} error={errors.password}>
+              <FieldGroup name="password" className="mt-4 relative" label="Password" hideLabel={true} showLabelOnMobile={false} error={errors.password}>
                 <Input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   icon={<Icon icon={lockIcon} />}
                   placeholder="Enter your password"
                   hasError={errors.password}
@@ -101,11 +110,24 @@ const SignUp = () => {
                   autoComplete="off"
                   {...register('password', { required: 'Please enter your password' })}
                 />
+                <div className="eye-icon absolute top-[17px] left-[342px] float-right  px-4">
+                  {showPassword ? (
+                    <FaEyeSlash
+                      className="password-icon"
+                      onClick={togglePasswordVisibility}
+                    />
+                  ) : (
+                    <FaEye
+                      className="password-icon"
+                      onClick={togglePasswordVisibility}
+                    />
+                  )}
+                </div>
               </FieldGroup>
 
-              <FieldGroup name="confirmPassword" className="mb-11 mt-4" label="confirmPassword" hideLabel={true} showLabelOnMobile={false} error={errors.confirmPassword}>
+              <FieldGroup name="confirmPassword" className="mb-11 mt-4 relative" label="confirmPassword" hideLabel={true} showLabelOnMobile={false} error={errors.confirmPassword}>
                 <Input
-                  type="password"
+                  type={showConfirmPassword ? 'text' : 'password'}
                   icon={<Icon icon={lockIcon} />}
                   placeholder="Confirm your password"
                   hasError={errors.confirmPassword}
@@ -113,14 +135,28 @@ const SignUp = () => {
                   autoComplete="off"
                   {...register('confirmPassword', { required: 'Please enter your password again' })}
                 />
+                <div className="eye-icon absolute top-[17px] left-[342px] float-right  px-4">
+                  {showConfirmPassword ? (
+                    <FaEyeSlash
+                      className="confirmpassword-icon"
+                      onClick={toggleConfirmPasswordVisibility}
+                    />
+                  ) : (
+                    <FaEye
+                      className="confirmpassword-icon"
+                      onClick={toggleConfirmPasswordVisibility}
+                    />
+                  )}
+                </div>
               </FieldGroup>
 
-              <Button className=" bg-green-120 font-normal " full="true" type="submit" isLoading={isSubmitting} disabled={isSubmitting}>Sign Up</Button>
+              <Button className=" bg-green-120 font-normal " full="true" type="submit" isLoading={isSubmitting} disabled={isSubmitting} >Sign Up</Button>
 
               <label className="block text-black-50 font-normal text-sm mt-4 text-center">
                 Already have an account?
                 <Link to="../" className="text-orange-500 ml-1">Login</Link>
               </label>
+              <ToastContainer />
             </form>
           </div>
         </div>
@@ -129,4 +165,4 @@ const SignUp = () => {
   )
 };
 
-export default SignUp;
+export default SignUp2;
