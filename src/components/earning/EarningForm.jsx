@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Button, FieldGroup, Input, SelectBox, TextArea } from '../inputs'
 import { Controller, useForm } from 'react-hook-form';
+import { addEarning } from '../../infra/apiClient';
 // import { useHandleError } from '../../../../hooks';
 
 const EarningForm = ({ val: promoCode, type, modelID }) => {
@@ -8,41 +9,43 @@ const EarningForm = ({ val: promoCode, type, modelID }) => {
 
   const paymentMethod = [
     {
-      id: 'Cash',
+      id: '0',
       name: 'Cash',
     },
     {
-      id: 'Online',
+      id: '1',
       name: 'Online',
     },
     {
-      id: 'Cheque',
+      id: '2',
       name: 'Cheque',
+    },
+  ]
+
+  const categories = [
+    {
+      id: '0',
+      name: 'Salary',
+    },
+    {
+      id: '1',
+      name: 'Investment',
+    },
+    {
+      id: '2',
+      name: 'Others',
     },
   ]
 
   // const handleError = useHandleError();
 
-  // const onSubmit = setError => payload => {
-  //   if (type === 'Create') {
-  //     return addPromo(payload)
-  //       .then(() => {
-  //         location.reload()
-  //       })
-  //       .catch(err => handleError(err, setError));
-  //   }
-  //   else {
-  //     return updatePromo(modelID, payload)
-  //       .then(() => {
-  //         location.reload()
-  //       })
-  //       .catch(err => handleError(err, setError));
-
-  //   }
-  // };
+  const onSubmit = setError => payload => {
+    addEarning(payload)
+      .then(console.log('done'))
+  };
 
   return (
-    <form >
+    <form onSubmit={handleSubmit(onSubmit(setError))} >
       <FieldGroup name="amount" label="Amount" hideLabel={false} hasError={errors.amount} className="text-md my-4">
         <Input
           placeholder="Enter the Amount"
@@ -89,7 +92,28 @@ const EarningForm = ({ val: promoCode, type, modelID }) => {
               value={value}
               ref={ref}
               hasError={error}
-              placeholder="Select a vehicle type"
+              placeholder="Select a payment type"
+            />
+          )}
+        />
+      </FieldGroup>
+
+      <FieldGroup name="categoryId" label="Category" hideLabel={false} className="text-md my-4">
+        <Controller
+          control={control}
+          name="categoryId"
+          rules={{ 'required': 'Please select a categorey type' }}
+          render={({
+            field: { onChange, ref, value },
+            fieldState: { error },
+          }) => (
+            <SelectBox
+              onChange={onChange}
+              items={categories}
+              value={value}
+              ref={ref}
+              hasError={error}
+              placeholder="Select a categorey type"
             />
           )}
         />
