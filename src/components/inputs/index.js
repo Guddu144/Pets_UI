@@ -4,5 +4,8 @@ export { default as FieldGroup } from './FieldGroup';
 export { default as Error } from './Error';
 export { default as Icon } from './Icon';
 export { default as Dropdown } from './Dropdown';
+// export { default as Checkbox } from './Checkbox';
 export { default as SelectBox } from './SelectBox';
 export { default as TextArea } from './TextArea';
+export { default as AsyncSearchBox } from './AsyncSearchBox';
+export { default as SearchBox } from './SearchBox';
