@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import DataTable from '../tables/DataTable';
-import { fetchCategory, fetchExpense } from '../../infra';
-import { formatLongDate } from '../../utils/date';
+import { fetchExpense } from '../../infra';
+import { formatNepaliDate } from '../../utils/nepaliDate';
 
 const ExpenseTable = ({ cat }) => {
-
   const columns = useMemo(() => [
     {
       Header: ('Id'),
@@ -16,7 +15,7 @@ const ExpenseTable = ({ cat }) => {
     },
     {
       Header: ('Date'),
-      accessor: ({ date }) => formatLongDate(date),
+      accessor: ({ date }) => formatNepaliDate(date),
     },
     {
       Header: ('Payment Method'),
@@ -31,7 +30,10 @@ const ExpenseTable = ({ cat }) => {
         )
       },
     },
-
+    {
+      Header: ('Note'),
+      accessor: 'note',
+    },
     // {
     //   id: 'more-actions',
     //   Cell: () => (
@@ -49,7 +51,7 @@ const ExpenseTable = ({ cat }) => {
       <DataTable
         columns={columns}
         apiRequest={fetchExpense}
-        placeholder={('Search by invoice number, name, amount...')}
+      // placeholder={('Search by invoice number, name, amount...')}
       />
     </div>
   )

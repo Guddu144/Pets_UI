@@ -62,7 +62,11 @@ export const fetchEarning = () => {
 }
 
 export const addTranscationn = payload => request('POST', `${API_URL}/api/transaction`, true, payload);
+<<<<<<< HEAD
 export const fetchTranscationn = () => request('GET', `${API_URL}/api/transaction`, true);
 export const fetchCategory = () => request('GET', `${API_URL}/api/category`, true);
 export const getDashboardDetail = () => request('GET', `${API_URL}/api/dashboard`, true);
 // localhost:3000/api/transaction?party_id=1&type=in
+=======
+
+>>>>>>> ec0f9ea (updates)

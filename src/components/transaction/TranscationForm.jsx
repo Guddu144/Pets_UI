@@ -26,24 +26,19 @@ const TranscationForm = () => {
   ]
   const paymentType = [
     {
-      id: 'in',
-      name: 'Incoming',
+      id: 'Borrowing',
+      name: 'Borrowing',
     },
     {
-      id: 'out',
-      name: 'Outgoing',
+      id: 'Lending',
+      name: 'Lending',
     },
 
   ]
 
   const onSubmit = setError => payload => {
     addTranscationn(payload)
-      .then(data => {
-        if (data.status === 200) {
-          navigate('/transaction');
-        }
-      },
-      )
+      .then(window.location.reload())
       .catch(err => handleError(err, setError))
   };
 
@@ -150,7 +145,7 @@ const TranscationForm = () => {
         )}
       />
 
-      <Button className="mt-4 bg-blue-500 font-normal" full type="submit">
+      <Button className="mt-4 font-normal" full type="submit">
         Submit
       </Button>
     </form>

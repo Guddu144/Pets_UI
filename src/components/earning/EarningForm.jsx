@@ -2,10 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Button, FieldGroup, Input, SelectBox, TextArea } from '../inputs'
 import { Controller, useForm } from 'react-hook-form';
 import { addEarning } from '../../infra/apiClient';
-<<<<<<< HEAD
 import { useHandleError } from '../../hooks';
-=======
->>>>>>> 69673c9 (linechart added and api integrated for earning and expenses)
+import { Navigate } from 'react-router-dom';
 // import { useHandleError } from '../../../../hooks';
 
 const EarningForm = ({ val: promoCode, type, modelID }) => {
@@ -13,22 +11,21 @@ const EarningForm = ({ val: promoCode, type, modelID }) => {
 
   const paymentMethod = [
     {
-      id: '0',
+      id: 'Cash',
       name: 'Cash',
     },
     {
-      id: '1',
+      id: 'Online',
       name: 'Online',
     },
     {
-      id: '2',
+      id: 'Cheque',
       name: 'Cheque',
     },
   ]
 
   const categories = [
     {
-<<<<<<< HEAD
       id: '9',
       name: 'Salary',
     },
@@ -58,28 +55,8 @@ const EarningForm = ({ val: promoCode, type, modelID }) => {
 
   const onSubmit = setError => payload => {
     addEarning(payload)
-      .then(console.log('done'))
+      .then(window.location.reload())
       .catch(err => handleError(err, setError))
-=======
-      id: '0',
-      name: 'Salary',
-    },
-    {
-      id: '1',
-      name: 'Investment',
-    },
-    {
-      id: '2',
-      name: 'Others',
-    },
-  ]
-
-  // const handleError = useHandleError();
-
-  const onSubmit = setError => payload => {
-    addEarning(payload)
-      .then(console.log('done'))
->>>>>>> 69673c9 (linechart added and api integrated for earning and expenses)
   };
 
   return (
@@ -101,7 +78,7 @@ const EarningForm = ({ val: promoCode, type, modelID }) => {
           <FieldGroup name="date" label="Date" hideLabel={false} className="text-md my-4">
             <Input
               placeholder="Enter from date"
-              type="datetime-local"
+              type="date"
               name="date"
               autoComplete="off"
               hasError={errors.date}
@@ -170,7 +147,7 @@ const EarningForm = ({ val: promoCode, type, modelID }) => {
         />
       </FieldGroup>
 
-      <Button className="mt-4 bg-blue-500 font-normal" full type="submit">
+      <Button className="mt-4font-normal" full type="submit">
         Submit
       </Button>
     </form>

@@ -62,11 +62,7 @@ const ExpenseForm = ({ val: promoCode, type, modelID }) => {
   const handleError = useHandleError();
   const onSubmit = setError => payload => {
     addExpense(payload)
-      .then(data => {
-        if (data.status === 200) {
-          navigate('/expense')
-        }
-      })
+      .then(window.location.reload())
       .catch(err => handleError(err, setError))
   };
 
@@ -158,7 +154,7 @@ const ExpenseForm = ({ val: promoCode, type, modelID }) => {
         />
       </FieldGroup>
 
-      <Button className="mt-4 bg-blue-500 font-normal" full type="submit">
+      <Button className="mt-4  font-normal" full type="submit">
         Submit
       </Button>
     </form>
