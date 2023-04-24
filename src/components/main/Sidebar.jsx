@@ -15,7 +15,7 @@ const useNavigation = () => {
     { name: 'Dashboard', href: '/', current: isCurrent('/'), icon: <IconLayoutDashboard color={isCurrent('/') ? '#e6ecf3' : '#8aa6c8'} className="mr-3.5" size={24} /> },
     { name: 'Earnings', href: '/earning', current: isCurrent('/earning'), icon: <IconCirclePlus className="mr-3.5" color={isCurrent('/earning') ? '#e6ecf3' : '#8aa6c8'} size={24} />, heading: true, headingVal: 'ledgers' },
     { name: 'Expenses', href: '/expense', current: isCurrent('/expense'), icon: <IconCircleMinus className="mr-3.5" color={isCurrent('/expense') ? '#e6ecf3' : '#8aa6c8'} size={24} /> },
-    { name: 'Transaction', href: '/dashboard/ledger', current: isCurrent('/dashboard/ledger'), icon: <IconCircleDot color={isCurrent('/dashboard/ledger') ? '#e6ecf3' : '#8aa6c8'} className="mr-3.5" size={22} />, heading: true, headingVal: 'Utilities' },
+    { name: 'Transaction', href: '/transaction', current: isCurrent('/transaction'), icon: <IconCircleDot color={isCurrent('/transaction') ? '#e6ecf3' : '#8aa6c8'} className="mr-3.5" size={22} />, heading: true, headingVal: 'Utilities' },
     { name: 'Party', href: '/party', current: isCurrent('/party'), icon: <IconMapSearch className="mr-3.5" color={isCurrent('/party') ? '#e6ecf3' : '#8aa6c8'} size={24} /> },
     { name: 'Categories', href: '/dashboard/ledger/expenses', current: isCurrent('/dashboard/trip/expenses'), icon: <IconMapSearch className="mr-3.5" color={isCurrent('/dashboard/trip/expenses') ? '#e6ecf3' : '#8aa6c8'} size={24} /> },
 

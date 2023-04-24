@@ -8,6 +8,7 @@ import Auth from '../user/Auth';
 import Layout from './Layout';
 import MainLayout from './MainLayout';
 import Party from '../party/Party';
+import Transcation from '../transaction/Transcation';
 
 const App = () => {
 
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/earning" element={<Earning />} />
             <Route path="/expense" element={<Expense />} />
             <Route path="/party" element={<Party />} />
+            <Route path="/transaction" element={<Transcation />} />
           </Route>
         </Route>
       </Route>

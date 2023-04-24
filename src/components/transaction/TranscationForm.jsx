@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Button, FieldGroup, Input, SelectBox, TextArea } from '../inputs'
-import { Controller, useForm } from 'react-hook-form';
-import { addEarning } from '../../infra/apiClient';
+import React from 'react'
+import { AsyncSearchBox, Button, FieldGroup, Input, SelectBox } from '../inputs'
 import { useHandleError } from '../../hooks';
-// import { useHandleError } from '../../../../hooks';
+import { Controller, useForm } from 'react-hook-form';
+import { addTranscationn, getParty } from '../../infra';
 
-const EarningForm = ({ val: promoCode, type, modelID }) => {
+const TranscationForm = () => {
   const { control, register, handleSubmit, setError, setValue, watch, formState: { errors } } = useForm();
-
+  const handleError = useHandleError();
   const paymentMethod = [
     {
       id: '0',
@@ -22,27 +21,24 @@ const EarningForm = ({ val: promoCode, type, modelID }) => {
       name: 'Cheque',
     },
   ]
+  const paymentType = [
+    {
+      id: 'in',
+      name: 'Incoming',
+    },
+    {
+      id: 'out',
+      name: 'Outgoing',
+    },
 
-  const categories = [
-    {
-      id: '0',
-      name: 'Salary',
-    },
-    {
-      id: '1',
-      name: 'Investment',
-    },
-    {
-      id: '2',
-      name: 'Others',
-    },
   ]
 
-  const handleError = useHandleError();
-
   const onSubmit = setError => payload => {
-    addEarning(payload)
-      .then(console.log('done'))
+    addTranscationn(payload)
+
+      .then(
+        console.log('gsjdb'),
+      )
       .catch(err => handleError(err, setError))
   };
 
@@ -60,6 +56,7 @@ const EarningForm = ({ val: promoCode, type, modelID }) => {
           })}
         />
       </FieldGroup>
+
       <div className="flex">
         <div className="flex-1">
           <FieldGroup name="date" label="Date" hideLabel={false} className="text-md my-4">
@@ -78,7 +75,6 @@ const EarningForm = ({ val: promoCode, type, modelID }) => {
         <div className="flex-1 ml-2">
         </div>
       </div>
-
       <FieldGroup name="paymentMethod" label="Payment Method" hideLabel={false} className="text-md my-4">
         <Controller
           control={control}
@@ -94,45 +90,60 @@ const EarningForm = ({ val: promoCode, type, modelID }) => {
               value={value}
               ref={ref}
               hasError={error}
-              placeholder="Select a payment type"
+              placeholder="Select a payment method"
             />
           )}
         />
       </FieldGroup>
 
-      <FieldGroup name="categoryId" label="Category" hideLabel={false} className="text-md my-4">
+      <FieldGroup name="type" label="Payment Flow" hideLabel={false} className="text-md my-4">
         <Controller
           control={control}
-          name="categoryId"
-          rules={{ 'required': 'Please select a categorey type' }}
+          name="type"
+          rules={{ 'required': 'Please select a payment flow' }}
           render={({
             field: { onChange, ref, value },
             fieldState: { error },
           }) => (
             <SelectBox
               onChange={onChange}
-              items={categories}
+              items={paymentType}
               value={value}
               ref={ref}
               hasError={error}
-              placeholder="Select a categorey type"
+              placeholder="Select a payment flow type"
             />
           )}
         />
       </FieldGroup>
 
-      <FieldGroup name="note" label="Note" hideLabel={false} hasError={errors.note} className="text-md my-4">
-        <TextArea
-          placeholder="Enter the note"
-          type="textArea"
-          name="note"
-          autoComplete="off"
-          hasError={errors.note}
-          {...register('note', {
-            required: 'Please enter the note',
-          })}
-        />
-      </FieldGroup>
+      <Controller
+        control={control}
+        name="partyId"
+        rules={{ required: ('Please provide party name') }}
+        render={({
+          field: { onChange, onBlur, value, ref, name },
+          fieldState: { error },
+        }) => (
+          <FieldGroup
+            name={name}
+            label={('Party Name')}
+            error={error}
+          >
+            <AsyncSearchBox
+              ref={ref}
+              fetcher={getParty}
+              placeholder={('Search party')}
+              emptyText={('No such party')}
+              onChange={onChange}
+              value={value}
+              hasError={error}
+              onBlur={onBlur}
+            // disabled={disabled}
+            />
+          </FieldGroup>
+        )}
+      />
 
       <Button className="mt-4 bg-blue-500 font-normal" full type="submit">
         Submit
@@ -141,4 +152,4 @@ const EarningForm = ({ val: promoCode, type, modelID }) => {
   )
 }
 
-export default EarningForm;
+export default TranscationForm

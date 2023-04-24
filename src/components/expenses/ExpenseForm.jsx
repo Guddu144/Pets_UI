@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Button, FieldGroup, Input, SelectBox, TextArea } from '../inputs'
 import { Controller, useForm } from 'react-hook-form';
 import { addExpense } from '../../infra';
+import { useHandleError } from '../../hooks';
 // import { useHandleError } from '../../../../hooks';
 
 const ExpenseForm = ({ val: promoCode, type, modelID }) => {
@@ -24,23 +25,44 @@ const ExpenseForm = ({ val: promoCode, type, modelID }) => {
 
   const categories = [
     {
-      id: '0',
-      name: 'Salary',
-    },
-    {
       id: '1',
-      name: 'Investment',
+      name: 'Household Items',
     },
     {
       id: '2',
+      name: 'House repair/maintenance',
+    },
+    {
+      id: '4',
+      name: 'Repayment of loans/advances',
+    },
+    {
+      id: '5',
+      name: 'Deposit to bank account',
+    },
+    {
+      id: '6',
+      name: 'Real Estate Investment',
+    },
+    {
+      id: '7',
+      name: 'Vehicle and Machineries',
+    },
+    {
+      id: '8',
+      name: 'Food',
+    },
+    {
+      id: '9',
       name: 'Others',
     },
   ]
 
-  // const handleError = useHandleError();
+  const handleError = useHandleError();
   const onSubmit = setError => payload => {
     addExpense(payload)
       .then(console.log('done'))
+      .catch(err => handleError(err, setError))
   };
 
   return (

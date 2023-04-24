@@ -3,6 +3,7 @@ import { Modal, PageHeader, PageLayout } from '../common'
 import { Button } from '../inputs'
 import { IconPlus, IconX } from '@tabler/icons';
 import PartyForm from './PartyForm';
+import PartyTable from './PartyTable';
 // import EarningForm from './EarningForm';
 
 const Party = () => {
@@ -13,13 +14,13 @@ const Party = () => {
       <PageHeader
         title={('Party')}
         crumbs={[
-          { label: ('Add party detail') },
+          { label: ('Party detail') },
         ]}
         action={
           <div className="flex mt-2">
             <Button onClick={() => {
               setIsPartyFormopen(true)
-            }} full="true" size="xs" kind="primary" className="mr-2 w-28"><IconPlus size="20px" className="mr-2" />Add Party
+            }} full="true" size="xs" kind="primary" className="mr-2"><IconPlus size="20px" className="mr-2" />Add Party
             </Button>
           </div>
         }
@@ -39,7 +40,7 @@ const Party = () => {
       </Modal>
 
       <PageLayout>
-        {/* <PromoTable isPromoFormOpen={setIsPromoFormOpen} setModelID={setModelID} setType={setType} /> */}
+        <PartyTable />
       </PageLayout>
     </>
   )

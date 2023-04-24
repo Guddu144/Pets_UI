@@ -25,6 +25,8 @@ export const forgetPassword = payload => request('POST', `${API_URL}/api/user/fo
 export const updatePassword = (payload, id, token) => request('POST', `${API_URL}/api/reset/${id}/${token}`, false, payload);
 
 export const addParty = payload => request('POST', `${API_URL}/api/party`, true, payload);
+export const getParty = payload => request('GET', `${API_URL}/api/party`, true, payload);
+export const partyTable = () => request('GET', `${API_URL}/api/party`, true);
 
 export const chartData = () => {
   const data = {
@@ -47,4 +49,6 @@ export const addExpense = payload => {
   }
   return request('POST', `${API_URL}/api/finance`, true, data);
 }
+
+export const addTranscationn = payload => request('POST', `${API_URL}/api/transaction`, true, payload);
 
