@@ -1,33 +1,24 @@
-import React, { useState, useContext, useEffect, useRef } from 'react'
-import { Modal, PageHeader, PageLayout } from '../common'
-import { Button } from '../inputs'
+import React, { useState } from 'react'
+import { Modal, PageHeader, PageLayout } from '../common';
+import { Button } from '../inputs';
 import { IconPlus, IconX } from '@tabler/icons';
-import ExpenseForm from './ExpenseForm';
-import ExpenseTable from './ExpenseTable';
-import { fetchCategory } from '../../infra';
-// import { FormContext } from '../main';
 
-const Expense = () => {
+const Goal = () => {
   // const { isEarningFormOpen, setIsEarningFormOpen } = useContext(FormContext)
   const [isExpenseFormOpen, setIsExpenseFormOpen] = useState(false);
-  const [cat, setCat] = useState()
-  useEffect(() => {
-    fetchCategory()
-      .then(setCat)
-  }, []);
 
   return (
     <>
       <PageHeader
-        title={('Expense')}
+        title={('Set Goal')}
         crumbs={[
-          { label: ('Add expense detail') },
+          { label: ('Add target goal') },
         ]}
         action={
           <div className="flex mt-2">
             <Button onClick={() => {
               setIsExpenseFormOpen(true)
-            }} full="true" size="xs" kind="primary" className="mr-2"><IconPlus size="20px" className="mr-2" />Add Expense
+            }} full="true" size="xs" kind="primary" className="mr-2"><IconPlus size="20px" className="mr-2" />Add Goal
             </Button>
           </div>
         }
@@ -42,18 +33,16 @@ const Expense = () => {
           </button>
         </div>
         <div className="divide-gray-200 mx-auto  ">
-          <ExpenseForm isExpenseFormOpen={setIsExpenseFormOpen} />
+          {/* <ExpenseForm isExpenseFormOpen={setIsExpenseFormOpen} /> */}
         </div>
       </Modal>
 
       <PageLayout>
-        {cat &&
-          <ExpenseTable cat={cat} />
-        }
+
       </PageLayout>
     </>
 
   )
 }
 
-export default Expense
+export default Goal

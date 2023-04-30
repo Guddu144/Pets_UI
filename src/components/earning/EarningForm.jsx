@@ -10,31 +10,43 @@ const EarningForm = ({ val: promoCode, type, modelID }) => {
 
   const paymentMethod = [
     {
-      id: '0',
+      id: 'Cash',
       name: 'Cash',
     },
     {
-      id: '1',
+      id: 'Online',
       name: 'Online',
     },
     {
-      id: '2',
+      id: 'Cheque',
       name: 'Cheque',
     },
   ]
 
   const categories = [
     {
-      id: '0',
+      id: '9',
       name: 'Salary',
     },
     {
-      id: '1',
-      name: 'Investment',
+      id: '10',
+      name: 'Investment income',
     },
     {
-      id: '2',
-      name: 'Others',
+      id: '11',
+      name: 'Rental income',
+    },
+    {
+      id: '12',
+      name: 'Gifts/inheritances',
+    },
+    {
+      id: '13',
+      name: 'Retirement income',
+    },
+    {
+      id: '14',
+      name: 'Miscellaneous',
     },
   ]
 

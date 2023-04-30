@@ -3,11 +3,12 @@ import { Button, FieldGroup, Input, SelectBox, TextArea } from '../inputs'
 import { Controller, useForm } from 'react-hook-form';
 import { addExpense } from '../../infra';
 import { useHandleError } from '../../hooks';
+import { useNavigate } from 'react-router-dom';
 // import { useHandleError } from '../../../../hooks';
 
 const ExpenseForm = ({ val: promoCode, type, modelID }) => {
   const { control, register, handleSubmit, setError, setValue, watch, formState: { errors } } = useForm();
-
+  const navigate = useNavigate();
   const paymentMethod = [
     {
       id: 'Cash',
@@ -26,42 +27,46 @@ const ExpenseForm = ({ val: promoCode, type, modelID }) => {
   const categories = [
     {
       id: '1',
-      name: 'Household Items',
+      name: 'Foods and Drinks',
     },
     {
       id: '2',
-      name: 'House repair/maintenance',
+      name: 'Transportation',
+    },
+    {
+      id: '3',
+      name: 'Entertainment',
     },
     {
       id: '4',
-      name: 'Repayment of loans/advances',
+      name: 'Health',
     },
     {
       id: '5',
-      name: 'Deposit to bank account',
+      name: 'Education',
     },
     {
       id: '6',
-      name: 'Real Estate Investment',
+      name: 'Debt payments',
     },
     {
       id: '7',
-      name: 'Vehicle and Machineries',
+      name: 'Housing',
     },
     {
       id: '8',
-      name: 'Food',
-    },
-    {
-      id: '9',
-      name: 'Others',
+      name: 'Miscellaneous',
     },
   ]
 
   const handleError = useHandleError();
   const onSubmit = setError => payload => {
     addExpense(payload)
-      .then(console.log('done'))
+      .then(data => {
+        if (data.status === 200) {
+          navigate('/expense')
+        }
+      })
       .catch(err => handleError(err, setError))
   };
 
@@ -84,7 +89,7 @@ const ExpenseForm = ({ val: promoCode, type, modelID }) => {
           <FieldGroup name="date" label="Date" hideLabel={false} className="text-md my-4">
             <Input
               placeholder="Enter from date"
-              type="datetime-local"
+              type="date"
               name="date"
               autoComplete="off"
               hasError={errors.date}

@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import DataTable from '../tables/DataTable';
-import { fetchCategory, fetchExpense } from '../../infra';
+import React, { useMemo } from 'react'
 import { formatLongDate } from '../../utils/date';
+import DataTable from '../tables/DataTable';
+import { fetchTranscationn } from '../../infra';
 
-const ExpenseTable = ({ cat }) => {
+const TranscationTable = ({ party }) => {
 
   const columns = useMemo(() => [
     {
@@ -23,15 +23,22 @@ const ExpenseTable = ({ cat }) => {
       accessor: 'paymentMethod',
     },
     {
-      Header: ('Category'),
+      Header: ('Type'),
+      accessor: 'type',
+    },
+    // {
+    //   Header: ('Party'),
+    //   accessor: 'partyId',
+    // },
+    {
+      Header: ('Party'),
       Cell: ({ row: { original } }) => {
-        const category = cat?.data?.find(c => c.id === original.categoryId)
+        const partyName = party?.data?.find(c => c.id === original.partyId)
         return (
-          <span>{category ? category.title : ''}</span>
+          <span>{partyName ? partyName.name : ''}</span>
         )
       },
     },
-
     // {
     //   id: 'more-actions',
     //   Cell: () => (
@@ -48,11 +55,11 @@ const ExpenseTable = ({ cat }) => {
     <div className="max-w-full mx-auto px-4 py-4 sm:px-6 md:px-8 bg-white">
       <DataTable
         columns={columns}
-        apiRequest={fetchExpense}
+        apiRequest={fetchTranscationn}
         placeholder={('Search by invoice number, name, amount...')}
       />
     </div>
   )
 }
 
-export default ExpenseTable
+export default TranscationTable

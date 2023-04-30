@@ -3,11 +3,16 @@ import { Modal, PageHeader, PageLayout } from '../common'
 import { Button } from '../inputs'
 import { IconPlus, IconX } from '@tabler/icons';
 import EarningForm from './EarningForm';
-// import { FormContext } from '../main';
+import EarningTable from './EarningTable';
+import { fetchCategory } from '../../infra';
 
 const Earning = () => {
-  // const { isEarningFormOpen, setIsEarningFormOpen } = useContext(FormContext)
   const [isEarningFormOpen, setIsEarningFormOpen] = useState(false);
+  const [cat, setCat] = useState()
+  useEffect(() => {
+    fetchCategory()
+      .then(setCat)
+  }, []);
 
   return (
     <>
@@ -40,7 +45,9 @@ const Earning = () => {
       </Modal>
 
       <PageLayout>
-        {/* <PromoTable isPromoFormOpen={setIsPromoFormOpen} setModelID={setModelID} setType={setType} /> */}
+        {cat &&
+          <EarningTable cat={cat} />
+        }
       </PageLayout>
     </>
 

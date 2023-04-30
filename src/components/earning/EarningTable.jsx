@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import DataTable from '../tables/DataTable';
-import { fetchCategory, fetchExpense } from '../../infra';
+import React, { useMemo } from 'react'
 import { formatLongDate } from '../../utils/date';
+import DataTable from '../tables/DataTable';
+import { fetchEarning } from '../../infra';
 
-const ExpenseTable = ({ cat }) => {
+const EarningTable = ({ cat }) => {
 
   const columns = useMemo(() => [
     {
@@ -48,11 +48,11 @@ const ExpenseTable = ({ cat }) => {
     <div className="max-w-full mx-auto px-4 py-4 sm:px-6 md:px-8 bg-white">
       <DataTable
         columns={columns}
-        apiRequest={fetchExpense}
+        apiRequest={fetchEarning}
         placeholder={('Search by invoice number, name, amount...')}
       />
     </div>
   )
 }
 
-export default ExpenseTable
+export default EarningTable

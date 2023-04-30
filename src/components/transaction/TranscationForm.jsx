@@ -3,21 +3,24 @@ import { AsyncSearchBox, Button, FieldGroup, Input, SelectBox } from '../inputs'
 import { useHandleError } from '../../hooks';
 import { Controller, useForm } from 'react-hook-form';
 import { addTranscationn, getParty } from '../../infra';
+import { useNavigate } from 'react-router-dom';
 
 const TranscationForm = () => {
   const { control, register, handleSubmit, setError, setValue, watch, formState: { errors } } = useForm();
   const handleError = useHandleError();
+  const navigate = useNavigate();
+
   const paymentMethod = [
     {
-      id: '0',
+      id: 'Cash',
       name: 'Cash',
     },
     {
-      id: '1',
+      id: 'Online',
       name: 'Online',
     },
     {
-      id: '2',
+      id: 'Cheque',
       name: 'Cheque',
     },
   ]
@@ -35,9 +38,11 @@ const TranscationForm = () => {
 
   const onSubmit = setError => payload => {
     addTranscationn(payload)
-
-      .then(
-        console.log('gsjdb'),
+      .then(data => {
+        if (data.status === 200) {
+          navigate('/transaction');
+        }
+      },
       )
       .catch(err => handleError(err, setError))
   };

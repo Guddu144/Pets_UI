@@ -1,12 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal, PageHeader, PageLayout } from '../common';
 import { Button } from '../inputs';
 import { IconPlus, IconX } from '@tabler/icons';
-import PartyForm from '../party/PartyForm';
 import TranscationForm from './TranscationForm';
+import TranscationTable from './TranscationTable';
+import { partyTable } from '../../infra';
 
 const Transcation = () => {
   const [isTranscationFormOpen, setIsTranscationFormOpen] = useState(false);
+  const [party, setParty] = useState()
+
+  useEffect(() => {
+    partyTable()
+      .then(setParty)
+  }, []);
 
   return (
     <>
@@ -39,7 +46,9 @@ const Transcation = () => {
       </Modal>
 
       <PageLayout>
-        {/* <PromoTable isPromoFormOpen={setIsPromoFormOpen} setModelID={setModelID} setType={setType} /> */}
+        {party &&
+          <TranscationTable party={party} />
+        }
       </PageLayout>
     </>
   )

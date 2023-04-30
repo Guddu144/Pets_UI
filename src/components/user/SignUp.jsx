@@ -14,7 +14,6 @@ import petsIcon from '../../icons/pets-icon.svg';
 import { addUser } from '../../infra';
 
 const SignUp = () => {
-  const handleSuccess = useHandleSuccess();
   const handleError = useHandleError();
 
   const navigate = useNavigate();
