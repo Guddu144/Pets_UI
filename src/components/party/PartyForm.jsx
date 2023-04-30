@@ -3,19 +3,21 @@ import { Button, FieldGroup, Input, SelectBox, TextArea } from '../inputs'
 import { Controller, useForm } from 'react-hook-form';
 import { addParty } from '../../infra';
 import { useHandleError, useHandleSuccess } from '../../hooks';
+import { useNavigate } from 'react-router-dom';
 
 const PartyForm = () => {
   const { control, register, handleSubmit, setError, setValue, watch, formState: { errors } } = useForm();
   const handleError = useHandleError();
   const handleSuccess = useHandleSuccess();
   const [msg, setMsg] = useState()
+  const navigate = useNavigate();
 
   const onSubmit = setError => payload => {
     addParty(payload)
-
       .then(data => {
         if (data.status === 200) {
           setMsg(data.message)
+          navigate('/party')
         }
       })
       .catch(err => handleError(err, setError))

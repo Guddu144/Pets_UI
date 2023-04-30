@@ -28,7 +28,14 @@ export const addParty = payload => request('POST', `${API_URL}/api/party`, true,
 export const getParty = payload => request('GET', `${API_URL}/api/party`, true, payload);
 export const partyTable = () => request('GET', `${API_URL}/api/party`, true);
 
-export const chartData = () => {
+export const chartDataIncome = () => {
+  const data = {
+    type: 'income',
+  }
+  return request('GET', `${API_URL}/api/chart`, true, data);
+}
+
+export const chartDataExpense = () => {
   const data = {
     type: 'expense',
   }
@@ -37,7 +44,7 @@ export const chartData = () => {
 export const addEarning = payload => {
   const data = {
     ...payload,
-    type: 'earning',
+    type: 'income',
   }
   return request('POST', `${API_URL}/api/finance`, true, data);
 }
@@ -56,17 +63,14 @@ export const fetchExpense = () => {
 }
 export const fetchEarning = () => {
   const data = {
-    type: 'earning',
+    type: 'income',
   }
   return request('GET', `${API_URL}/api/finance`, true, data);
 }
 
 export const addTranscationn = payload => request('POST', `${API_URL}/api/transaction`, true, payload);
-<<<<<<< HEAD
 export const fetchTranscationn = () => request('GET', `${API_URL}/api/transaction`, true);
 export const fetchCategory = () => request('GET', `${API_URL}/api/category`, true);
 export const getDashboardDetail = () => request('GET', `${API_URL}/api/dashboard`, true);
-// localhost:3000/api/transaction?party_id=1&type=in
-=======
-
->>>>>>> ec0f9ea (updates)
+export const addGoal = payload => request('POST', `${API_URL}/api/goal`, true, payload);
+export const fetchGoal = () => request('GET', `${API_URL}/api/goal`, true);
