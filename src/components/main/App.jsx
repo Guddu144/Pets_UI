@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React from 'react'
 import { Route, Routes } from 'react-router-dom';
 import { Dashboard } from '../dashboard';
 import { ForgottenPassword, Login, Login2, SignUp, SignUp2, UpdatePassword } from '../user';
@@ -7,14 +7,12 @@ import Expense from '../expenses/Expense';
 import Auth from '../user/Auth';
 import Layout from './Layout';
 import MainLayout from './MainLayout';
-
-export const FormContext = createContext(null)
+import Party from '../party/Party';
+import Transcation from '../transaction/Transcation';
 
 const App = () => {
-  // const [isEarningFormOpen, setIsEarningFormOpen] = useState(false);
 
   return (
-    // <FormContext.Provider value={{ isEarningFormOpen, setIsEarningFormOpen }}>
     <Routes>
       <Route path="/" element={<MainLayout />}>
         {/* public route */}
@@ -28,11 +26,12 @@ const App = () => {
             <Route path="/" element={<Dashboard />} />
             <Route path="/earning" element={<Earning />} />
             <Route path="/expense" element={<Expense />} />
+            <Route path="/party" element={<Party />} />
+            <Route path="/transaction" element={<Transcation />} />
           </Route>
         </Route>
       </Route>
     </Routes >
-    // </FormContext.Provider>
   )
 }
 

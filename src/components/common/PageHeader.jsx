@@ -19,7 +19,7 @@ const PageHeader = ({ title, crumbs = [], footer, action }) => {
           {footer}
         </div>
       )}
-      <hr className="pb-4 sm:mx-6 md:mx-8 mx-4 h-1" />
+      <hr className="sm:mx-6 md:mx-8 mx-4 h-1" />
     </div>
   );
 };

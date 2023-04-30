@@ -23,4 +23,46 @@ export const addUser = payload => {
 
 export const forgetPassword = payload => request('POST', `${API_URL}/api/user/forgotPassword`, false, payload);
 export const updatePassword = (payload, id, token) => request('POST', `${API_URL}/api/reset/${id}/${token}`, false, payload);
-// http://localhost:3000/api/reset/2/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2ODAyNjg4NjgsImV4cCI6MTY4MDMzNzI2OH0.ZS0YnrsdDfL76zfrvQDrHmo1ZPAs45hgW7R8iS-nNgs
+
+export const addParty = payload => request('POST', `${API_URL}/api/party`, true, payload);
+export const getParty = payload => request('GET', `${API_URL}/api/party`, true, payload);
+export const partyTable = () => request('GET', `${API_URL}/api/party`, true);
+
+export const chartData = () => {
+  const data = {
+    type: 'expense',
+  }
+  return request('GET', `${API_URL}/api/chart`, true, data);
+}
+export const addEarning = payload => {
+  const data = {
+    ...payload,
+    type: 'earning',
+  }
+  return request('POST', `${API_URL}/api/finance`, true, data);
+}
+export const addExpense = payload => {
+  const data = {
+    ...payload,
+    type: 'expense',
+  }
+  return request('POST', `${API_URL}/api/finance`, true, data);
+}
+export const fetchExpense = () => {
+  const data = {
+    type: 'expense',
+  }
+  return request('GET', `${API_URL}/api/finance`, true, data);
+}
+export const fetchEarning = () => {
+  const data = {
+    type: 'earning',
+  }
+  return request('GET', `${API_URL}/api/finance`, true, data);
+}
+
+export const addTranscationn = payload => request('POST', `${API_URL}/api/transaction`, true, payload);
+export const fetchTranscationn = () => request('GET', `${API_URL}/api/transaction`, true);
+export const fetchCategory = () => request('GET', `${API_URL}/api/category`, true);
+export const getDashboardDetail = () => request('GET', `${API_URL}/api/dashboard`, true);
+// localhost:3000/api/transaction?party_id=1&type=in
