@@ -11,3 +11,4 @@ export const formatCurrency = val => {
 };
 
 export const formatNumber = val => Number(val).toFixed(2);
+export const parseNum = (num, defaultVal = 0) => isNaN(num) || !num ? defaultVal : Number(num);

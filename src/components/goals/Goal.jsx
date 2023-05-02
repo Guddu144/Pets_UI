@@ -1,11 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal, PageHeader, PageLayout } from '../common';
 import { Button } from '../inputs';
 import { IconPlus, IconX } from '@tabler/icons';
+import GoalForm from './GoalForm';
+import GoalTable from './GoalTable';
+import { fetchCategory } from '../../infra';
 
 const Goal = () => {
-  // const { isEarningFormOpen, setIsEarningFormOpen } = useContext(FormContext)
   const [isExpenseFormOpen, setIsExpenseFormOpen] = useState(false);
+  const [cat, setCat] = useState()
+  useEffect(() => {
+    fetchCategory()
+      .then(setCat)
+  }, []);
 
   return (
     <>
@@ -26,18 +33,21 @@ const Goal = () => {
       <Modal isOpen={isExpenseFormOpen} onClose={() => { setIsExpenseFormOpen(false) }}>
         <div className="mb-2 flex justify-between">
           <div>
-            <h3 className="text-lg font-bold"> Expense</h3>
+            <h3 className="text-lg font-bold">Goal</h3>
           </div>
           <button onClick={() => { setIsExpenseFormOpen(false) }}>
             <IconX size={15} />
           </button>
         </div>
         <div className="divide-gray-200 mx-auto  ">
-          {/* <ExpenseForm isExpenseFormOpen={setIsExpenseFormOpen} /> */}
+          <GoalForm />
         </div>
       </Modal>
 
       <PageLayout>
+        {cat &&
+          <GoalTable cat={cat} />
+        }
 
       </PageLayout>
     </>

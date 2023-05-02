@@ -9,6 +9,8 @@ import Layout from './Layout';
 import MainLayout from './MainLayout';
 import Party from '../party/Party';
 import Transcation from '../transaction/Transcation';
+import Goal from '../goals/Goal';
+import GoalStatus from '../goal-status/GoalStatus';
 
 const App = () => {
 
@@ -28,6 +30,8 @@ const App = () => {
             <Route path="/expense" element={<Expense />} />
             <Route path="/party" element={<Party />} />
             <Route path="/transaction" element={<Transcation />} />
+            <Route path="/goal" element={<Goal />} />
+            <Route path="/goal-status" element={<GoalStatus />} />
           </Route>
         </Route>
       </Route>

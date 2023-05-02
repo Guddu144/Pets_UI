@@ -3,6 +3,7 @@ import { Button, FieldGroup, Input, SelectBox, TextArea } from '../inputs'
 import { Controller, useForm } from 'react-hook-form';
 import { addEarning } from '../../infra/apiClient';
 import { useHandleError } from '../../hooks';
+import { Navigate } from 'react-router-dom';
 // import { useHandleError } from '../../../../hooks';
 
 const EarningForm = ({ val: promoCode, type, modelID }) => {
@@ -54,7 +55,7 @@ const EarningForm = ({ val: promoCode, type, modelID }) => {
 
   const onSubmit = setError => payload => {
     addEarning(payload)
-      .then(console.log('done'))
+      .then(window.location.reload())
       .catch(err => handleError(err, setError))
   };
 
@@ -77,7 +78,7 @@ const EarningForm = ({ val: promoCode, type, modelID }) => {
           <FieldGroup name="date" label="Date" hideLabel={false} className="text-md my-4">
             <Input
               placeholder="Enter from date"
-              type="datetime-local"
+              type="date"
               name="date"
               autoComplete="off"
               hasError={errors.date}
@@ -146,7 +147,7 @@ const EarningForm = ({ val: promoCode, type, modelID }) => {
         />
       </FieldGroup>
 
-      <Button className="mt-4 bg-blue-500 font-normal" full type="submit">
+      <Button className="mt-4font-normal" full type="submit">
         Submit
       </Button>
     </form>

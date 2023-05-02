@@ -1,9 +1,8 @@
-import { IconDotsVertical } from '@tabler/icons';
 import React, { useMemo } from 'react'
 import DataTable from '../tables/DataTable';
-import { partyTable } from '../../infra';
+import { fetchGoal } from '../../infra';
 
-const PartyTable = () => {
+const GoalTable = ({ cat }) => {
 
   const columns = useMemo(() => [
     {
@@ -11,16 +10,21 @@ const PartyTable = () => {
       accessor: 'id',
     },
     {
-      Header: ('Name'),
+      Header: ('Goal Name'),
       accessor: 'name',
     },
     {
-      Header: ('Email'),
-      accessor: 'email',
+      Header: ('Targt Goal Amount'),
+      accessor: 'targetAmount',
     },
     {
-      Header: ('Contact Number'),
-      accessor: 'contactNo',
+      Header: ('Category'),
+      Cell: ({ row: { original } }) => {
+        const category = cat?.data?.find(c => c.id === original.categoryId)
+        return (
+          <span>{category ? category.title : ''}</span>
+        )
+      },
     },
 
     // {
@@ -39,11 +43,11 @@ const PartyTable = () => {
     <div className="max-w-full mx-auto px-4 py-4 sm:px-6 md:px-8 bg-white">
       <DataTable
         columns={columns}
-        apiRequest={partyTable}
-      // placeholder={('Search by invoice number, name, amount...')}
+        apiRequest={fetchGoal}
+        placeholder={('Search by invoice number, name, amount...')}
       />
     </div>
   )
 }
 
-export default PartyTable
+export default GoalTable

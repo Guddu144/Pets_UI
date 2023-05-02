@@ -27,7 +27,7 @@ const SelectBox = ({ items, value, onChange, placeholder, size = 'base', hasErro
           sizes[size],
           hasError
             ? 'border-red-300 focus:ring-red-400 focus:border-red-400'
-            : 'border-gray-300 focus:border-blue-700 focus:ring-blue-700',
+            : 'border-gray-300 focus:border-green-120 focus:ring-green-120',
         )}>
           <span className={`${selected ? '' : hasError ? 'text-red-500' : 'text-gray-400'} block truncate`}>{selected ? selected.name : placeholder}</span>
           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -53,7 +53,7 @@ const SelectBox = ({ items, value, onChange, placeholder, size = 'base', hasErro
               <Listbox.Option
                 key={item.id}
                 className={({ active }) =>
-                  `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-blue-700 text-white' : 'text-gray-900'
+                  `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-green-120 text-white' : 'text-gray-900'
                   }`
                 }
                 value={item.id}
