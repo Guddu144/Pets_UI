@@ -38,20 +38,7 @@ const TranscationForm = () => {
 
   const onSubmit = setError => payload => {
     addTranscationn(payload)
-<<<<<<< HEAD
-<<<<<<< HEAD
       .then(window.location.reload())
-=======
-      .then(data => {
-        if (data.status === 200) {
-          navigate('/transaction');
-        }
-      },
-      )
->>>>>>> 131e807 (updates)
-=======
-      .then(window.location.reload())
->>>>>>> e8ec428 (made status section)
       .catch(err => handleError(err, setError))
   };
 
