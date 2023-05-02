@@ -14,12 +14,7 @@ const PartyForm = () => {
 
   const onSubmit = setError => payload => {
     addParty(payload)
-      .then(data => {
-        if (data.status === 200) {
-          setMsg(data.message)
-          navigate('/party')
-        }
-      })
+      .then(window.location.reload())
       .catch(err => handleError(err, setError))
   };
 
@@ -64,7 +59,7 @@ const PartyForm = () => {
         />
       </FieldGroup>
 
-      <Button className="mt-4 bg-blue-500 font-normal" full type="submit">
+      <Button className="mt-4 font-normal" full type="submit">
         Submit
       </Button>
     </form>

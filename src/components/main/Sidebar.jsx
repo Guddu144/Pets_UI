@@ -5,7 +5,7 @@ import { classNames } from '../../utils';
 import { Button, Dropdown, Icon } from '../inputs';
 import logoIcon from '../../icons/Logo-white.svg';
 import profileIcon from '../../icons/profile.svg';
-import { IconLayoutDashboard, IconCircleDot, IconHistory, IconMapSearch, IconCirclePlus, IconCircleMinus } from '@tabler/icons';
+import { IconLayoutDashboard, IconCircleDot, IconHistory, IconMapSearch, IconCirclePlus, IconCircleMinus, IconTargetArrow, IconUsers, IconCoinRupee, IconListDetails } from '@tabler/icons';
 
 const useNavigation = () => {
   const loc = useLocation();
@@ -13,11 +13,12 @@ const useNavigation = () => {
   const isCurrent = path => path === cur;
   const links = [
     { name: 'Dashboard', href: '/', current: isCurrent('/'), icon: <IconLayoutDashboard color={isCurrent('/') ? '#e6ecf3' : '#8aa6c8'} className="mr-3.5" size={24} /> },
-    { name: 'Earnings', href: '/earning', current: isCurrent('/earning'), icon: <IconCirclePlus className="mr-3.5" color={isCurrent('/earning') ? '#e6ecf3' : '#8aa6c8'} size={24} />, heading: true, headingVal: 'ledgers' },
+    { name: 'Status', href: '/goal-status', current: isCurrent('/goal-status'), icon: <IconListDetails className="mr-3.5" color={isCurrent('/goal-status') ? '#e6ecf3' : '#8aa6c8'} size={24} /> },
+    { name: 'Earnings', href: '/earning', current: isCurrent('/earning'), icon: <IconCirclePlus className="mr-3.5" color={isCurrent('/earning') ? '#e6ecf3' : '#8aa6c8'} size={24} />, heading: true, headingVal: 'Accounts' },
     { name: 'Expenses', href: '/expense', current: isCurrent('/expense'), icon: <IconCircleMinus className="mr-3.5" color={isCurrent('/expense') ? '#e6ecf3' : '#8aa6c8'} size={24} /> },
-    { name: 'Transaction', href: '/transaction', current: isCurrent('/transaction'), icon: <IconCircleDot color={isCurrent('/transaction') ? '#e6ecf3' : '#8aa6c8'} className="mr-3.5" size={22} />, heading: true, headingVal: 'Utilities' },
-    { name: 'Party', href: '/party', current: isCurrent('/party'), icon: <IconMapSearch className="mr-3.5" color={isCurrent('/party') ? '#e6ecf3' : '#8aa6c8'} size={24} /> },
-    { name: 'Categories', href: '/dashboard/ledger/expenses', current: isCurrent('/dashboard/trip/expenses'), icon: <IconMapSearch className="mr-3.5" color={isCurrent('/dashboard/trip/expenses') ? '#e6ecf3' : '#8aa6c8'} size={24} /> },
+    { name: 'Transaction', href: '/transaction', current: isCurrent('/transaction'), icon: <IconCoinRupee color={isCurrent('/transaction') ? '#e6ecf3' : '#8aa6c8'} className="mr-3.5" size={22} />, heading: true, headingVal: 'Loans' },
+    { name: 'Party', href: '/party', current: isCurrent('/party'), icon: <IconUsers className="mr-3.5" color={isCurrent('/party') ? '#e6ecf3' : '#8aa6c8'} size={24} /> },
+    { name: 'Goal', href: '/goal', current: isCurrent('/goal'), icon: <IconTargetArrow className="mr-3.5" color={isCurrent('/goal') ? '#e6ecf3' : '#8aa6c8'} size={24} />, heading: true, headingVal: 'Target' },
 
   ];
 

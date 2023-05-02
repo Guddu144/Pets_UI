@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
-import { formatLongDate } from '../../utils/date';
 import DataTable from '../tables/DataTable';
 import { fetchEarning } from '../../infra';
+import { formatNepaliDate } from '../../utils/nepaliDate';
 
 const EarningTable = ({ cat }) => {
 
@@ -16,7 +16,7 @@ const EarningTable = ({ cat }) => {
     },
     {
       Header: ('Date'),
-      accessor: ({ date }) => formatLongDate(date),
+      accessor: ({ date }) => formatNepaliDate(date),
     },
     {
       Header: ('Payment Method'),
@@ -49,7 +49,7 @@ const EarningTable = ({ cat }) => {
       <DataTable
         columns={columns}
         apiRequest={fetchEarning}
-        placeholder={('Search by invoice number, name, amount...')}
+      // placeholder={('Search by invoice number, name, amount...')}
       />
     </div>
   )

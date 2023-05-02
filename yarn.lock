@@ -1616,6 +1616,11 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==
 
+nepali-date-converter@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/nepali-date-converter/-/nepali-date-converter-3.3.1.tgz#7b81c4b0a97572dd5ccfb69f2a973ad41d1ca15c"
+  integrity sha512-oiYJ+uWJGmdSEdJ+IEIZ4z1/vh5oTIgsEbzyoTR4tRn3vwJXtmuXOxiFzfWDUObbjPC68GoKotrm0rbD7Br8og==
+
 node-releases@^2.0.6:
   version "2.0.8"
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.8.tgz#0f349cdc8fcfa39a92ac0be9bc48b7706292b9ae"
