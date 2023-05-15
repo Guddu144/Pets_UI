@@ -16,8 +16,8 @@ const GoalList = () => {
   }
 
   return (
-    <div className="pl-8 grid grid-cols-2 gap-4 pt-6">
-      <div className="space-y-6 border pl-6 pr-3 py-6 rounded-md shadow-2xl">
+    <div className="pl-8 grid grid-cols-1 gap-4 pt-6">
+      <div className="space-y-6 border pl-6 pr-3 py-6 rounded-md shadow-lg">
         {cat.data.slice(0, 8).map(i => {
           const progress = parseNum(i.spent) / parseNum(i.target)
           return (

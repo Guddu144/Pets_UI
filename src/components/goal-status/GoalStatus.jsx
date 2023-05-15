@@ -7,9 +7,9 @@ const GoalStatus = () => {
   return (
     <>
       <PageHeader
-        title={('Goal Status')}
+        title={('Budget Status')}
         crumbs={[
-          { label: ('Visible representations of Goals') },
+          { label: ('Visible representations of budgets') },
         ]}
 
       />

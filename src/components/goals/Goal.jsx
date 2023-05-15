@@ -17,9 +17,9 @@ const Goal = () => {
   return (
     <>
       <PageHeader
-        title={('Set Goal')}
+        title={('Set Budget')}
         crumbs={[
-          { label: ('Add target goal') },
+          { label: ('Add budget') },
         ]}
         action={
           <div className="flex mt-2">
@@ -33,7 +33,7 @@ const Goal = () => {
       <Modal isOpen={isExpenseFormOpen} onClose={() => { setIsExpenseFormOpen(false) }}>
         <div className="mb-2 flex justify-between">
           <div>
-            <h3 className="text-lg font-bold">Goal</h3>
+            <h3 className="text-lg font-bold">Budget</h3>
           </div>
           <button onClick={() => { setIsExpenseFormOpen(false) }}>
             <IconX size={15} />
@@ -48,7 +48,6 @@ const Goal = () => {
         {cat &&
           <GoalTable cat={cat} />
         }
-
       </PageLayout>
     </>
 

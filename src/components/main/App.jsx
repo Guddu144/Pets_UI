@@ -30,8 +30,8 @@ const App = () => {
             <Route path="/expense" element={<Expense />} />
             <Route path="/party" element={<Party />} />
             <Route path="/transaction" element={<Transcation />} />
-            <Route path="/goal" element={<Goal />} />
-            <Route path="/goal-status" element={<GoalStatus />} />
+            <Route path="/budget" element={<Goal />} />
+            <Route path="/budget-status" element={<GoalStatus />} />
           </Route>
         </Route>
       </Route>

@@ -13,12 +13,12 @@ const useNavigation = () => {
   const isCurrent = path => path === cur;
   const links = [
     { name: 'Dashboard', href: '/', current: isCurrent('/'), icon: <IconLayoutDashboard color={isCurrent('/') ? '#e6ecf3' : '#8aa6c8'} className="mr-3.5" size={24} /> },
-    { name: 'Status', href: '/goal-status', current: isCurrent('/goal-status'), icon: <IconListDetails className="mr-3.5" color={isCurrent('/goal-status') ? '#e6ecf3' : '#8aa6c8'} size={24} /> },
+    { name: 'Status', href: '/budget-status', current: isCurrent('/budget-status'), icon: <IconListDetails className="mr-3.5" color={isCurrent('/budget-status') ? '#e6ecf3' : '#8aa6c8'} size={24} /> },
     { name: 'Earnings', href: '/earning', current: isCurrent('/earning'), icon: <IconCirclePlus className="mr-3.5" color={isCurrent('/earning') ? '#e6ecf3' : '#8aa6c8'} size={24} />, heading: true, headingVal: 'Accounts' },
     { name: 'Expenses', href: '/expense', current: isCurrent('/expense'), icon: <IconCircleMinus className="mr-3.5" color={isCurrent('/expense') ? '#e6ecf3' : '#8aa6c8'} size={24} /> },
     { name: 'Transaction', href: '/transaction', current: isCurrent('/transaction'), icon: <IconCoinRupee color={isCurrent('/transaction') ? '#e6ecf3' : '#8aa6c8'} className="mr-3.5" size={22} />, heading: true, headingVal: 'Loans' },
     { name: 'Party', href: '/party', current: isCurrent('/party'), icon: <IconUsers className="mr-3.5" color={isCurrent('/party') ? '#e6ecf3' : '#8aa6c8'} size={24} /> },
-    { name: 'Goal', href: '/goal', current: isCurrent('/goal'), icon: <IconTargetArrow className="mr-3.5" color={isCurrent('/goal') ? '#e6ecf3' : '#8aa6c8'} size={24} />, heading: true, headingVal: 'Target' },
+    { name: 'Budget', href: '/budget', current: isCurrent('/budget'), icon: <IconTargetArrow className="mr-3.5" color={isCurrent('/budget') ? '#e6ecf3' : '#8aa6c8'} size={24} />, heading: true, headingVal: 'Target' },
 
   ];
 

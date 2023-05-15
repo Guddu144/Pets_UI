@@ -4,10 +4,10 @@ import { classNames, formatCurrency } from '../../utils';
 const Card = ({ className, title, icon, value }) => {
 
   return (
-    <div className="grid p-8 bg-white border border-gray-200 shadow-lg rounded-lg md:mb-5">
+    <div className="grid py-8 px-4 bg-white border border-gray-200 shadow-lg rounded-lg md:mb-5">
       <div className="grid grid-cols-3">
         <div className="my-auto ml-auto mr-5">
-          <div className={classNames('h-14 w-14  rounded-full flex items-center justify-center', className)}>
+          <div className={classNames('h-12 w-12  rounded-full flex items-center justify-center', className)}>
             <div className={'h-5 w-5'}>
               {icon}
             </div>
