@@ -20,7 +20,7 @@ const PartyForm = () => {
     <form onSubmit={handleSubmit(onSubmit(setError))} >
       <div className="text-green-500">{msg}</div>
 
-      <FieldGroup name="name" label="Name" hideLabel={false} hasError={errors.amount} className="text-md my-4">
+      <FieldGroup name="name" label="Name" hideLabel={false} error={errors.amount} className="text-md my-4">
         <Input
           placeholder="Enter the party's name"
           type="text"
@@ -32,7 +32,7 @@ const PartyForm = () => {
           })}
         />
       </FieldGroup>
-      <FieldGroup name="contactNo" label="Contact Number" hideLabel={false} hasError={errors.contactNo} className="text-md my-4">
+      <FieldGroup name="contactNo" label="Contact Number" hideLabel={false} error={errors.contactNo} className="text-md my-4">
         <Input
           placeholder="Enter the contact number"
           type="text"
@@ -44,7 +44,7 @@ const PartyForm = () => {
           })}
         />
       </FieldGroup>
-      <FieldGroup name="email" label="Email" hideLabel={false} hasError={errors.email} className="text-md my-4">
+      <FieldGroup name="email" label="Email" hideLabel={false} error={errors.email} className="text-md my-4">
         <Input
           placeholder="Enter the party's name"
           type="text"

@@ -74,7 +74,7 @@ const GoalForm = () => {
           })}
         />
       </FieldGroup>
-      <FieldGroup name="categoryId" label="Category" hideLabel={false} className="text-md my-4">
+      <FieldGroup name="categoryId" label="Category" hideLabel={false} error={errors.categoryId} className="text-md my-4">
         <Controller
           control={control}
           name="categoryId"

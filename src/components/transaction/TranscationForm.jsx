@@ -86,7 +86,7 @@ const TranscationForm = () => {
         <div className="flex-1 ml-2">
         </div>
       </div>
-      <FieldGroup name="paymentMethod" label="Payment Method" hideLabel={false} className="text-md my-4">
+      <FieldGroup name="paymentMethod" label="Payment Method" hideLabel={false} error={errors.paymentMethod} className="text-md my-4">
         <Controller
           control={control}
           name="paymentMethod"
@@ -107,7 +107,7 @@ const TranscationForm = () => {
         />
       </FieldGroup>
 
-      <FieldGroup name="type" label="Payment Flow" hideLabel={false} className="text-md my-4">
+      <FieldGroup name="type" label="Payment Flow" hideLabel={false} error={errors.type} className="text-md my-4">
         <Controller
           control={control}
           name="type"
