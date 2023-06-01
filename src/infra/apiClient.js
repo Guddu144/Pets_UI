@@ -26,7 +26,7 @@ export const updatePassword = (payload, id, token) => request('POST', `${API_URL
 
 export const addParty = payload => request('POST', `${API_URL}/api/party`, true, payload);
 export const getParty = payload => request('GET', `${API_URL}/api/party`, true, payload);
-export const partyTable = () => request('GET', `${API_URL}/api/party`, true);
+export const partyTable = filter => request('GET', `${API_URL}/api/party`, true, filter);
 
 export const chartDataIncome = () => {
   const data = {

@@ -6,7 +6,7 @@ import { addGoal } from '../../infra';
 
 const GoalForm = () => {
   const handleError = useHandleError();
-  const { control, register, handleSubmit, setError, setValue, watch, formState: { errors } } = useForm();
+  const { control, register, handleSubmit, setError, formState: { errors } } = useForm();
 
   const categories = [
     {
@@ -44,13 +44,13 @@ const GoalForm = () => {
   ]
   const onSubmit = setError => payload => {
     addGoal(payload)
-      .then()
+      .then(window.location.reload())
       .catch(err => handleError(err, setError))
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit(setError))} >
-      <FieldGroup name="name" label="Goal Name" hideLabel={false} hasError={errors.amount} className="text-md my-4">
+      <FieldGroup name="name" label="Goal Name" hideLabel={false} error={errors.amount} className="text-md my-4">
         <Input
           placeholder="Enter the goal's name"
           type="text"
@@ -62,7 +62,7 @@ const GoalForm = () => {
           })}
         />
       </FieldGroup>
-      <FieldGroup name="targetAmount" label="Targt Goal Amount" hideLabel={false} hasError={errors.targetAmount} className="text-md my-4">
+      <FieldGroup name="targetAmount" label="Targt Goal Amount" hideLabel={false} error={errors.targetAmount} className="text-md my-4">
         <Input
           placeholder="Enter the target goal amount"
           type="number"
@@ -95,7 +95,7 @@ const GoalForm = () => {
         />
       </FieldGroup>
 
-      <FieldGroup name="description" label="Description" hideLabel={false} hasError={errors.email} className="text-md my-4">
+      <FieldGroup name="description" label="Description" hideLabel={false} error={errors.email} className="text-md my-4">
         <TextArea
           placeholder="Enter the description"
           type="textarea"

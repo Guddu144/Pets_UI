@@ -1,16 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Button, FieldGroup, Input, SelectBox, TextArea } from '../inputs'
-import { Controller, useForm } from 'react-hook-form';
+import React, { useState } from 'react'
+import { Button, FieldGroup, Input } from '../inputs'
+import { useForm } from 'react-hook-form';
 import { addParty } from '../../infra';
 import { useHandleError, useHandleSuccess } from '../../hooks';
-import { useNavigate } from 'react-router-dom';
 
 const PartyForm = () => {
-  const { control, register, handleSubmit, setError, setValue, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, setError, formState: { errors } } = useForm();
   const handleError = useHandleError();
   const handleSuccess = useHandleSuccess();
   const [msg, setMsg] = useState()
-  const navigate = useNavigate();
 
   const onSubmit = setError => payload => {
     addParty(payload)
