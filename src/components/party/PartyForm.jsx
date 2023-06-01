@@ -1,16 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Button, FieldGroup, Input, SelectBox, TextArea } from '../inputs'
-import { Controller, useForm } from 'react-hook-form';
+import React, { useState } from 'react'
+import { Button, FieldGroup, Input } from '../inputs'
+import { useForm } from 'react-hook-form';
 import { addParty } from '../../infra';
 import { useHandleError, useHandleSuccess } from '../../hooks';
-import { useNavigate } from 'react-router-dom';
 
 const PartyForm = () => {
-  const { control, register, handleSubmit, setError, setValue, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, setError, formState: { errors } } = useForm();
   const handleError = useHandleError();
   const handleSuccess = useHandleSuccess();
   const [msg, setMsg] = useState()
-  const navigate = useNavigate();
 
   const onSubmit = setError => payload => {
     addParty(payload)
@@ -22,7 +20,7 @@ const PartyForm = () => {
     <form onSubmit={handleSubmit(onSubmit(setError))} >
       <div className="text-green-500">{msg}</div>
 
-      <FieldGroup name="name" label="Name" hideLabel={false} hasError={errors.amount} className="text-md my-4">
+      <FieldGroup name="name" label="Name" hideLabel={false} error={errors.amount} className="text-md my-4">
         <Input
           placeholder="Enter the party's name"
           type="text"
@@ -34,7 +32,7 @@ const PartyForm = () => {
           })}
         />
       </FieldGroup>
-      <FieldGroup name="contactNo" label="Contact Number" hideLabel={false} hasError={errors.contactNo} className="text-md my-4">
+      <FieldGroup name="contactNo" label="Contact Number" hideLabel={false} error={errors.contactNo} className="text-md my-4">
         <Input
           placeholder="Enter the contact number"
           type="text"
@@ -46,7 +44,7 @@ const PartyForm = () => {
           })}
         />
       </FieldGroup>
-      <FieldGroup name="email" label="Email" hideLabel={false} hasError={errors.email} className="text-md my-4">
+      <FieldGroup name="email" label="Email" hideLabel={false} error={errors.email} className="text-md my-4">
         <Input
           placeholder="Enter the party's name"
           type="text"

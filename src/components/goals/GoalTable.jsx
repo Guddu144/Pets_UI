@@ -10,11 +10,11 @@ const GoalTable = ({ cat }) => {
       accessor: 'id',
     },
     {
-      Header: ('Goal Name'),
+      Header: ('Budget Name'),
       accessor: 'name',
     },
     {
-      Header: ('Targt Goal Amount'),
+      Header: ('Targt Budget Amount'),
       accessor: 'targetAmount',
     },
     {

@@ -4,10 +4,12 @@ import { Controller, useForm } from 'react-hook-form';
 import { addExpense } from '../../infra';
 import { useHandleError } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
+import { isAfter, parseISO } from 'date-fns';
+
 // import { useHandleError } from '../../../../hooks';
 
-const ExpenseForm = ({ val: promoCode, type, modelID }) => {
-  const { control, register, handleSubmit, setError, setValue, watch, formState: { errors } } = useForm();
+const ExpenseForm = () => {
+  const { control, register, handleSubmit, setError, formState: { errors } } = useForm();
   const navigate = useNavigate();
   const paymentMethod = [
     {
@@ -58,6 +60,16 @@ const ExpenseForm = ({ val: promoCode, type, modelID }) => {
       name: 'Miscellaneous',
     },
   ]
+  const validateDate = value => {
+    const selectedDate = parseISO(value);
+    const today = new Date();
+
+    if (isAfter(selectedDate, today)) {
+      return 'Selected date cannot be greater than today';
+    }
+
+    return true;
+  };
 
   const handleError = useHandleError();
   const onSubmit = setError => payload => {
@@ -68,7 +80,7 @@ const ExpenseForm = ({ val: promoCode, type, modelID }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit(setError))} >
-      <FieldGroup name="amount" label="Amount" hideLabel={false} hasError={errors.amount} className="text-md my-4">
+      <FieldGroup name="amount" label="Amount" hideLabel={false} error={errors.amount} className="text-md my-4">
         <Input
           placeholder="Enter the Amount"
           type="number"
@@ -82,7 +94,7 @@ const ExpenseForm = ({ val: promoCode, type, modelID }) => {
       </FieldGroup>
       <div className="flex">
         <div className="flex-1">
-          <FieldGroup name="date" label="Date" hideLabel={false} className="text-md my-4">
+          <FieldGroup name="date" label="Date" hideLabel={false} error={errors.date} className="text-md my-4">
             <Input
               placeholder="Enter from date"
               type="date"
@@ -90,6 +102,7 @@ const ExpenseForm = ({ val: promoCode, type, modelID }) => {
               autoComplete="off"
               hasError={errors.date}
               {...register('date', {
+                validate: validateDate,
                 required: 'Please enter the from date',
               })}
             />
@@ -99,7 +112,7 @@ const ExpenseForm = ({ val: promoCode, type, modelID }) => {
         </div>
       </div>
 
-      <FieldGroup name="paymentMethod" label="Payment Method" hideLabel={false} className="text-md my-4">
+      <FieldGroup name="paymentMethod" label="Payment Method" error={errors.paymentMethod} hideLabel={false} className="text-md my-4">
         <Controller
           control={control}
           name="paymentMethod"
@@ -120,7 +133,7 @@ const ExpenseForm = ({ val: promoCode, type, modelID }) => {
         />
       </FieldGroup>
 
-      <FieldGroup name="categoryId" label="Category" hideLabel={false} className="text-md my-4">
+      <FieldGroup name="categoryId" label="Category" hideLabel={false} error={errors.categoryId} className="text-md my-4">
         <Controller
           control={control}
           name="categoryId"
@@ -141,7 +154,7 @@ const ExpenseForm = ({ val: promoCode, type, modelID }) => {
         />
       </FieldGroup>
 
-      <FieldGroup name="note" label="Note" hideLabel={false} hasError={errors.note} className="text-md my-4">
+      <FieldGroup name="note" label="Note" hideLabel={false} error={errors.note} className="text-md my-4">
         <TextArea
           placeholder="Enter the note"
           type="textArea"
