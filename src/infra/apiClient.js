@@ -73,6 +73,6 @@ export const fetchEarning = filter => {
 export const addTranscationn = payload => request('POST', `${API_URL}/api/transaction`, true, payload);
 export const fetchTranscationn = filter => request('GET', `${API_URL}/api/transaction`, true, filter);
 export const fetchCategory = () => request('GET', `${API_URL}/api/category`, true);
-export const getDashboardDetail = () => request('GET', `${API_URL}/api/dashboard`, true);
+export const getDashboardDetail = payload => request('GET', `${API_URL}/api/dashboard`, true, payload);
 export const addGoal = payload => request('POST', `${API_URL}/api/goal`, true, payload);
 export const fetchGoal = filter => request('GET', `${API_URL}/api/goal`, true, filter);

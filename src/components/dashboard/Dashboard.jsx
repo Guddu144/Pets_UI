@@ -5,7 +5,8 @@ import { PageHeader } from '../common';
 import LineChart from './LineChart';
 import { chartDataExpense, chartDataIncome, getDashboardDetail } from '../../infra/apiClient';
 import { useHandleError } from '../../hooks';
-import { formatDay, formatShortDate } from '../../utils/date';
+import { formatDay } from '../../utils/date';
+import ComboChart from './ComboChart';
 
 const Dashboard = () => {
   const handleError = useHandleError();
@@ -20,7 +21,7 @@ const Dashboard = () => {
   useEffect(() => {
     chartDataExpense()
       .then(data => {
-        console.log(data)
+        // console.log(data)
         setLabelExpense(data.data.map(i => formatDay(i.label)))
         setCurrentExpense(data.data.map(i => i.current))
         setPreviousExpense(data.data.map(i => i.previous))
@@ -28,13 +29,20 @@ const Dashboard = () => {
       })
     chartDataIncome()
       .then(data => {
-        console.log(data)
+        // console.log(data)
         setLabelIncome(data.data.map(i => formatDay(i.label)))
         setCurrentIncome(data.data.map(i => i.current))
         setPreviousIncome(data.data.map(i => i.previous))
 
       })
-    getDashboardDetail()
+    const date = new Date;
+    const firstDate = new Date(date.getFullYear(), date.getMonth(), 1);
+    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    const payload = {
+      startDate: firstDate.toISOString(),
+      endDate: lastDay.toISOString(),
+    }
+    getDashboardDetail(payload)
       .then(SetDetail)
   }, [])
 
@@ -124,6 +132,27 @@ const Dashboard = () => {
                 labels={labelsExpense}
                 currentDatasets={currentDatasetsExpense}
                 previousDatasets={previousDatasetsExpense} />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-5 grid grid-cols-2 px-10 gap-x-6">
+          <div className="space-y-3">
+            <span className="font-bold text-lg">Algorithm Analysis</span>
+            <div className="border rounded-md border-gray-70 p-6 shadow-sm bg-white">
+              <div className="flex items-center pb-2">
+                <div className="rounded-full bg-orange-500 w-2 h-2"></div>
+                <div className="pl-2 text-gray-80 text-sm">Predictions</div>
+                <div className="flex items-center ml-5">
+                  <div className="rounded-full bg-blue-500 w-2 h-2"></div>
+                  <div className="pl-2 text-gray-80 text-sm">This Month</div>
+                </div>
+              </div>
+              <ComboChart
+                // labels={labelsIncome}
+                labels={['Jan', 'fb', 'mar']}
+                currentDatasets={currentDatasetsIncome}
+                previousDatasets={previousDatasetsIncome} />
             </div>
           </div>
         </div>
