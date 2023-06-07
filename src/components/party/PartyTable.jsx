@@ -1,7 +1,8 @@
-import { IconDotsVertical } from '@tabler/icons';
 import React, { useMemo } from 'react'
 import DataTable from '../tables/DataTable';
-import { partyTable } from '../../infra';
+import { deleteParty, partyTable } from '../../infra';
+import { PlainButton } from '../inputs';
+import { TrashIcon } from '@heroicons/react/solid';
 
 const PartyTable = () => {
 
@@ -23,16 +24,26 @@ const PartyTable = () => {
       accessor: 'contactNo',
     },
 
-    // {
-    //   id: 'more-actions',
-    //   Cell: () => (
-    //     <div>
-    //       <PlainButton className="hover:bg-blue-50 p-1 rounded-full hidden sm:inline-block">
-    //         <IconDotsVertical className="w-6 h-6" />
-    //       </PlainButton>
-    //     </div>
-    //   ),
-    // },
+    {
+      Header: 'Actions',
+      id: 'actions',
+      Cell: ({ row: { original } }) => {
+
+        return (
+          <div className="space-x-3">
+            {/* 
+            <PlainButton onClick={() => onEdit(original)}>
+              <PencilAltIcon className="w-5 h-5" />
+            </PlainButton> */}
+            <PlainButton
+              onClick={() => deleteParty(original.id)}
+            >
+              <TrashIcon className="w-5 h-5 text-red-400 hover:text-red-500" />
+            </PlainButton>
+          </div>
+        );
+      },
+    },
   ], []);
 
   return (

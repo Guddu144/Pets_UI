@@ -1,7 +1,9 @@
 import React, { useMemo } from 'react'
 import DataTable from '../tables/DataTable';
-import { fetchEarning } from '../../infra';
-import { formatNepaliDate } from '../../utils/nepaliDate';
+import { deleteEarning, fetchEarning } from '../../infra';
+import { PlainButton } from '../inputs';
+import { TrashIcon } from '@heroicons/react/solid';
+import { formatLongDate } from '../../utils/date';
 
 const EarningTable = ({ cat }) => {
 
@@ -16,7 +18,7 @@ const EarningTable = ({ cat }) => {
     },
     {
       Header: ('Date'),
-      accessor: ({ date }) => formatNepaliDate(date),
+      accessor: ({ date }) => formatLongDate(date),
     },
     {
       Header: ('Payment Method'),
@@ -32,16 +34,26 @@ const EarningTable = ({ cat }) => {
       },
     },
 
-    // {
-    //   id: 'more-actions',
-    //   Cell: () => (
-    //     <div>
-    //       <PlainButton className="hover:bg-blue-50 p-1 rounded-full hidden sm:inline-block">
-    //         <IconDotsVertical className="w-6 h-6" />
-    //       </PlainButton>
-    //     </div>
-    //   ),
-    // },
+    {
+      Header: 'Actions',
+      id: 'actions',
+      Cell: ({ row: { original } }) => {
+
+        return (
+          <div className="space-x-3">
+            {/* 
+            <PlainButton onClick={() => onEdit(original)}>
+              <PencilAltIcon className="w-5 h-5" />
+            </PlainButton> */}
+            <PlainButton
+              onClick={() => deleteEarning(original.id).then(window.location.reload())}
+            >
+              <TrashIcon className="w-5 h-5 text-red-400 hover:text-red-500" />
+            </PlainButton>
+          </div>
+        );
+      },
+    },
   ], []);
 
   return (

@@ -26,6 +26,7 @@ export const updatePassword = (payload, id, token) => request('POST', `${API_URL
 
 export const addParty = payload => request('POST', `${API_URL}/api/party`, true, payload);
 export const getParty = payload => request('GET', `${API_URL}/api/party`, true, payload);
+export const deleteParty = id => request('DELETE', `${API_URL}/api/party/${id}`, true);
 export const partyTable = filter => request('GET', `${API_URL}/api/party`, true, filter);
 
 export const chartDataIncome = () => {
@@ -77,9 +78,25 @@ export const fetchEarning = filter => {
   return request('GET', `${API_URL}/api/finance`, true, data);
 }
 
+export const deleteExpense = id => {
+  const data = {
+    type: 'expense',
+  }
+  return request('DELETE', `${API_URL}/api/finance/${id}`, true, data);
+}
+export const deleteEarning = id => {
+  const data = {
+    type: 'income',
+  }
+  return request('DELETE', `${API_URL}/api/finance/${id}`, true, data);
+}
 export const addTranscationn = payload => request('POST', `${API_URL}/api/transaction`, true, payload);
 export const fetchTranscationn = filter => request('GET', `${API_URL}/api/transaction`, true, filter);
+export const deleteTranscation = id => request('GET', `${API_URL}/api/transaction/${id}`, true);
+
 export const fetchCategory = () => request('GET', `${API_URL}/api/category`, true);
 export const getDashboardDetail = payload => request('GET', `${API_URL}/api/dashboard`, true, payload);
+
 export const addGoal = payload => request('POST', `${API_URL}/api/goal`, true, payload);
 export const fetchGoal = filter => request('GET', `${API_URL}/api/goal`, true, filter);
+export const deleteGoal = id => request('GET', `${API_URL}/api/goal/${id}`, true); 
