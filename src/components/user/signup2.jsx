@@ -90,16 +90,21 @@ const SignUp2 = () => {
 
               <FieldGroup name="email" label="Email" hideLabel={true} showLabelOnMobile={false} error={errors.email}>
                 <Input
-                  type="text"
+                  type="email"
                   icon={<Icon icon={emailIcon} />}
                   placeholder="Enter your email"
                   hasError={errors.email}
                   name="email"
                   autoComplete="off"
-                  {...register('email', { required: 'Please enter your email address' })}
+                  {...register('email', {
+                    required: 'Please enter your email address',
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: 'Invalid email address',
+                    },
+                  })}
                 />
               </FieldGroup>
-
               <FieldGroup name="password" className="mt-4 relative" label="Password" hideLabel={true} showLabelOnMobile={false} error={errors.password}>
                 <Input
                   type={showPassword ? 'text' : 'password'}

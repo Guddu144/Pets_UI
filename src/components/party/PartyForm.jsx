@@ -35,7 +35,7 @@ const PartyForm = () => {
       <FieldGroup name="contactNo" label="Contact Number" hideLabel={false} error={errors.contactNo} className="text-md my-4">
         <Input
           placeholder="Enter the contact number"
-          type="text"
+          type="number"
           name="contactNo"
           autoComplete="off"
           hasError={errors.contactNo}
@@ -47,12 +47,16 @@ const PartyForm = () => {
       <FieldGroup name="email" label="Email" hideLabel={false} error={errors.email} className="text-md my-4">
         <Input
           placeholder="Enter the party's name"
-          type="text"
+          type="email"
           name="email"
           autoComplete="off"
           hasError={errors.email}
           {...register('email', {
             required: 'Please enter the email',
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: 'Invalid email address',
+            },
           })}
         />
       </FieldGroup>
