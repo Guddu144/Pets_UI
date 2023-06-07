@@ -25,7 +25,7 @@ const Goal = () => {
           <div className="flex mt-2">
             <Button onClick={() => {
               setIsExpenseFormOpen(true)
-            }} full="true" size="xs" kind="primary" className="mr-2"><IconPlus size="20px" className="mr-2" />Add Goal
+            }} full="true" size="xs" kind="primary" className="mr-2"><IconPlus size="20px" className="mr-2" />Add Budget
             </Button>
           </div>
         }

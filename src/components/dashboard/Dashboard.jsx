@@ -3,9 +3,10 @@ import Card from './Card';
 import { IconCash } from '@tabler/icons';
 import { PageHeader } from '../common';
 import LineChart from './LineChart';
-import { chartDataExpense, chartDataIncome, getDashboardDetail } from '../../infra/apiClient';
+import { chartDataExpense, chartDataIncome, chartPrediction, getDashboardDetail } from '../../infra/apiClient';
 import { useHandleError } from '../../hooks';
-import { formatDay, formatShortDate } from '../../utils/date';
+import { formatDay } from '../../utils/date';
+import ComboChart from './ComboChart';
 
 const Dashboard = () => {
   const handleError = useHandleError();
@@ -16,11 +17,14 @@ const Dashboard = () => {
   const [labelExpense, setLabelExpense] = useState([]);
   const [currentExpense, setCurrentExpense] = useState([]);
   const [previousExpense, setPreviousExpense] = useState([]);
-  // console.log(detail)
+  const [labelPrediction, setLabelPrediction] = useState([]);
+  const [predictedData, setPredictedData] = useState([]);
+  const [currentData, setCurrentData] = useState([]);
+  // console.log(labelPrediction, predictedData, currentData)
   useEffect(() => {
     chartDataExpense()
       .then(data => {
-        console.log(data)
+        // console.log(data)
         setLabelExpense(data.data.map(i => formatDay(i.label)))
         setCurrentExpense(data.data.map(i => i.current))
         setPreviousExpense(data.data.map(i => i.previous))
@@ -28,13 +32,27 @@ const Dashboard = () => {
       })
     chartDataIncome()
       .then(data => {
-        console.log(data)
+        // console.log(data)
         setLabelIncome(data.data.map(i => formatDay(i.label)))
         setCurrentIncome(data.data.map(i => i.current))
         setPreviousIncome(data.data.map(i => i.previous))
 
       })
-    getDashboardDetail()
+    chartPrediction()
+      .then(data => {
+        setLabelPrediction(data.data.map(i => (i.label)))
+        setPredictedData(data.data.map(i => i.predictedData))
+        setCurrentData(data.data.map(i => i.currentData))
+
+      })
+    const date = new Date;
+    const firstDate = new Date(date.getFullYear(), date.getMonth(), 1);
+    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    const payload = {
+      startDate: firstDate.toISOString(),
+      endDate: lastDay.toISOString(),
+    }
+    getDashboardDetail(payload)
       .then(SetDetail)
   }, [])
 
@@ -124,6 +142,27 @@ const Dashboard = () => {
                 labels={labelsExpense}
                 currentDatasets={currentDatasetsExpense}
                 previousDatasets={previousDatasetsExpense} />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-5 grid grid-cols-1 px-10 gap-x-6">
+          <div className="space-y-3">
+            <span className="font-bold text-lg">Forecasted Total Costs </span>
+            <div className="border rounded-md border-gray-70 p-6 shadow-sm bg-white">
+              <div className="flex items-center pb-2">
+                <div className="rounded-full bg-orange-500 w-2 h-2"></div>
+                <div className="pl-2 text-gray-80 text-sm">Prediction Data</div>
+                <div className="flex items-center ml-5">
+                  <div className="rounded-full bg-blue-500 w-2 h-2"></div>
+                  <div className="pl-2 text-gray-80 text-sm">Current Data</div>
+                </div>
+              </div>
+              <ComboChart
+                // labels={labelsIncome}
+                labels={labelPrediction}
+                currentDatasets={currentData}
+                previousDatasets={predictedData} />
             </div>
           </div>
         </div>
