@@ -28,7 +28,7 @@ const ComboChart = ({ labels, currentDatasets, previousDatasets }) => {
     labels,
     datasets: [
       {
-        label: 'This Month',
+        label: 'Current Data',
         data: currentDatasets,
         borderColor: '#003D87',
         backgroundColor: '#003D87',
@@ -36,7 +36,7 @@ const ComboChart = ({ labels, currentDatasets, previousDatasets }) => {
         order: 1,
       },
       {
-        label: 'Last Month',
+        label: 'Predicted Data',
         data: previousDatasets,
         borderColor: '#FF5527',
         backgroundColor: '#FF5527',

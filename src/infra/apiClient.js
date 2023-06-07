@@ -41,6 +41,13 @@ export const chartDataExpense = () => {
   }
   return request('GET', `${API_URL}/api/chart`, true, data);
 }
+export const chartPrediction = () => {
+  const data = {
+    type: 'expense',
+    targetMonth: '2023-06',
+  }
+  return request('GET', `${API_URL}/api/predictionChart`, true, data);
+}
 export const addEarning = payload => {
   const data = {
     ...payload,
