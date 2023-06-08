@@ -24,6 +24,10 @@ const ExpenseTable = ({ cat }) => {
       accessor: 'paymentMethod',
     },
     {
+      Header: ('Notes'),
+      accessor: 'note',
+    },
+    {
       Header: ('Category'),
       Cell: ({ row: { original } }) => {
         const category = cat?.data?.find(c => c.id === original.categoryId)
@@ -31,10 +35,6 @@ const ExpenseTable = ({ cat }) => {
           <span>{category ? category.title : ''}</span>
         )
       },
-    },
-    {
-      Header: ('Note'),
-      accessor: 'note',
     },
     {
       Header: 'Actions',

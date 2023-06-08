@@ -25,6 +25,10 @@ const EarningTable = ({ cat }) => {
       accessor: 'paymentMethod',
     },
     {
+      Header: ('Notes'),
+      accessor: 'note',
+    },
+    {
       Header: ('Category'),
       Cell: ({ row: { original } }) => {
         const category = cat?.data?.find(c => c.id === original.categoryId)

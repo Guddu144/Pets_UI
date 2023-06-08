@@ -61,7 +61,7 @@ const DesktopSidebar = ({ navigation }) => {
                   to={item.href}
                   title={item.name}
                   className={classNames(
-                    item.current ? 'bg-green-120' : '',
+                    item.current ? 'bg-[#00545c]' : '',
                     'group flex items-center p-3 text-sm font-normal mb-1 rounded-md text-blue-50 ',
                   )}
                 >

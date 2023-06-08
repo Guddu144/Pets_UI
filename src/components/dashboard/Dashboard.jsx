@@ -148,7 +148,7 @@ const Dashboard = () => {
 
         <div className="mt-5 grid grid-cols-1 px-10 gap-x-6">
           <div className="space-y-3">
-            <span className="font-bold text-lg">Forecasted Total Costs </span>
+            <span className="font-bold text-lg">Expenses Forecasted Analysis</span>
             <div className="border rounded-md border-gray-70 p-6 shadow-sm bg-white">
               <div className="flex items-center pb-2">
                 <div className="rounded-full bg-orange-500 w-2 h-2"></div>

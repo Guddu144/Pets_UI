@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import DataTable from '../tables/DataTable';
 import { deleteParty, partyTable } from '../../infra';
 import { PlainButton } from '../inputs';
-import { TrashIcon } from '@heroicons/react/solid';
+import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
 
 const PartyTable = () => {
 
@@ -31,12 +31,12 @@ const PartyTable = () => {
 
         return (
           <div className="space-x-3">
-            {/* 
-            <PlainButton onClick={() => onEdit(original)}>
+
+            <PlainButton onClick={() => console.log(original.id)}>
               <PencilAltIcon className="w-5 h-5" />
-            </PlainButton> */}
+            </PlainButton>
             <PlainButton
-              onClick={() => deleteParty(original.id)}
+              onClick={() => deleteParty(original.id).then(window.location.reload())}
             >
               <TrashIcon className="w-5 h-5 text-red-400 hover:text-red-500" />
             </PlainButton>

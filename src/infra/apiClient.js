@@ -1,3 +1,4 @@
+import { formatYearMonth } from '../utils/date';
 import request from './request';
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -43,9 +44,11 @@ export const chartDataExpense = () => {
   return request('GET', `${API_URL}/api/chart`, true, data);
 }
 export const chartPrediction = () => {
+  const date = new Date
+
   const data = {
     type: 'expense',
-    targetMonth: '2023-06',
+    targetMonth: formatYearMonth(date),
   }
   return request('GET', `${API_URL}/api/predictionChart`, true, data);
 }

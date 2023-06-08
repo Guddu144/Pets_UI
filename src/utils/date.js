@@ -7,6 +7,9 @@ export const formatShortDate = val => {
 export const formatDay = val => {
   return format(new Date(val), 'd');
 };
+export const formatYearMonth = val => {
+  return format(new Date(val), 'yyyy-MM');
+};
 
 export const formatDate = (val, dateFormat = 'LLL d yy') => {
   return format(new Date(val), dateFormat);

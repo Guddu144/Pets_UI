@@ -113,7 +113,7 @@ const SignUp2 = () => {
                   hasError={errors.password}
                   name="password"
                   autoComplete="off"
-                  {...register('password', { required: 'Please enter your password' })}
+                  {...register('password', { required: 'Please enter your password', minLength: 8 })}
                 />
                 <div className="eye-icon absolute top-[17px] left-[342px] float-right  px-4">
                   {showPassword ? (
@@ -138,7 +138,7 @@ const SignUp2 = () => {
                   hasError={errors.confirmPassword}
                   name="confirmPassword"
                   autoComplete="off"
-                  {...register('confirmPassword', { required: 'Please enter your password again' })}
+                  {...register('confirmPassword', { required: 'Please enter your password again', minLength: 8 })}
                 />
                 <div className="eye-icon absolute top-[17px] left-[342px] float-right  px-4">
                   {showConfirmPassword ? (
