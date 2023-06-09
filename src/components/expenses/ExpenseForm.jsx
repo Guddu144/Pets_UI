@@ -91,12 +91,6 @@ const ExpenseForm = () => {
         handleError(err, setError);
       });
   };
-  const toastMessage = localStorage.getItem("toastMessage");
-
-  if (toastMessage) {
-    toast.success(toastMessage); // Show the toast message
-    localStorage.removeItem("toastMessage"); // Remove the toast message from localStorage
-  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit(setError))}>

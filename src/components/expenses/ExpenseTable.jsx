@@ -5,14 +5,10 @@ import { PlainButton } from "../inputs";
 import { TrashIcon } from "@heroicons/react/solid";
 import { formatLongDate } from "../../utils/date";
 import { toast } from "react-toastify";
+import toastify from "../../utils/toast";
 
 const ExpenseTable = ({ cat }) => {
-  const toastMessage = localStorage.getItem("toastMessage");
-
-  if (toastMessage) {
-    toast.success(toastMessage); // Show the toast message
-    localStorage.removeItem("toastMessage"); // Remove the toast message from localStorage
-  }
+  toastify();
   const columns = useMemo(
     () => [
       {
