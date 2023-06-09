@@ -1,122 +1,159 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Button, FieldGroup, Input, SelectBox, TextArea } from '../inputs'
-import { Controller, useForm } from 'react-hook-form';
-import { addExpense } from '../../infra';
-import { useHandleError } from '../../hooks';
-import { useNavigate } from 'react-router-dom';
-import { isAfter, parseISO } from 'date-fns';
+import React, { useState, useEffect, useRef } from "react";
+import { Button, FieldGroup, Input, SelectBox, TextArea } from "../inputs";
+import { Controller, useForm } from "react-hook-form";
+import { addExpense } from "../../infra";
+import { useHandleError } from "../../hooks";
+import { useNavigate } from "react-router-dom";
+import { isAfter, parseISO } from "date-fns";
+import { toast } from "react-toastify";
 
 // import { useHandleError } from '../../../../hooks';
 
 const ExpenseForm = () => {
-  const { control, register, handleSubmit, setError, formState: { errors } } = useForm();
+  const {
+    control,
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm();
   const navigate = useNavigate();
   const paymentMethod = [
     {
-      id: 'Cash',
-      name: 'Cash',
+      id: "Cash",
+      name: "Cash",
     },
     {
-      id: 'Online',
-      name: 'Online',
+      id: "Online",
+      name: "Online",
     },
     {
-      id: 'Cheque',
-      name: 'Cheque',
+      id: "Cheque",
+      name: "Cheque",
     },
-  ]
+  ];
 
   const categories = [
     {
-      id: '1',
-      name: 'Foods and Drinks',
+      id: "1",
+      name: "Foods and Drinks",
     },
     {
-      id: '2',
-      name: 'Transportation',
+      id: "2",
+      name: "Transportation",
     },
     {
-      id: '3',
-      name: 'Entertainment',
+      id: "3",
+      name: "Entertainment",
     },
     {
-      id: '4',
-      name: 'Health',
+      id: "4",
+      name: "Health",
     },
     {
-      id: '5',
-      name: 'Education',
+      id: "5",
+      name: "Education",
     },
     {
-      id: '6',
-      name: 'Debt payments',
+      id: "6",
+      name: "Debt payments",
     },
     {
-      id: '7',
-      name: 'Housing',
+      id: "7",
+      name: "Housing",
     },
     {
-      id: '8',
-      name: 'Miscellaneous',
+      id: "8",
+      name: "Miscellaneous",
     },
-  ]
-  const validateDate = value => {
+  ];
+  const validateDate = (value) => {
     const selectedDate = parseISO(value);
     const today = new Date();
 
     if (isAfter(selectedDate, today)) {
-      return 'Selected date cannot be greater than today';
+      return "Selected date cannot be greater than today";
     }
 
     return true;
   };
 
   const handleError = useHandleError();
-  const onSubmit = setError => payload => {
+  const onSubmit = (setError) => (payload) => {
     addExpense(payload)
-      .then(window.location.reload())
-      .catch(err => handleError(err, setError))
+      .then((data) => {
+        console.log(data);
+        localStorage.setItem("toastMessage", data.message);
+        window.location.reload();
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        handleError(err, setError);
+      });
   };
+  const toastMessage = localStorage.getItem("toastMessage");
+
+  if (toastMessage) {
+    toast.success(toastMessage); // Show the toast message
+    localStorage.removeItem("toastMessage"); // Remove the toast message from localStorage
+  }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit(setError))} >
-      <FieldGroup name="amount" label="Amount" hideLabel={false} error={errors.amount} className="text-md my-4">
+    <form onSubmit={handleSubmit(onSubmit(setError))}>
+      <FieldGroup
+        name="amount"
+        label="Amount"
+        hideLabel={false}
+        error={errors.amount}
+        className="text-md my-4"
+      >
         <Input
           placeholder="Enter the Amount"
           type="number"
           name="amount"
           autoComplete="off"
           hasError={errors.amount}
-          {...register('amount', {
-            required: 'Please enter the amount',
+          {...register("amount", {
+            required: "Please enter the amount",
           })}
         />
       </FieldGroup>
       <div className="flex">
         <div className="flex-1">
-          <FieldGroup name="date" label="Date" hideLabel={false} error={errors.date} className="text-md my-4">
+          <FieldGroup
+            name="date"
+            label="Date"
+            hideLabel={false}
+            error={errors.date}
+            className="text-md my-4"
+          >
             <Input
               placeholder="Enter from date"
               type="date"
               name="date"
               autoComplete="off"
               hasError={errors.date}
-              {...register('date', {
+              {...register("date", {
                 validate: validateDate,
-                required: 'Please enter the from date',
+                required: "Please enter the from date",
               })}
             />
           </FieldGroup>
         </div>
-        <div className="flex-1 ml-2">
-        </div>
+        <div className="flex-1 ml-2"></div>
       </div>
 
-      <FieldGroup name="paymentMethod" label="Payment Method" error={errors.paymentMethod} hideLabel={false} className="text-md my-4">
+      <FieldGroup
+        name="paymentMethod"
+        label="Payment Method"
+        error={errors.paymentMethod}
+        hideLabel={false}
+        className="text-md my-4"
+      >
         <Controller
           control={control}
           name="paymentMethod"
-          rules={{ 'required': 'Please select a payment method' }}
+          rules={{ required: "Please select a payment method" }}
           render={({
             field: { onChange, ref, value },
             fieldState: { error },
@@ -133,11 +170,17 @@ const ExpenseForm = () => {
         />
       </FieldGroup>
 
-      <FieldGroup name="categoryId" label="Category" hideLabel={false} error={errors.categoryId} className="text-md my-4">
+      <FieldGroup
+        name="categoryId"
+        label="Category"
+        hideLabel={false}
+        error={errors.categoryId}
+        className="text-md my-4"
+      >
         <Controller
           control={control}
           name="categoryId"
-          rules={{ 'required': 'Please select a categorey type' }}
+          rules={{ required: "Please select a categorey type" }}
           render={({
             field: { onChange, ref, value },
             fieldState: { error },
@@ -154,15 +197,21 @@ const ExpenseForm = () => {
         />
       </FieldGroup>
 
-      <FieldGroup name="note" label="Note" hideLabel={false} error={errors.note} className="text-md my-4">
+      <FieldGroup
+        name="note"
+        label="Note"
+        hideLabel={false}
+        error={errors.note}
+        className="text-md my-4"
+      >
         <TextArea
           placeholder="Enter the note"
           type="textArea"
           name="note"
           autoComplete="off"
           hasError={errors.note}
-          {...register('note', {
-            required: 'Please enter the note',
+          {...register("note", {
+            required: "Please enter the note",
           })}
         />
       </FieldGroup>
@@ -171,7 +220,7 @@ const ExpenseForm = () => {
         Submit
       </Button>
     </form>
-  )
-}
+  );
+};
 
 export default ExpenseForm;
