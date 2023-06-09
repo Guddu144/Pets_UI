@@ -80,7 +80,7 @@ const SignUp2 = () => {
                 <Input
                   type="text"
                   icon={<Icon icon={userIcon} />}
-                  placeholder="Enter your name"
+                  placeholder="Enter your username"
                   hasError={errors.username}
                   name="username"
                   autoComplete="off"
