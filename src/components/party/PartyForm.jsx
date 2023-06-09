@@ -46,7 +46,7 @@ const PartyForm = () => {
       </FieldGroup>
       <FieldGroup name="email" label="Email" hideLabel={false} error={errors.email} className="text-md my-4">
         <Input
-          placeholder="Enter the party's name"
+          placeholder="Enter the party's email"
           type="email"
           name="email"
           autoComplete="off"

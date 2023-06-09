@@ -50,27 +50,27 @@ const GoalForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit(setError))} >
-      <FieldGroup name="name" label="Goal Name" hideLabel={false} error={errors.amount} className="text-md my-4">
+      <FieldGroup name="name" label="Budget Name" hideLabel={false} error={errors.amount} className="text-md my-4">
         <Input
-          placeholder="Enter the goal's name"
+          placeholder="Enter the budget's name"
           type="text"
-          name="amount"
+          name="name"
           autoComplete="off"
           hasError={errors.name}
           {...register('name', {
-            required: 'Please enter the name',
+            required: 'Please enter the budget name',
           })}
         />
       </FieldGroup>
-      <FieldGroup name="targetAmount" label="Targt Goal Amount" hideLabel={false} error={errors.targetAmount} className="text-md my-4">
+      <FieldGroup name="targetAmount" label="Budget Amount" hideLabel={false} error={errors.targetAmount} className="text-md my-4">
         <Input
-          placeholder="Enter the target goal amount"
+          placeholder="Enter the target budget amount"
           type="number"
           name="targetAmount"
           autoComplete="off"
           hasError={errors.targetAmount}
           {...register('targetAmount', {
-            required: 'Please enter the target goal amount',
+            required: 'Please enter the target budget amount',
           })}
         />
       </FieldGroup>
