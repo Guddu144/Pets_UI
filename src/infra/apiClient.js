@@ -87,6 +87,15 @@ export const editEarning = (payload, id) => {
   };
   return request('PUT', `${API_URL}/api/finance/${id}`, true, data);
 };
+export const editGoal = (payload, id) => {
+  return request('PUT', `${API_URL}/api/goal/${id}`, true, payload);
+};
+export const editParty = (payload, id) => {
+  return request('PUT', `${API_URL}/api/party/${id}`, true, payload);
+};
+export const editTransaction = (payload, id) => {
+  return request('PUT', `${API_URL}/api/transaction/${id}`, true, payload);
+};
 export const fetchExpense = filter => {
   const data = {
     ...filter,
@@ -108,6 +117,26 @@ export const fetchSingleEarning = id => {
 
   };
   return request('GET', `${API_URL}/api/finance/${id}`, true, data);
+};
+export const fetchSingleExpense = id => {
+  console.log(id)
+  const data = {
+    type: 'expense',
+
+  };
+  return request('GET', `${API_URL}/api/finance/${id}`, true, data);
+};
+export const fetchSingleGoal = id => {
+  console.log(id)
+  return request('GET', `${API_URL}/api/goal/${id}`, true);
+};
+export const fetchSingleParty = id => {
+  console.log(id)
+  return request('GET', `${API_URL}/api/party/${id}`, true);
+};
+export const fetchSingleTransaction = id => {
+  console.log(id)
+  return request('GET', `${API_URL}/api/transaction/${id}`, true);
 };
 
 export const deleteExpense = id => {

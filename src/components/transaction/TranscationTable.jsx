@@ -3,11 +3,11 @@ import DataTable from '../tables/DataTable';
 import { deleteTranscation, fetchTranscationn } from '../../infra';
 import { useFilter } from '../../hooks';
 import { PlainButton } from '../inputs';
-import { TrashIcon } from '@heroicons/react/solid';
+import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
 import { formatLongDate } from '../../utils/date';
 import toastify from '../../utils/toast';
 
-const TranscationTable = ({ party }) => {
+const TranscationTable = ({ party, cat, setType, setModelID }) => {
   toastify();
   const [filter, updateFilter] = useFilter({
     Type: '',
@@ -48,10 +48,12 @@ const TranscationTable = ({ party }) => {
         Cell: ({ row: { original } }) => {
           return (
             <div className="space-x-3">
-              {/* 
-            <PlainButton onClick={() => onEdit(original)}>
-              <PencilAltIcon className="w-5 h-5" />
-            </PlainButton> */}
+              <PlainButton onClick={() => {
+                setType('Update')
+                setModelID(original.id)
+              }}>
+                <PencilAltIcon className="w-5 h-5" />
+              </PlainButton>
               <PlainButton
                 onClick={() => {
                   if (window.confirm('Are you sure?')) {

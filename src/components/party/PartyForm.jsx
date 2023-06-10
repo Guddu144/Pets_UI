@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, FieldGroup, Input } from '../inputs';
 import { useForm } from 'react-hook-form';
-import { addParty } from '../../infra';
+import { addParty, editParty } from '../../infra';
 import { useHandleError, useHandleSuccess } from '../../hooks';
 import { toast } from 'react-toastify';
 
-const PartyForm = () => {
+const PartyForm = ({ type, val, modelID }) => {
   const {
     register,
     handleSubmit,
+    setValue,
     setError,
     formState: { errors },
   } = useForm();
@@ -16,17 +17,39 @@ const PartyForm = () => {
   const handleSuccess = useHandleSuccess();
   const [msg, setMsg] = useState();
 
+  useEffect(() => {
+    if (val) {
+      // Set default values for the form fields using setValue
+      console.log(val);
+      setValue('goalId', val.data?.id.toString());
+    }
+  }, [setValue, val]);
+
   const onSubmit = setError => payload => {
-    addParty(payload)
-      .then(data => {
-        console.log(data);
-        localStorage.setItem('toastMessage', data.message);
-        window.location.reload();
-      })
-      .catch(err => {
-        toast.error(err.message);
-        handleError(err, setError);
-      });
+    if (type === 'Create') {
+      addParty(payload)
+        .then(data => {
+          console.log(data);
+          localStorage.setItem('toastMessage', data.message);
+          window.location.reload();
+        })
+        .catch(err => {
+          toast.error(err.message);
+          handleError(err, setError);
+        });
+    }
+    else {
+      editParty(payload, modelID)
+        .then(data => {
+          console.log(data);
+          localStorage.setItem('toastMessage', data.message);
+          window.location.reload();
+        })
+        .catch(err => {
+          toast.error(err.message);
+          handleError(err, setError);
+        });
+    }
   };
 
   return (
@@ -48,6 +71,7 @@ const PartyForm = () => {
           hasError={errors.name}
           {...register('name', {
             required: 'Please enter the name',
+            value: val?.data?.name,
           })}
         />
       </FieldGroup>
@@ -69,7 +93,9 @@ const PartyForm = () => {
             pattern: {
               value: /^[9][678][0-9]{8}$/,
               message: 'Contact Number should be at least 10 digits',
+
             },
+            value: val?.data?.contactNo,
           })}
         />
       </FieldGroup>
@@ -91,7 +117,9 @@ const PartyForm = () => {
             pattern: {
               value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
               message: 'Invalid email address',
+
             },
+            value: val?.data?.email,
           })}
         />
       </FieldGroup>
