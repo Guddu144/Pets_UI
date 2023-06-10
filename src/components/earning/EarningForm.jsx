@@ -1,89 +1,117 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Button, FieldGroup, Input, SelectBox, TextArea } from "../inputs";
-import { Controller, useForm } from "react-hook-form";
-import { addEarning } from "../../infra/apiClient";
-import { useHandleError } from "../../hooks";
-import { isAfter, parseISO } from "date-fns";
+import React, { useState, useEffect, useRef } from 'react';
+import { Button, FieldGroup, Input, SelectBox, TextArea } from '../inputs';
+import { Controller, useForm } from 'react-hook-form';
+import { addEarning, editEarning } from '../../infra/apiClient';
+import { useHandleError } from '../../hooks';
+import { isAfter, parseISO } from 'date-fns';
+import { toast } from 'react-toastify';
+import { formatDateYear } from '../../utils/date';
 
-const EarningForm = () => {
+const EarningForm = ({ type, val, modelID }) => {
+  console.log(val)
   const {
     control,
     register,
     handleSubmit,
     setError,
+    setValue,
     formState: { errors },
   } = useForm();
 
   const paymentMethod = [
     {
-      id: "Cash",
-      name: "Cash",
+      id: '0',
+      name: 'Cash',
     },
     {
-      id: "Online",
-      name: "Online",
+      id: '1',
+      name: 'Online',
     },
     {
-      id: "Cheque",
-      name: "Cheque",
+      id: '2',
+      name: 'Cheque',
     },
   ];
 
   const categories = [
     {
-      id: "9",
-      name: "Salary",
+      id: '9',
+      name: 'Salary',
     },
     {
-      id: "10",
-      name: "Investment income",
+      id: '10',
+      name: 'Investment income',
     },
     {
-      id: "11",
-      name: "Rental income",
+      id: '11',
+      name: 'Rental income',
     },
     {
-      id: "12",
-      name: "Gifts/inheritances",
+      id: '12',
+      name: 'Gifts/inheritances',
     },
     {
-      id: "13",
-      name: "Retirement income",
+      id: '13',
+      name: 'Retirement income',
     },
     {
-      id: "14",
-      name: "Miscellaneous",
+      id: '14',
+      name: 'Miscellaneous',
     },
   ];
 
-  const validateDate = (value) => {
+  const validateDate = value => {
     const selectedDate = parseISO(value);
     const today = new Date();
 
     if (isAfter(selectedDate, today)) {
-      return "Selected date cannot be greater than today";
+      return 'Selected date cannot be greater than today';
     }
 
     return true;
   };
 
+  useEffect(() => {
+    if (val) {
+      // Set default values for the form fields using setValue
+      setValue('paymentMethod', val.data?.paymentMethod);
+      setValue('categoryId', val.data?.categoryId.toString());
+    }
+  }, [setValue, val]);
+
   const handleError = useHandleError();
 
-  const onSubmit = (setError) => (payload) => {
-    addEarning(payload)
-      .then((data) => {
-        console.log(data);
-        localStorage.setItem("toastMessage", data.message);
-        window.location.reload();
-      })
-      .catch((err) => {
-        toast.error(err.message);
-        handleError(err, setError);
-      });
+  const onSubmit = setError => payload => {
+    if (type === 'Create') {
+      addEarning(payload)
+        .then(data => {
+          console.log(data);
+          localStorage.setItem('toastMessage', data.message);
+          window.location.reload();
+        })
+        .catch(err => {
+          toast.error(err.message);
+          handleError(err, setError);
+        });
+    }
+    else {
+      editEarning(payload, modelID)
+        .then(data => {
+          console.log(data);
+          localStorage.setItem('toastMessage', data.message);
+          window.location.reload();
+        })
+        .catch(err => {
+          toast.error(err.message);
+          handleError(err, setError);
+        });
+    }
+
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit(setError))}>
+
       <FieldGroup
         name="amount"
         label="Amount"
@@ -97,8 +125,10 @@ const EarningForm = () => {
           name="amount"
           autoComplete="off"
           hasError={errors.amount}
-          {...register("amount", {
-            required: "Please enter the amount",
+          {...register('amount', {
+            required: 'Please enter the amount',
+            value: val?.data?.amount,
+
           })}
         />
       </FieldGroup>
@@ -117,9 +147,10 @@ const EarningForm = () => {
               name="date"
               autoComplete="off"
               hasError={errors.date}
-              {...register("date", {
+              {...register('date', {
                 validate: validateDate,
-                required: "Please enter the from date",
+                required: 'Please enter the from date',
+                value: val?.data?.date ? formatDateYear(val?.data?.date) : null,
               })}
             />
           </FieldGroup>
@@ -137,7 +168,8 @@ const EarningForm = () => {
         <Controller
           control={control}
           name="paymentMethod"
-          rules={{ required: "Please select a payment method" }}
+          defaultValue={val?.data?.paymentMethod || ''}
+          rules={{ required: 'Please select a payment method' }}
           render={({
             field: { onChange, ref, value },
             fieldState: { error },
@@ -164,7 +196,8 @@ const EarningForm = () => {
         <Controller
           control={control}
           name="categoryId"
-          rules={{ required: "Please select a categorey type" }}
+          defaultValue={val?.data?.categoryId || ''}
+          rules={{ required: 'Please select a categorey type' }}
           render={({
             field: { onChange, ref, value },
             fieldState: { error },
@@ -194,8 +227,10 @@ const EarningForm = () => {
           name="note"
           autoComplete="off"
           hasError={errors.note}
-          {...register("note", {
-            required: "Please enter the note",
+          {...register('note', {
+            required: 'Please enter the note',
+            value: val?.data?.note,
+
           })}
         />
       </FieldGroup>

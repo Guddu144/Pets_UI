@@ -1,8 +1,17 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { Button, FieldGroup, Input } from '../inputs';
 import { useForm } from 'react-hook-form';
 import { addParty } from '../../infra';
 import { useHandleError, useHandleSuccess } from '../../hooks';
+import { toast } from 'react-toastify';
+=======
+import React, { useState } from "react";
+import { Button, FieldGroup, Input } from "../inputs";
+import { useForm } from "react-hook-form";
+import { addParty } from "../../infra";
+import { useHandleError, useHandleSuccess } from "../../hooks";
+>>>>>>> 5d992249d5c1aa0d28804ce2c44141250724c345
 
 const PartyForm = () => {
   const {
@@ -15,14 +24,14 @@ const PartyForm = () => {
   const handleSuccess = useHandleSuccess();
   const [msg, setMsg] = useState();
 
-  const onSubmit = setError => payload => {
+  const onSubmit = (setError) => (payload) => {
     addParty(payload)
-      .then(data => {
+      .then((data) => {
         console.log(data);
-        localStorage.setItem('toastMessage', data.message);
+        localStorage.setItem("toastMessage", data.message);
         window.location.reload();
       })
-      .catch(err => {
+      .catch((err) => {
         toast.error(err.message);
         handleError(err, setError);
       });
@@ -45,8 +54,8 @@ const PartyForm = () => {
           name="amount"
           autoComplete="off"
           hasError={errors.name}
-          {...register('name', {
-            required: 'Please enter the name',
+          {...register("name", {
+            required: "Please enter the name",
           })}
         />
       </FieldGroup>
@@ -63,11 +72,11 @@ const PartyForm = () => {
           name="contactNo"
           autoComplete="off"
           hasError={errors.contactNo}
-          {...register('contactNo', {
-            required: 'Please enter the contact number',
+          {...register("contactNo", {
+            required: "Please enter the contact number",
             pattern: {
               value: /^[9][678][0-9]{8}$/,
-              message: 'Contact Number should be at least 10 digits',
+              message: "Contact Number should be at least 10 digits",
             },
           })}
         />
@@ -85,11 +94,11 @@ const PartyForm = () => {
           name="email"
           autoComplete="off"
           hasError={errors.email}
-          {...register('email', {
-            required: 'Please enter the email',
+          {...register("email", {
+            required: "Please enter the email",
             pattern: {
               value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: 'Invalid email address',
+              message: "Invalid email address",
             },
           })}
         />
