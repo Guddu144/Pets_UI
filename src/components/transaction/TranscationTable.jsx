@@ -1,50 +1,50 @@
-import React, { useMemo } from "react";
-import DataTable from "../tables/DataTable";
-import { deleteTranscation, fetchTranscationn } from "../../infra";
-import { useFilter } from "../../hooks";
-import { PlainButton } from "../inputs";
-import { TrashIcon } from "@heroicons/react/solid";
-import { formatLongDate } from "../../utils/date";
-import toastify from "../../utils/toast";
+import React, { useMemo } from 'react';
+import DataTable from '../tables/DataTable';
+import { deleteTranscation, fetchTranscationn } from '../../infra';
+import { useFilter } from '../../hooks';
+import { PlainButton } from '../inputs';
+import { TrashIcon } from '@heroicons/react/solid';
+import { formatLongDate } from '../../utils/date';
+import toastify from '../../utils/toast';
 
 const TranscationTable = ({ party }) => {
   toastify();
   const [filter, updateFilter] = useFilter({
-    Type: "",
+    Type: '',
   });
 
   const columns = useMemo(
     () => [
       {
-        Header: "Id",
-        accessor: "id",
+        Header: 'Id',
+        accessor: 'id',
       },
       {
-        Header: "Amount",
-        accessor: "amount",
+        Header: 'Amount',
+        accessor: 'amount',
       },
       {
-        Header: "Date",
+        Header: 'Date',
         accessor: ({ date }) => formatLongDate(date),
       },
       {
-        Header: "Payment Method",
-        accessor: "paymentMethod",
+        Header: 'Payment Method',
+        accessor: 'paymentMethod',
       },
       {
-        Header: "Type",
-        accessor: "type",
+        Header: 'Type',
+        accessor: 'type',
       },
       {
-        Header: "Party",
+        Header: 'Party',
         Cell: ({ row: { original } }) => {
-          const partyName = party?.data?.find((c) => c.id === original.partyId);
-          return <span>{partyName ? partyName.name : ""}</span>;
+          const partyName = party?.data?.find(c => c.id === original.partyId);
+          return <span>{partyName ? partyName.name : ''}</span>;
         },
       },
       {
-        Header: "Actions",
-        id: "actions",
+        Header: 'Actions',
+        id: 'actions',
         Cell: ({ row: { original } }) => {
           return (
             <div className="space-x-3">
@@ -53,9 +53,14 @@ const TranscationTable = ({ party }) => {
               <PencilAltIcon className="w-5 h-5" />
             </PlainButton> */}
               <PlainButton
-                onClick={() =>
-                  deleteTranscation(original.id).then(window.location.reload())
-                }
+                onClick={() => {
+                  if (window.confirm('Are you sure?')) {
+                    deleteTranscation(original.id).then(data => {
+                      localStorage.setItem('toastMessage', data.message);
+                      window.location.reload();
+                    });
+                  }
+                }}
               >
                 <TrashIcon className="w-5 h-5 text-red-400 hover:text-red-500" />
               </PlainButton>
@@ -64,29 +69,29 @@ const TranscationTable = ({ party }) => {
         },
       },
     ],
-    []
+    [],
   );
 
   const Types = [
-    { id: "in", label: "Incoming" },
-    { id: "out", label: "Outgoing" },
+    { id: 'in', label: 'Incoming' },
+    { id: 'out', label: 'Outgoing' },
   ];
 
   const filterGroups = useMemo(
     () => [
       {
-        id: "transaction_type",
-        label: "Transaction Types",
-        filters: Types.map((type) => ({
+        id: 'transaction_type',
+        label: 'Transaction Types',
+        filters: Types.map(type => ({
           id: type.id,
           label: type.label,
           active: type.id == filter.Types,
-          onClick: (checked) =>
-            updateFilter("Types", checked ? type.id : undefined),
+          onClick: checked =>
+            updateFilter('Types', checked ? type.id : undefined),
         })),
       },
     ],
-    [Types, filter]
+    [Types, filter],
   );
 
   return (

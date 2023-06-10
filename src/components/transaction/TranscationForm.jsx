@@ -104,7 +104,7 @@ const TranscationForm = () => {
           >
             <Input
               placeholder="Enter date"
-              type="datetime-local"
+              type="date"
               name="date"
               autoComplete="off"
               hasError={errors.date}

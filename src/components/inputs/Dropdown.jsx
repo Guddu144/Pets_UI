@@ -1,13 +1,13 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react'
-import { Menu, Transition } from '@headlessui/react'
-import { classNames } from '../../utils'
-import { Link, Navigate } from 'react-router-dom'
+import React, { Fragment, useEffect, useRef, useState } from "react";
+import { Menu, Transition } from "@headlessui/react";
+import { classNames } from "../../utils";
+import { Link, Navigate } from "react-router-dom";
 
 const Dropdown = ({ menuButton }) => {
   const items = [
-    { id: '1', label: 'Profile', link: '/test' },
-    { id: '2', label: 'Logout', link: '/login' },
-  ]
+    { id: "1", label: "Profile", link: "/profile" },
+    { id: "2", label: "Logout", link: "/login" },
+  ];
   return (
     <div className="relative w-full">
       <Menu as="div" className="relative inline-block w-full">
@@ -27,28 +27,26 @@ const Dropdown = ({ menuButton }) => {
         >
           <Menu.Items className="absolute right-0 mt-1 w-full origin-top-right divide-y divide-gray-100 rounded-md bg-green-120 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="px-1 py-1">
-              {
-                items.map(elem => (
-                  <Menu.Item key={elem.id}>
-                    <Link
-                      key={elem.id}
-                      to={elem.link}
-                      title={elem.label}
-                      className={classNames(
-                        'group flex items-center p-3 text-sm font-normal mb-1 rounded-md text-blue-50 hover:bg-blue-900',
-                      )}
-                    >
-                      {elem.label}
-                    </Link>
-                  </Menu.Item>
-                ))
-              }
+              {items.map((elem) => (
+                <Menu.Item key={elem.id}>
+                  <Link
+                    key={elem.id}
+                    to={elem.link}
+                    title={elem.label}
+                    className={classNames(
+                      "group flex items-center p-3 text-sm font-normal mb-1 rounded-md text-blue-50 hover:bg-blue-900"
+                    )}
+                  >
+                    {elem.label}
+                  </Link>
+                </Menu.Item>
+              ))}
             </div>
           </Menu.Items>
         </Transition>
       </Menu>
     </div>
-  )
-}
+  );
+};
 
 export default Dropdown;

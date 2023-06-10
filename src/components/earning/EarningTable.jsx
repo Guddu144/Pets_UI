@@ -1,46 +1,46 @@
-import React, { useMemo } from "react";
-import DataTable from "../tables/DataTable";
-import { deleteEarning, fetchEarning } from "../../infra";
-import { PlainButton } from "../inputs";
-import { TrashIcon } from "@heroicons/react/solid";
-import { formatLongDate } from "../../utils/date";
-import toastify from "../../utils/toast";
+import React, { useMemo } from 'react';
+import DataTable from '../tables/DataTable';
+import { deleteEarning, fetchEarning } from '../../infra';
+import { PlainButton } from '../inputs';
+import { TrashIcon } from '@heroicons/react/solid';
+import { formatLongDate } from '../../utils/date';
+import toastify from '../../utils/toast';
 
 const EarningTable = ({ cat }) => {
   toastify();
   const columns = useMemo(
     () => [
       {
-        Header: "Id",
-        accessor: "id",
+        Header: 'Id',
+        accessor: 'id',
       },
       {
-        Header: "Amount",
-        accessor: "amount",
+        Header: 'Amount',
+        accessor: 'amount',
       },
       {
-        Header: "Date",
+        Header: 'Date',
         accessor: ({ date }) => formatLongDate(date),
       },
       {
-        Header: "Payment Method",
-        accessor: "paymentMethod",
+        Header: 'Payment Method',
+        accessor: 'paymentMethod',
       },
       {
-        Header: "Notes",
-        accessor: "note",
+        Header: 'Notes',
+        accessor: 'note',
       },
       {
-        Header: "Category",
+        Header: 'Category',
         Cell: ({ row: { original } }) => {
-          const category = cat?.data?.find((c) => c.id === original.categoryId);
-          return <span>{category ? category.title : ""}</span>;
+          const category = cat?.data?.find(c => c.id === original.categoryId);
+          return <span>{category ? category.title : ''}</span>;
         },
       },
 
       {
-        Header: "Actions",
-        id: "actions",
+        Header: 'Actions',
+        id: 'actions',
         Cell: ({ row: { original } }) => {
           return (
             <div className="space-x-3">
@@ -49,9 +49,14 @@ const EarningTable = ({ cat }) => {
               <PencilAltIcon className="w-5 h-5" />
             </PlainButton> */}
               <PlainButton
-                onClick={() =>
-                  deleteEarning(original.id).then(window.location.reload())
-                }
+                onClick={() => {
+                  if (window.confirm('Are you sure?')) {
+                    deleteEarning(original.id).then(data => {
+                      localStorage.setItem('toastMessage', data.message);
+                      window.location.reload();
+                    });
+                  }
+                }}
               >
                 <TrashIcon className="w-5 h-5 text-red-400 hover:text-red-500" />
               </PlainButton>
@@ -60,7 +65,7 @@ const EarningTable = ({ cat }) => {
         },
       },
     ],
-    []
+    [],
   );
 
   return (
@@ -68,7 +73,7 @@ const EarningTable = ({ cat }) => {
       <DataTable
         columns={columns}
         apiRequest={fetchEarning}
-        // placeholder={('Search by invoice number, name, amount...')}
+      // placeholder={('Search by invoice number, name, amount...')}
       />
     </div>
   );
