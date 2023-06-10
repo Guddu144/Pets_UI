@@ -1,10 +1,10 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
-import { Modal, PageHeader, PageLayout } from "../common";
-import { Button } from "../inputs";
-import { IconPlus, IconX } from "@tabler/icons";
-import PartyForm from "./PartyForm";
-import PartyTable from "./PartyTable";
-import { fetchSingleParty } from "../../infra";
+import React, { useState, useContext, useEffect, useRef } from 'react';
+import { Modal, PageHeader, PageLayout } from '../common';
+import { Button } from '../inputs';
+import { IconPlus, IconX } from '@tabler/icons';
+import PartyForm from './PartyForm';
+import PartyTable from './PartyTable';
+import { fetchSingleParty } from '../../infra';
 // import EarningForm from './EarningForm';
 
 const Party = () => {
@@ -25,14 +25,14 @@ const Party = () => {
   return (
     <>
       <PageHeader
-        title={"Party"}
-        crumbs={[{ label: "Party detail" }]}
+        title={'Party'}
+        crumbs={[{ label: 'Party detail' }]}
         action={
           <div className="flex mt-2">
             <Button
               onClick={() => {
                 setIsPartyFormopen(true);
-                setType("Create");
+                setType('Create');
                 setVal(null);
               }}
               full="true"

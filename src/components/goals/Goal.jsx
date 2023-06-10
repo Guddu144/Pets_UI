@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Modal, PageHeader, PageLayout } from "../common";
-import { Button } from "../inputs";
-import { IconPlus, IconX } from "@tabler/icons";
-import GoalForm from "./GoalForm";
-import GoalTable from "./GoalTable";
-import { fetchCategory, fetchSingleGoal } from "../../infra";
+import React, { useEffect, useState } from 'react';
+import { Modal, PageHeader, PageLayout } from '../common';
+import { Button } from '../inputs';
+import { IconPlus, IconX } from '@tabler/icons';
+import GoalForm from './GoalForm';
+import GoalTable from './GoalTable';
+import { fetchCategory, fetchSingleGoal } from '../../infra';
 
 const Goal = () => {
   const [isExpenseFormOpen, setIsExpenseFormOpen] = useState(false);
@@ -29,14 +29,14 @@ const Goal = () => {
   return (
     <>
       <PageHeader
-        title={"Set Budget"}
-        crumbs={[{ label: "Add budget" }]}
+        title={'Set Budget'}
+        crumbs={[{ label: 'Add budget' }]}
         action={
           <div className="flex mt-2">
             <Button
               onClick={() => {
                 setIsExpenseFormOpen(true);
-                setType("Create");
+                setType('Create');
                 setVal(null);
               }}
               full="true"

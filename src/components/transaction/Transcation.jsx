@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Modal, PageHeader, PageLayout } from "../common";
-import { Button } from "../inputs";
-import { IconPlus, IconX } from "@tabler/icons";
-import TranscationForm from "./TranscationForm";
-import TranscationTable from "./TranscationTable";
-import { fetchSingleTransaction, partyTable } from "../../infra";
+import React, { useEffect, useState } from 'react';
+import { Modal, PageHeader, PageLayout } from '../common';
+import { Button } from '../inputs';
+import { IconPlus, IconX } from '@tabler/icons';
+import TranscationForm from './TranscationForm';
+import TranscationTable from './TranscationTable';
+import { fetchSingleTransaction, partyTable } from '../../infra';
 
 const Transcation = () => {
   const [isTranscationFormOpen, setIsTranscationFormOpen] = useState(false);
@@ -29,14 +29,14 @@ const Transcation = () => {
   return (
     <>
       <PageHeader
-        title={"Transaction"}
-        crumbs={[{ label: "Transaction detail" }]}
+        title={'Transaction'}
+        crumbs={[{ label: 'Transaction detail' }]}
         action={
           <div className="flex mt-2">
             <Button
               onClick={() => {
                 setIsTranscationFormOpen(true);
-                setType("Create");
+                setType('Create');
                 setVal(null);
               }}
               full="true"
