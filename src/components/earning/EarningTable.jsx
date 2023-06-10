@@ -2,11 +2,11 @@ import React, { useMemo } from 'react';
 import DataTable from '../tables/DataTable';
 import { deleteEarning, fetchEarning } from '../../infra';
 import { PlainButton } from '../inputs';
-import { TrashIcon } from '@heroicons/react/solid';
+import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
 import { formatLongDate } from '../../utils/date';
 import toastify from '../../utils/toast';
 
-const EarningTable = ({ cat }) => {
+const EarningTable = ({ cat, setType, setModelID }) => {
   toastify();
   const columns = useMemo(
     () => [
@@ -24,7 +24,19 @@ const EarningTable = ({ cat }) => {
       },
       {
         Header: 'Payment Method',
-        accessor: 'paymentMethod',
+        accessor: ({ paymentMethod }) => {
+          switch (paymentMethod) {
+            case '0':
+              return 'Cash';
+            case '1':
+              return 'Online';
+            case '2':
+              return 'Cheque';
+            default:
+              return paymentMethod;
+          }
+        },
+
       },
       {
         Header: 'Notes',
@@ -44,10 +56,12 @@ const EarningTable = ({ cat }) => {
         Cell: ({ row: { original } }) => {
           return (
             <div className="space-x-3">
-              {/* 
-            <PlainButton onClick={() => onEdit(original)}>
-              <PencilAltIcon className="w-5 h-5" />
-            </PlainButton> */}
+              <PlainButton onClick={() => {
+                setType('Update')
+                setModelID(original.id)
+              }}>
+                <PencilAltIcon className="w-5 h-5" />
+              </PlainButton>
               <PlainButton
                 onClick={() => {
                   if (window.confirm('Are you sure?')) {

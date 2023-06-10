@@ -1,16 +1,17 @@
-import React from "react";
+import React from 'react';
 import {
   AsyncSearchBox,
   Button,
   FieldGroup,
   Input,
   SelectBox,
-} from "../inputs";
-import { useHandleError } from "../../hooks";
-import { Controller, useForm } from "react-hook-form";
-import { addTranscationn, getParty } from "../../infra";
-import { useNavigate } from "react-router-dom";
-import { isAfter, parseISO } from "date-fns";
+} from '../inputs';
+import { useHandleError } from '../../hooks';
+import { Controller, useForm } from 'react-hook-form';
+import { addTranscationn, getParty } from '../../infra';
+import { useNavigate } from 'react-router-dom';
+import { isAfter, parseISO } from 'date-fns';
+import { toast } from 'react-toastify';
 
 const TranscationForm = () => {
   const {
@@ -27,46 +28,46 @@ const TranscationForm = () => {
 
   const paymentMethod = [
     {
-      id: "Cash",
-      name: "Cash",
+      id: 'Cash',
+      name: 'Cash',
     },
     {
-      id: "Online",
-      name: "Online",
+      id: 'Online',
+      name: 'Online',
     },
     {
-      id: "Cheque",
-      name: "Cheque",
+      id: 'Cheque',
+      name: 'Cheque',
     },
   ];
   const paymentType = [
     {
-      id: "Borrowing",
-      name: "Borrowing",
+      id: 'Borrowing',
+      name: 'Borrowing',
     },
     {
-      id: "Lending",
-      name: "Lending",
+      id: 'Lending',
+      name: 'Lending',
     },
   ];
-  const validateDate = (value) => {
+  const validateDate = value => {
     const selectedDate = parseISO(value);
     const today = new Date();
 
     if (isAfter(selectedDate, today)) {
-      return "Selected date cannot be greater than today";
+      return 'Selected date cannot be greater than today';
     }
 
     return true;
   };
-  const onSubmit = (setError) => (payload) => {
+  const onSubmit = setError => payload => {
     addTranscationn(payload)
-      .then((data) => {
+      .then(data => {
         console.log(data);
-        localStorage.setItem("toastMessage", data.message);
+        localStorage.setItem('toastMessage', data.message);
         window.location.reload();
       })
-      .catch((err) => {
+      .catch(err => {
         toast.error(err.message);
         handleError(err, setError);
       });
@@ -87,8 +88,8 @@ const TranscationForm = () => {
           name="amount"
           autoComplete="off"
           hasError={errors.amount}
-          {...register("amount", {
-            required: "Please enter the amount",
+          {...register('amount', {
+            required: 'Please enter the amount',
           })}
         />
       </FieldGroup>
@@ -108,9 +109,9 @@ const TranscationForm = () => {
               name="date"
               autoComplete="off"
               hasError={errors.date}
-              {...register("date", {
+              {...register('date', {
                 validate: validateDate,
-                required: "Please enter the date",
+                required: 'Please enter the date',
               })}
             />
           </FieldGroup>
@@ -127,7 +128,7 @@ const TranscationForm = () => {
         <Controller
           control={control}
           name="paymentMethod"
-          rules={{ required: "Please select a payment method" }}
+          rules={{ required: 'Please select a payment method' }}
           render={({
             field: { onChange, ref, value },
             fieldState: { error },
@@ -154,7 +155,7 @@ const TranscationForm = () => {
         <Controller
           control={control}
           name="type"
-          rules={{ required: "Please select a payment flow" }}
+          rules={{ required: 'Please select a payment flow' }}
           render={({
             field: { onChange, ref, value },
             fieldState: { error },
@@ -174,22 +175,22 @@ const TranscationForm = () => {
       <Controller
         control={control}
         name="partyId"
-        rules={{ required: "Please provide party name" }}
+        rules={{ required: 'Please provide party name' }}
         render={({
           field: { onChange, onBlur, value, ref, name },
           fieldState: { error },
         }) => (
-          <FieldGroup name={name} label={"Party Name"} error={error}>
+          <FieldGroup name={name} label={'Party Name'} error={error}>
             <AsyncSearchBox
               ref={ref}
               fetcher={getParty}
-              placeholder={"Search party"}
-              emptyText={"No such party"}
+              placeholder={'Search party'}
+              emptyText={'No such party'}
               onChange={onChange}
               value={value}
               hasError={error}
               onBlur={onBlur}
-              // disabled={disabled}
+            // disabled={disabled}
             />
           </FieldGroup>
         )}

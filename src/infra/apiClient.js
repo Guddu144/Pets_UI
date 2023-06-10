@@ -71,6 +71,22 @@ export const addExpense = payload => {
   };
   return request('POST', `${API_URL}/api/finance`, true, data);
 };
+
+export const editExpense = (payload, id) => {
+  const data = {
+    ...payload,
+    type: 'expense',
+  };
+  return request('PUT', `${API_URL}/api/finance/${id}`, true, data);
+};
+
+export const editEarning = (payload, id) => {
+  const data = {
+    ...payload,
+    type: 'income',
+  };
+  return request('PUT', `${API_URL}/api/finance/${id}`, true, data);
+};
 export const fetchExpense = filter => {
   const data = {
     ...filter,
@@ -84,6 +100,14 @@ export const fetchEarning = filter => {
     type: 'income',
   };
   return request('GET', `${API_URL}/api/finance`, true, data);
+};
+export const fetchSingleEarning = id => {
+  console.log(id)
+  const data = {
+    type: 'income',
+
+  };
+  return request('GET', `${API_URL}/api/finance/${id}`, true, data);
 };
 
 export const deleteExpense = id => {
