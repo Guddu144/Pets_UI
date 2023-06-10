@@ -49,9 +49,14 @@ const ExpenseTable = ({ cat }) => {
               <PencilAltIcon className="w-5 h-5" />
             </PlainButton> */}
               <PlainButton
-                onClick={() =>
-                  deleteExpense(original.id).then(window.location.reload())
-                }
+                onClick={() => {
+                  if (window.confirm("Are you sure?")) {
+                    deleteExpense(original.id).then((data) => {
+                      localStorage.setItem("toastMessage", data.message);
+                      window.location.reload();
+                    });
+                  }
+                }}
               >
                 <TrashIcon className="w-5 h-5 text-red-400 hover:text-red-500" />
               </PlainButton>

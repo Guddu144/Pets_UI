@@ -65,6 +65,10 @@ const PartyForm = () => {
           hasError={errors.contactNo}
           {...register("contactNo", {
             required: "Please enter the contact number",
+            pattern: {
+              value: /^[9][678][0-9]{8}$/,
+              message: "Contact Number should be at least 10 digits",
+            },
           })}
         />
       </FieldGroup>

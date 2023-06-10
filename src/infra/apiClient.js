@@ -103,7 +103,7 @@ export const addTranscationn = (payload) =>
 export const fetchTranscationn = (filter) =>
   request("GET", `${API_URL}/api/transaction`, true, filter);
 export const deleteTranscation = (id) =>
-  request("GET", `${API_URL}/api/transaction/${id}`, true);
+  request("DELETE", `${API_URL}/api/transaction/${id}`, true);
 
 export const fetchCategory = () =>
   request("GET", `${API_URL}/api/category`, true);
@@ -115,4 +115,5 @@ export const addGoal = (payload) =>
 export const fetchGoal = (filter) =>
   request("GET", `${API_URL}/api/goal`, true, filter);
 export const deleteGoal = (id) =>
-  request("GET", `${API_URL}/api/goal/${id}`, true);
+  request("DELETE", `${API_URL}/api/goal/${id}`, true);
+export const getProfile = () => request("GET", `${API_URL}/api/user`, true);
