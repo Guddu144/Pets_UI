@@ -2,11 +2,7 @@ import React, { useMemo } from 'react';
 import DataTable from '../tables/DataTable';
 import { deleteEarning, fetchEarning } from '../../infra';
 import { PlainButton } from '../inputs';
-<<<<<<< HEAD
-import { TrashIcon } from '@heroicons/react/solid';
-=======
 import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
->>>>>>> e2b659a (edit)
 import { formatLongDate } from '../../utils/date';
 import toastify from '../../utils/toast';
 
@@ -28,9 +24,6 @@ const EarningTable = ({ cat, setType, setModelID }) => {
       },
       {
         Header: 'Payment Method',
-<<<<<<< HEAD
-        accessor: 'paymentMethod',
-=======
         accessor: ({ paymentMethod }) => {
           switch (paymentMethod) {
             case '0':
@@ -44,7 +37,6 @@ const EarningTable = ({ cat, setType, setModelID }) => {
           }
         },
 
->>>>>>> e2b659a (edit)
       },
       {
         Header: 'Notes',
