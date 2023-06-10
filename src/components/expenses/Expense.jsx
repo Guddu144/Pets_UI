@@ -4,17 +4,32 @@ import { Button } from '../inputs'
 import { IconPlus, IconX } from '@tabler/icons';
 import ExpenseForm from './ExpenseForm';
 import ExpenseTable from './ExpenseTable';
-import { fetchCategory } from '../../infra';
+import { fetchCategory, fetchSingleExpense } from '../../infra';
 // import { FormContext } from '../main';
 
 const Expense = () => {
   // const { isEarningFormOpen, setIsEarningFormOpen } = useContext(FormContext)
   const [isExpenseFormOpen, setIsExpenseFormOpen] = useState(false);
-  const [cat, setCat] = useState()
+  const [cat, setCat] = useState();
+  const [type, setType] = useState();
+  const [modelID, setModelID] = useState();
+  const [val, setVal] = useState();
   useEffect(() => {
     fetchCategory()
       .then(setCat)
   }, []);
+
+  useEffect(() => {
+    (
+      async () => {
+        if (modelID) {
+          const val = await fetchSingleExpense(modelID);
+          setVal(val);
+          setIsExpenseFormOpen(true)
+        }
+      }
+    )()
+  }, [modelID])
 
   return (
     <>
@@ -37,18 +52,18 @@ const Expense = () => {
           <div>
             <h3 className="text-lg font-bold"> Expense</h3>
           </div>
-          <button onClick={() => { setIsExpenseFormOpen(false) }}>
+          <button onClick={() => { setIsExpenseFormOpen(false); setModelID(null) }}>
             <IconX size={15} />
           </button>
         </div>
         <div className="divide-gray-200 mx-auto  ">
-          <ExpenseForm isExpenseFormOpen={setIsExpenseFormOpen} />
+          <ExpenseForm isExpenseFormOpen={setIsExpenseFormOpen} type={type} val={val} modelID={modelID} />
         </div>
       </Modal>
 
       <PageLayout>
         {cat &&
-          <ExpenseTable cat={cat} />
+          <ExpenseTable setType={setType} setModelID={setModelID} cat={cat} />
         }
       </PageLayout>
     </>

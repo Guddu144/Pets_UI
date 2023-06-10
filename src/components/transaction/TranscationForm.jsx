@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   AsyncSearchBox,
   Button,
@@ -8,12 +8,13 @@ import {
 } from '../inputs';
 import { useHandleError } from '../../hooks';
 import { Controller, useForm } from 'react-hook-form';
-import { addTranscationn, getParty } from '../../infra';
+import { addTranscationn, editTransaction, getParty } from '../../infra';
 import { useNavigate } from 'react-router-dom';
 import { isAfter, parseISO } from 'date-fns';
 import { toast } from 'react-toastify';
+import { formatDateYear } from '../../utils/date';
 
-const TranscationForm = () => {
+const TranscationForm = ({ type, val, modelID }) => {
   const {
     control,
     register,
@@ -60,17 +61,39 @@ const TranscationForm = () => {
 
     return true;
   };
+  useEffect(() => {
+    if (val) {
+      // Set default values for the form fields using setValue
+      console.log(val);
+      setValue('goalId', val.data?.id.toString());
+    }
+  }, [setValue, val]);
+
   const onSubmit = setError => payload => {
-    addTranscationn(payload)
-      .then(data => {
-        console.log(data);
-        localStorage.setItem('toastMessage', data.message);
-        window.location.reload();
-      })
-      .catch(err => {
-        toast.error(err.message);
-        handleError(err, setError);
-      });
+    if (type === 'Create') {
+      addTranscationn(payload)
+        .then(data => {
+          console.log(data);
+          localStorage.setItem('toastMessage', data.message);
+          window.location.reload();
+        })
+        .catch(err => {
+          toast.error(err.message);
+          handleError(err, setError);
+        });
+    }
+    else {
+      editTransaction(payload, modelID)
+        .then(data => {
+          console.log(data);
+          localStorage.setItem('toastMessage', data.message);
+          window.location.reload();
+        })
+        .catch(err => {
+          toast.error(err.message);
+          handleError(err, setError);
+        });
+    }
   };
 
   return (
@@ -90,6 +113,7 @@ const TranscationForm = () => {
           hasError={errors.amount}
           {...register('amount', {
             required: 'Please enter the amount',
+            value: val?.data?.amount,
           })}
         />
       </FieldGroup>
@@ -112,6 +136,7 @@ const TranscationForm = () => {
               {...register('date', {
                 validate: validateDate,
                 required: 'Please enter the date',
+                value: val?.data?.date ? formatDateYear(val?.data?.date) : null,
               })}
             />
           </FieldGroup>
@@ -129,6 +154,7 @@ const TranscationForm = () => {
           control={control}
           name="paymentMethod"
           rules={{ required: 'Please select a payment method' }}
+          defaultValue={val?.data?.paymentMethod || ''}
           render={({
             field: { onChange, ref, value },
             fieldState: { error },
@@ -156,6 +182,7 @@ const TranscationForm = () => {
           control={control}
           name="type"
           rules={{ required: 'Please select a payment flow' }}
+          defaultValue={val?.data?.type || ''}
           render={({
             field: { onChange, ref, value },
             fieldState: { error },
@@ -176,6 +203,7 @@ const TranscationForm = () => {
         control={control}
         name="partyId"
         rules={{ required: 'Please provide party name' }}
+        defaultValue={val?.data?.partyId || ''}
         render={({
           field: { onChange, onBlur, value, ref, name },
           fieldState: { error },

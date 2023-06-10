@@ -4,10 +4,25 @@ import { Button } from '../inputs'
 import { IconPlus, IconX } from '@tabler/icons';
 import PartyForm from './PartyForm';
 import PartyTable from './PartyTable';
+import { fetchSingleParty } from '../../infra';
 // import EarningForm from './EarningForm';
 
 const Party = () => {
   const [isPartyFormopen, setIsPartyFormopen] = useState(false);
+  const [type, setType] = useState();
+  const [modelID, setModelID] = useState();
+  const [val, setVal] = useState();
+  useEffect(() => {
+    (
+      async () => {
+        if (modelID) {
+          const val = await fetchSingleParty(modelID);
+          setVal(val);
+          setIsPartyFormopen(true)
+        }
+      }
+    )()
+  }, [modelID])
 
   return (
     <>
@@ -35,12 +50,12 @@ const Party = () => {
           </button>
         </div>
         <div className="divide-gray-200 mx-auto  ">
-          <PartyForm isPartyFormopen={setIsPartyFormopen} />
+          <PartyForm isPartyFormopen={setIsPartyFormopen} type={type} val={val} modelID={modelID} />
         </div>
       </Modal>
 
       <PageLayout>
-        <PartyTable />
+        <PartyTable setType={setType} setModelID={setModelID} />
       </PageLayout>
     </>
   )

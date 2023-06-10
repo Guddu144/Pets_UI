@@ -5,7 +5,7 @@ import { PlainButton } from '../inputs';
 import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
 import toastify from '../../utils/toast';
 
-const PartyTable = () => {
+const PartyTable = ({ cat, setType, setModelID }) => {
   toastify();
   const columns = useMemo(
     () => [
@@ -32,7 +32,10 @@ const PartyTable = () => {
         Cell: ({ row: { original } }) => {
           return (
             <div className="space-x-3">
-              <PlainButton onClick={() => console.log(original.id)}>
+              <PlainButton onClick={() => {
+                setType('Update')
+                setModelID(original.id)
+              }}>
                 <PencilAltIcon className="w-5 h-5" />
               </PlainButton>
               <PlainButton

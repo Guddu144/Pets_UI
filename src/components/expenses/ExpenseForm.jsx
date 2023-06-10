@@ -1,95 +1,118 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Button, FieldGroup, Input, SelectBox, TextArea } from "../inputs";
-import { Controller, useForm } from "react-hook-form";
-import { addExpense } from "../../infra";
-import { useHandleError } from "../../hooks";
-import { useNavigate } from "react-router-dom";
-import { isAfter, parseISO } from "date-fns";
-import { toast } from "react-toastify";
+import React, { useState, useEffect, useRef } from 'react';
+import { Button, FieldGroup, Input, SelectBox, TextArea } from '../inputs';
+import { Controller, useForm } from 'react-hook-form';
+import { addExpense, editExpense } from '../../infra';
+import { useHandleError } from '../../hooks';
+import { useNavigate } from 'react-router-dom';
+import { isAfter, parseISO } from 'date-fns';
+import { toast } from 'react-toastify';
+import { formatDateYear } from '../../utils/date';
 
 // import { useHandleError } from '../../../../hooks';
 
-const ExpenseForm = () => {
+const ExpenseForm = ({ type, val, modelID }) => {
   const {
     control,
     register,
     handleSubmit,
     setError,
+    setValue,
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
   const paymentMethod = [
     {
-      id: "Cash",
-      name: "Cash",
+      id: 'Cash',
+      name: 'Cash',
     },
     {
-      id: "Online",
-      name: "Online",
+      id: 'Online',
+      name: 'Online',
     },
     {
-      id: "Cheque",
-      name: "Cheque",
+      id: 'Cheque',
+      name: 'Cheque',
     },
   ];
 
   const categories = [
     {
-      id: "1",
-      name: "Foods and Drinks",
+      id: '1',
+      name: 'Foods and Drinks',
     },
     {
-      id: "2",
-      name: "Transportation",
+      id: '2',
+      name: 'Transportation',
     },
     {
-      id: "3",
-      name: "Entertainment",
+      id: '3',
+      name: 'Entertainment',
     },
     {
-      id: "4",
-      name: "Health",
+      id: '4',
+      name: 'Health',
     },
     {
-      id: "5",
-      name: "Education",
+      id: '5',
+      name: 'Education',
     },
     {
-      id: "6",
-      name: "Debt payments",
+      id: '6',
+      name: 'Debt payments',
     },
     {
-      id: "7",
-      name: "Housing",
+      id: '7',
+      name: 'Housing',
     },
     {
-      id: "8",
-      name: "Miscellaneous",
+      id: '8',
+      name: 'Miscellaneous',
     },
   ];
-  const validateDate = (value) => {
+  const validateDate = value => {
     const selectedDate = parseISO(value);
     const today = new Date();
 
     if (isAfter(selectedDate, today)) {
-      return "Selected date cannot be greater than today";
+      return 'Selected date cannot be greater than today';
     }
 
     return true;
   };
 
+  useEffect(() => {
+    if (val) {
+      // Set default values for the form fields using setValue
+      setValue('categoryId', val.data?.categoryId.toString());
+    }
+  }, [setValue, val]);
+
   const handleError = useHandleError();
-  const onSubmit = (setError) => (payload) => {
-    addExpense(payload)
-      .then((data) => {
-        console.log(data);
-        localStorage.setItem("toastMessage", data.message);
-        window.location.reload();
-      })
-      .catch((err) => {
-        toast.error(err.message);
-        handleError(err, setError);
-      });
+  const onSubmit = setError => payload => {
+    if (type === 'Create') {
+      addExpense(payload)
+        .then(data => {
+          console.log(data);
+          localStorage.setItem('toastMessage', data.message);
+          window.location.reload();
+        })
+        .catch(err => {
+          toast.error(err.message);
+          handleError(err, setError);
+        });
+    }
+    else {
+      editExpense(payload, modelID)
+        .then(data => {
+          console.log(data);
+          localStorage.setItem('toastMessage', data.message);
+          window.location.reload();
+        })
+        .catch(err => {
+          toast.error(err.message);
+          handleError(err, setError);
+        });
+    }
   };
 
   return (
@@ -107,8 +130,9 @@ const ExpenseForm = () => {
           name="amount"
           autoComplete="off"
           hasError={errors.amount}
-          {...register("amount", {
-            required: "Please enter the amount",
+          {...register('amount', {
+            required: 'Please enter the amount',
+            value: val?.data?.amount,
           })}
         />
       </FieldGroup>
@@ -127,9 +151,10 @@ const ExpenseForm = () => {
               name="date"
               autoComplete="off"
               hasError={errors.date}
-              {...register("date", {
+              {...register('date', {
                 validate: validateDate,
-                required: "Please enter the from date",
+                required: 'Please enter the from date',
+                value: val?.data?.date ? formatDateYear(val?.data?.date) : null,
               })}
             />
           </FieldGroup>
@@ -141,13 +166,15 @@ const ExpenseForm = () => {
         name="paymentMethod"
         label="Payment Method"
         error={errors.paymentMethod}
+
         hideLabel={false}
         className="text-md my-4"
       >
         <Controller
           control={control}
           name="paymentMethod"
-          rules={{ required: "Please select a payment method" }}
+          rules={{ required: 'Please select a payment method' }}
+          defaultValue={val?.data?.paymentMethod || ''}
           render={({
             field: { onChange, ref, value },
             fieldState: { error },
@@ -174,7 +201,8 @@ const ExpenseForm = () => {
         <Controller
           control={control}
           name="categoryId"
-          rules={{ required: "Please select a categorey type" }}
+          defaultValue={val?.data?.categoryId || ''}
+          rules={{ required: 'Please select a categorey type' }}
           render={({
             field: { onChange, ref, value },
             fieldState: { error },
@@ -204,8 +232,9 @@ const ExpenseForm = () => {
           name="note"
           autoComplete="off"
           hasError={errors.note}
-          {...register("note", {
-            required: "Please enter the note",
+          {...register('note', {
+            required: 'Please enter the note',
+            value: val?.data?.note,
           })}
         />
       </FieldGroup>

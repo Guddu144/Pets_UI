@@ -4,11 +4,25 @@ import { Button } from '../inputs';
 import { IconPlus, IconX } from '@tabler/icons';
 import TranscationForm from './TranscationForm';
 import TranscationTable from './TranscationTable';
-import { partyTable } from '../../infra';
+import { fetchSingleTransaction, partyTable } from '../../infra';
 
 const Transcation = () => {
   const [isTranscationFormOpen, setIsTranscationFormOpen] = useState(false);
   const [party, setParty] = useState()
+  const [type, setType] = useState();
+  const [modelID, setModelID] = useState();
+  const [val, setVal] = useState();
+  useEffect(() => {
+    (
+      async () => {
+        if (modelID) {
+          const val = await fetchSingleTransaction(modelID);
+          setVal(val);
+          setIsTranscationFormOpen(true)
+        }
+      }
+    )()
+  }, [modelID])
 
   useEffect(() => {
     partyTable()
@@ -41,13 +55,13 @@ const Transcation = () => {
           </button>
         </div>
         <div className="divide-gray-200 mx-auto  ">
-          <TranscationForm isTranscationFormOpen={setIsTranscationFormOpen} />
+          <TranscationForm isTranscationFormOpen={setIsTranscationFormOpen} type={type} val={val} modelID={modelID} />
         </div>
       </Modal>
 
       <PageLayout>
         {party &&
-          <TranscationTable party={party} />
+          <TranscationTable party={party} setType={setType} setModelID={setModelID} />
         }
       </PageLayout>
     </>
