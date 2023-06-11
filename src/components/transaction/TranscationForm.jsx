@@ -43,12 +43,12 @@ const TranscationForm = ({ type, val, modelID }) => {
   ];
   const paymentType = [
     {
-      id: 'Borrowing',
-      name: 'Borrowing',
+      id: 'in',
+      name: 'IN',
     },
     {
-      id: 'Lending',
-      name: 'Lending',
+      id: 'out',
+      name: 'Out',
     },
   ];
   const validateDate = value => {

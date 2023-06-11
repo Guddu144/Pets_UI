@@ -1,12 +1,12 @@
-import React, { useContext, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { FieldGroup, Input, Button, Icon } from "../../components/inputs";
-import { useHandleError } from "../../hooks";
-import { classNames } from "../../utils";
-// import petsIcon from '../../icons/Pets-icon.svg';
-import logoIcon from "../../icons/Logo-white.svg";
-import { loginUser } from "../../infra";
+import React, { useContext, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import { FieldGroup, Input, Button, Icon } from '../../components/inputs';
+import { useHandleError } from '../../hooks';
+import { classNames } from '../../utils';
+import petsIcon from '../../icons/Pets-icon.svg';
+import logoIcon from '../../icons/Logo-white.svg';
+import { loginUser } from '../../infra';
 
 const Login = () => {
   localStorage.clear();
@@ -19,24 +19,24 @@ const Login = () => {
   const navigate = useNavigate();
   const handleError = useHandleError();
 
-  const onSubmit = (setError) => (payload) => {
+  const onSubmit = setError => payload => {
     console.log(payload);
     return loginUser(payload)
-      .then((data) => {
+      .then(data => {
         if (data.status === 200) {
           const loginData = data.data;
-          localStorage.setItem("token", loginData.token);
-          localStorage.setItem("message", data.message);
-          navigate("/");
+          localStorage.setItem('token', loginData.token);
+          localStorage.setItem('message', data.message);
+          navigate('/');
         } else {
           handleError(
-            { errors: { username: ["Invalid login credentials"] } },
-            setError
+            { errors: { username: ['Invalid login credentials'] } },
+            setError,
           );
         }
       })
-      .catch((err) => {
-        if (err.message.includes("User")) {
+      .catch(err => {
+        if (err.message.includes('User')) {
           handleError({ errors: { username: [`${err.message}`] } }, setError);
         } else {
           handleError({ errors: { password: [`${err.message}`] } }, setError);
@@ -53,7 +53,7 @@ const Login = () => {
           </div>
           <div className="flex-col ">
             <div className="flex justify-center text-left">
-              {/* {<Icon icon={petsIcon} />} */}
+              {<Icon icon={petsIcon} />}
             </div>
             <div className="flex flex-col justify-center">
               <div className="w-full"></div>
@@ -92,9 +92,9 @@ const Login = () => {
                     id="username"
                     type="text"
                     hasError={errors.username}
-                    {...register("username", {
+                    {...register('username', {
                       required:
-                        "please provide your email, phone number, or username",
+                        'please provide your email, phone number, or username',
                     })}
                     placeholder="Enter your username"
                   />
@@ -109,8 +109,8 @@ const Login = () => {
                     id="password"
                     type="password"
                     hasError={errors.password}
-                    {...register("password", {
-                      required: "please enter your password",
+                    {...register('password', {
+                      required: 'please enter your password',
                     })}
                     placeholder="Enter your password"
                   />
@@ -132,7 +132,7 @@ const Login = () => {
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? "Logging in" : "Login"}
+                  {isSubmitting ? 'Logging in' : 'Login'}
                 </Button>
               </div>
               <label className="block text-black-50 font-normal text-sm mt-4 text-center">

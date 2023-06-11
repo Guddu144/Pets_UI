@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { getProfile } from "../../infra";
+import React, { useEffect, useState } from 'react';
+import { getProfile } from '../../infra';
 
 const Profile = () => {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    getProfile().then((data) => {
+    getProfile().then(data => {
       setUser(data.data);
     });
   }, []);

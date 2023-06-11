@@ -45,13 +45,14 @@ const Dashboard = () => {
         setCurrentData(data.data.map(i => i.currentData))
 
       })
-    const date = new Date;
+    const date = new Date();
     const firstDate = new Date(date.getFullYear(), date.getMonth(), 1);
     const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     const payload = {
-      startDate: firstDate.toISOString(),
-      endDate: lastDay.toISOString(),
-    }
+      startDate: firstDate.toISOString().substring(0, 10),
+      endDate: lastDay.toISOString().substring(0, 10),
+    };
+
     getDashboardDetail(payload)
       .then(SetDetail)
   }, [])
