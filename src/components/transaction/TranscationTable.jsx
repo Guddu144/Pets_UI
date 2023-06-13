@@ -9,9 +9,6 @@ import toastify from '../../utils/toast';
 
 const TranscationTable = ({ party, cat, setType, setModelID }) => {
   toastify();
-  const [filter, updateFilter] = useFilter({
-    Type: '',
-  });
 
   const columns = useMemo(
     () => [
@@ -79,31 +76,11 @@ const TranscationTable = ({ party, cat, setType, setModelID }) => {
     { id: 'out', label: 'Outgoing' },
   ];
 
-  const filterGroups = useMemo(
-    () => [
-      {
-        id: 'transaction_type',
-        label: 'Transaction Types',
-        filters: Types.map(type => ({
-          id: type.id,
-          label: type.label,
-          active: type.id == filter.Types,
-          onClick: checked =>
-            updateFilter('Types', checked ? type.id : undefined),
-        })),
-      },
-    ],
-    [Types, filter],
-  );
-
   return (
     <div className="max-w-full mx-auto px-4 py-4 sm:px-6 md:px-8 bg-white">
       <DataTable
         columns={columns}
         apiRequest={fetchTranscationn}
-        // placeholder={('Search by invoice number, name, amount...')}
-        filterGroups={filterGroups}
-        filter={filter}
       />
     </div>
   );

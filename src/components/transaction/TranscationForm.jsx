@@ -118,14 +118,37 @@ const TranscationForm = ({ type, val, modelID }) => {
         />
       </FieldGroup>
 
-      <div className="flex">
-        <div className="flex-1">
+      <div className="grid grid-cols-6 gap-4">
+        <div className="col-span-3">
           <FieldGroup
             name="date"
-            label="Date"
+            label="Start Date"
             hideLabel={false}
             error={errors.date}
-            className="text-md my-4"
+            className="text-md "
+          >
+            <Input
+              placeholder="Enter date"
+              type="date"
+              name="date"
+              autoComplete="off"
+              hasError={errors.date}
+              {...register('date', {
+                validate: validateDate,
+                required: 'Please enter the date',
+                value: val?.data?.date ? formatDateYear(val?.data?.date) : null,
+              })}
+            />
+          </FieldGroup>
+        </div>
+
+        <div className="col-span-3">
+          <FieldGroup
+            name="date"
+            label="Payment Date"
+            hideLabel={false}
+            error={errors.date}
+            className="text-md "
           >
             <Input
               placeholder="Enter date"

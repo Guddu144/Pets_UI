@@ -1,6 +1,6 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import { Dashboard } from "../dashboard";
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { Dashboard } from '../dashboard';
 import {
   ForgottenPassword,
   Login,
@@ -8,17 +8,18 @@ import {
   SignUp,
   SignUp2,
   UpdatePassword,
-} from "../user";
-import Earning from "../earning/Earning";
-import Expense from "../expenses/Expense";
-import Auth from "../user/Auth";
-import Layout from "./Layout";
-import MainLayout from "./MainLayout";
-import Party from "../party/Party";
-import Transcation from "../transaction/Transcation";
-import Goal from "../goals/Goal";
-import GoalStatus from "../goal-status/GoalStatus";
-import Profile from "../user/Profile";
+} from '../user';
+import Earning from '../earning/Earning';
+import Expense from '../expenses/Expense';
+import Auth from '../user/Auth';
+import Layout from './Layout';
+import MainLayout from './MainLayout';
+import Party from '../party/Party';
+import Transcation from '../transaction/Transcation';
+import Goal from '../goals/Goal';
+import GoalStatus from '../goal-status/GoalStatus';
+import Profile from '../user/Profile';
+import Notification from '../notification/Notification';
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
         <Route element={<Auth />}>
           <Route element={<Layout />}>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/notification" element={<Notification />} />
             <Route path="/earning" element={<Earning />} />
             <Route path="/expense" element={<Expense />} />
             <Route path="/party" element={<Party />} />

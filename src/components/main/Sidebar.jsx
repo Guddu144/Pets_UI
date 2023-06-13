@@ -5,7 +5,7 @@ import { classNames } from '../../utils';
 import { Button, Dropdown, Icon } from '../inputs';
 import logoIcon from '../../icons/Logo-white.svg';
 import profileIcon from '../../icons/profile.svg';
-import { IconLayoutDashboard, IconCircleDot, IconHistory, IconMapSearch, IconCirclePlus, IconCircleMinus, IconTargetArrow, IconUsers, IconCoinRupee, IconListDetails } from '@tabler/icons';
+import { IconLayoutDashboard, IconCircleDot, IconHistory, IconMapSearch, IconCirclePlus, IconCircleMinus, IconTargetArrow, IconUsers, IconCoinRupee, IconListDetails, IconAlertCircle, IconBell } from '@tabler/icons';
 
 const useNavigation = () => {
   const loc = useLocation();
@@ -13,6 +13,7 @@ const useNavigation = () => {
   const isCurrent = path => path === cur;
   const links = [
     { name: 'Dashboard', href: '/', current: isCurrent('/'), icon: <IconLayoutDashboard color={isCurrent('/') ? '#e6ecf3' : '#8aa6c8'} className="mr-3.5" size={24} /> },
+    { name: 'Notification', href: '/notification', current: isCurrent('/notification'), icon: <IconBell color={isCurrent('/notification') ? '#e6ecf3' : '#8aa6c8'} className="mr-3.5" size={24} /> },
     { name: 'Status', href: '/budget-status', current: isCurrent('/budget-status'), icon: <IconListDetails className="mr-3.5" color={isCurrent('/budget-status') ? '#e6ecf3' : '#8aa6c8'} size={24} /> },
     { name: 'Earnings', href: '/earning', current: isCurrent('/earning'), icon: <IconCirclePlus className="mr-3.5" color={isCurrent('/earning') ? '#e6ecf3' : '#8aa6c8'} size={24} />, heading: true, headingVal: 'Accounts' },
     { name: 'Expenses', href: '/expense', current: isCurrent('/expense'), icon: <IconCircleMinus className="mr-3.5" color={isCurrent('/expense') ? '#e6ecf3' : '#8aa6c8'} size={24} /> },
