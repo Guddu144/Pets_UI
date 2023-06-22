@@ -177,3 +177,6 @@ export const deleteGoal = id =>
   request('DELETE', `${API_URL}/api/goal/${id}`, true);
 export const getProfile = () => request('GET', `${API_URL}/api/user`, true);
 export const getNotification = () => request('GET', `${API_URL}/api/notification`, true);
+
+export const addTarget = payload =>
+  request('POST', `${API_URL}/api/target`, true, payload);
