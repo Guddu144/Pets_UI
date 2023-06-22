@@ -14,10 +14,10 @@ const ProgressBar = ({ className, progress, spent, target }) => {
         className,
       )}>
         <div
-          className={`${progressBarColor} h-2.5 rounded-md `}
+          className={`${progressBarColor} h-4 rounded-md `}
           style={{ width: `${progress * 100}%` }}
         />
-        <span className={`text-slate-500 text-xs pl-2 ${isExceededTarget ? 'hidden' : ''}`}>
+        <span className={`text-slate-500 text-base font-semibold pl-2 ${isExceededTarget ? 'hidden' : ''}`}>
           {spent}
         </span>
       </div>

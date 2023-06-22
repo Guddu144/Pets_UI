@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Modal, PageHeader, PageLayout } from '../common';
 import { Button } from '../inputs';
 import { IconPlus, IconX } from '@tabler/icons';
+import TargetForm from './TargetFOrm';
 
 const Target = () => {
   const [isTargetFormOpen, setIsTargetFormOpen] = useState(false);
@@ -53,7 +54,7 @@ const Target = () => {
           </button>
         </div>
         <div className="divide-gray-200 mx-auto  ">
-
+          <TargetForm type={type} />
         </div>
       </Modal>
 
