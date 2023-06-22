@@ -19,7 +19,8 @@ const useNavigation = () => {
     { name: 'Expenses', href: '/expense', current: isCurrent('/expense'), icon: <IconCircleMinus className="mr-3.5" color={isCurrent('/expense') ? '#e6ecf3' : '#8aa6c8'} size={24} /> },
     { name: 'Transaction', href: '/transaction', current: isCurrent('/transaction'), icon: <IconCoinRupee color={isCurrent('/transaction') ? '#e6ecf3' : '#8aa6c8'} className="mr-3.5" size={22} />, heading: true, headingVal: 'Loans' },
     { name: 'Party', href: '/party', current: isCurrent('/party'), icon: <IconUsers className="mr-3.5" color={isCurrent('/party') ? '#e6ecf3' : '#8aa6c8'} size={24} /> },
-    { name: 'Budget', href: '/budget', current: isCurrent('/budget'), icon: <IconTargetArrow className="mr-3.5" color={isCurrent('/budget') ? '#e6ecf3' : '#8aa6c8'} size={24} />, heading: true, headingVal: 'Target' },
+    { name: 'Target', href: '/target', current: isCurrent('/target'), icon: <IconTargetArrow className="mr-3.5" color={isCurrent('/target') ? '#e6ecf3' : '#8aa6c8'} size={24} />, heading: true, headingVal: 'Target' },
+    { name: 'Budget', href: '/budget', current: isCurrent('/budget'), icon: <IconTargetArrow className="mr-3.5" color={isCurrent('/budget') ? '#e6ecf3' : '#8aa6c8'} size={24} /> },
 
   ];
 

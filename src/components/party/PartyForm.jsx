@@ -20,7 +20,6 @@ const PartyForm = ({ type, val, modelID }) => {
   useEffect(() => {
     if (val) {
       // Set default values for the form fields using setValue
-      console.log(val);
       setValue('goalId', val.data?.id.toString());
     }
   }, [setValue, val]);

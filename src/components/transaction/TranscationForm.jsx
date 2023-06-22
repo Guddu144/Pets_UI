@@ -144,7 +144,7 @@ const TranscationForm = ({ type, val, modelID }) => {
 
         <div className="col-span-3">
           <FieldGroup
-            name="date"
+            name="paymentDate"
             label="Payment Date"
             hideLabel={false}
             error={errors.date}
@@ -153,13 +153,12 @@ const TranscationForm = ({ type, val, modelID }) => {
             <Input
               placeholder="Enter date"
               type="date"
-              name="date"
+              name="paymentDate"
               autoComplete="off"
-              hasError={errors.date}
-              {...register('date', {
-                validate: validateDate,
+              hasError={errors.paymentDate}
+              {...register('paymentDate', {
                 required: 'Please enter the date',
-                value: val?.data?.date ? formatDateYear(val?.data?.date) : null,
+                value: val?.data?.paymentDate ? formatDateYear(val?.data?.paymentDate) : null,
               })}
             />
           </FieldGroup>

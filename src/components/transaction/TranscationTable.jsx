@@ -25,6 +25,10 @@ const TranscationTable = ({ party, cat, setType, setModelID }) => {
         accessor: ({ date }) => formatLongDate(date),
       },
       {
+        Header: 'paymentDate',
+        accessor: ({ paymentDate }) => formatLongDate(paymentDate),
+      },
+      {
         Header: 'Payment Method',
         accessor: 'paymentMethod',
       },

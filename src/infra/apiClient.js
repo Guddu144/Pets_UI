@@ -131,11 +131,9 @@ export const fetchSingleGoal = id => {
   return request('GET', `${API_URL}/api/goal/${id}`, true);
 };
 export const fetchSingleParty = id => {
-  console.log(id)
   return request('GET', `${API_URL}/api/party/${id}`, true);
 };
 export const fetchSingleTransaction = id => {
-  console.log(id)
   return request('GET', `${API_URL}/api/transaction/${id}`, true);
 };
 
@@ -155,6 +153,14 @@ export const addTranscationn = payload =>
   request('POST', `${API_URL}/api/transaction`, true, payload);
 export const fetchTranscationn = filter =>
   request('GET', `${API_URL}/api/transaction`, true, filter);
+
+export const fetchPartyDetail = partyId => {
+  const data = {
+    partyId: partyId,
+  }
+  return request('GET', `${API_URL}/api/transaction`, true, data);
+}
+
 export const deleteTranscation = id =>
   request('DELETE', `${API_URL}/api/transaction/${id}`, true);
 
@@ -170,3 +176,4 @@ export const fetchGoal = filter =>
 export const deleteGoal = id =>
   request('DELETE', `${API_URL}/api/goal/${id}`, true);
 export const getProfile = () => request('GET', `${API_URL}/api/user`, true);
+export const getNotification = () => request('GET', `${API_URL}/api/notification`, true);

@@ -2,10 +2,10 @@ import React, { useMemo } from 'react';
 import DataTable from '../tables/DataTable';
 import { deleteParty, partyTable } from '../../infra';
 import { PlainButton } from '../inputs';
-import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
+import { EyeIcon, PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
 import toastify from '../../utils/toast';
 
-const PartyTable = ({ cat, setType, setModelID }) => {
+const PartyTable = ({ cat, setType, setModelID, setId }) => {
   toastify();
   const columns = useMemo(
     () => [
@@ -32,6 +32,12 @@ const PartyTable = ({ cat, setType, setModelID }) => {
         Cell: ({ row: { original } }) => {
           return (
             <div className="space-x-3">
+
+              <PlainButton onClick={() => {
+                setId(original.id)
+              }}>
+                <EyeIcon className="w-5 h-5" />
+              </PlainButton>
               <PlainButton onClick={() => {
                 setType('Update')
                 setModelID(original.id)

@@ -30,8 +30,8 @@ export const formatTime = val => {
   return format(parse(val, 'H:mm', new Date()), 'hh:mm a');
 };
 
-export const formatDateString = val => {
-  return format(new Date(val), 'yyyy-MM-dd');
+export const formatDateTime = val => {
+  return format(new Date(val), 'MMMM-dd-yyyy hh:mm a');
 };
 export const calculateNoOfDays = (start, end, excludeDays = []) => {
   const dates = [];

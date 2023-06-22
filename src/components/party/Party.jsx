@@ -4,12 +4,15 @@ import { Button } from '../inputs';
 import { IconPlus, IconX } from '@tabler/icons';
 import PartyForm from './PartyForm';
 import PartyTable from './PartyTable';
-import { fetchSingleParty } from '../../infra';
-// import EarningForm from './EarningForm';
+import { fetchPartyDetail, fetchSingleParty } from '../../infra';
+import TransactionDetailTable from './TransactionDetailTable';
 
 const Party = () => {
   const [isPartyFormopen, setIsPartyFormopen] = useState(false);
+  const [id, setId] = useState();
+  const [open, setOpen] = useState(false);
   const [type, setType] = useState();
+  const [party, setParty] = useState();
   const [modelID, setModelID] = useState();
   const [val, setVal] = useState();
   useEffect(() => {
@@ -20,7 +23,19 @@ const Party = () => {
         setIsPartyFormopen(true);
       }
     })();
+
   }, [modelID]);
+
+  useEffect(() => {
+    (async () => {
+      if (id) {
+        const val = await fetchPartyDetail(id);
+        setParty(val)
+        setOpen(true);
+      }
+    })();
+
+  }, [id]);
 
   return (
     <>
@@ -50,6 +65,8 @@ const Party = () => {
         isOpen={isPartyFormopen}
         onClose={() => {
           setIsPartyFormopen(false);
+          setModelID(null)
+
         }}
       >
         <div className="mb-2 flex justify-between">
@@ -73,9 +90,32 @@ const Party = () => {
           />
         </div>
       </Modal>
+      <Modal
+        isOpen={open}
+        onClose={() => {
+          setOpen(false);
+          setId(null)
+        }}
+      >
+        <div className="mb-2 flex justify-between">
+          <div>
+            <h3 className="text-lg font-bold"> Transaction Details</h3>
+          </div>
+          <button
+            onClick={() => {
+              setOpen(false);
+            }}
+          >
+            <IconX size={15} />
+          </button>
+        </div>
+        <div className="divide-gray-200 mx-auto  ">
+          <TransactionDetailTable party={party?.data} />
+        </div>
+      </Modal>
 
       <PageLayout>
-        <PartyTable setType={setType} setModelID={setModelID} />
+        <PartyTable setType={setType} setModelID={setModelID} setId={setId} />
       </PageLayout>
     </>
   );
