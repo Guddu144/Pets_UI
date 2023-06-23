@@ -1,6 +1,6 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { Dashboard } from '../dashboard';
+import React, { useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import { Dashboard } from "../dashboard";
 import {
   ForgottenPassword,
   Login,
@@ -8,21 +8,34 @@ import {
   SignUp,
   SignUp2,
   UpdatePassword,
-} from '../user';
-import Earning from '../earning/Earning';
-import Expense from '../expenses/Expense';
-import Auth from '../user/Auth';
-import Layout from './Layout';
-import MainLayout from './MainLayout';
-import Party from '../party/Party';
-import Transcation from '../transaction/Transcation';
-import Goal from '../goals/Goal';
-import GoalStatus from '../goal-status/GoalStatus';
-import Profile from '../user/Profile';
-import Notification from '../notification/Notification';
-import Target from '../target/Target';
-
+} from "../user";
+import Earning from "../earning/Earning";
+import Expense from "../expenses/Expense";
+import Auth from "../user/Auth";
+import Layout from "./Layout";
+import MainLayout from "./MainLayout";
+import Party from "../party/Party";
+import Transcation from "../transaction/Transcation";
+import Goal from "../goals/Goal";
+import GoalStatus from "../goal-status/GoalStatus";
+import Profile from "../user/Profile";
+import Notification from "../notification/Notification";
+import { io } from "socket.io-client";
+import { toast } from "react-toastify";
+const socket = io("http://localhost:3000");
 const App = () => {
+  useEffect(() => {
+    const handleNotification = (message) => {
+      console.log("Received notification:", message);
+      toast(message);
+    };
+
+    socket.on("notification", handleNotification);
+
+    return () => {
+      socket.off("notification", handleNotification);
+    };
+  }, []);
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>

@@ -1,17 +1,17 @@
-import React, { useState, useRef } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-import { FieldGroup, Input, Button, Icon } from '../../components/inputs';
-import { useHandleError } from '../../hooks';
-import { classNames } from '../../utils';
-import petsIcon from '../../icons/Pets-icon.svg';
-import logoIcon from '../../icons/Logo-white.svg';
-import { loginUser } from '../../infra';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import ReCAPTCHA from 'react-google-recaptcha';
+import React, { useState, useRef } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { FieldGroup, Input, Button, Icon } from "../../components/inputs";
+import { useHandleError } from "../../hooks";
+import { classNames } from "../../utils";
+// import petsIcon from '../../icons/';
+import logoIcon from "../../icons/Logo-white.svg";
+import { loginUser } from "../../infra";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Login2 = () => {
-  const onChange = value => {
+  const onChange = (value) => {
     console.log(value);
   };
   const [showPassword, setShowPassword] = useState(false);
@@ -29,23 +29,23 @@ const Login2 = () => {
   const navigate = useNavigate();
   const handleError = useHandleError();
 
-  const onSubmit = setError => payload => {
+  const onSubmit = (setError) => (payload) => {
     return loginUser(payload)
-      .then(data => {
+      .then((data) => {
         if (data.status === 200) {
           const loginData = data.data;
-          localStorage.setItem('token', loginData.token);
-          localStorage.setItem('message', data.message);
-          navigate('/');
+          localStorage.setItem("token", loginData.token);
+          localStorage.setItem("message", data.message);
+          navigate("/");
         } else {
           handleError(
-            { errors: { username: ['Invalid login credentials'] } },
-            setError,
+            { errors: { username: ["Invalid login credentials"] } },
+            setError
           );
         }
       })
-      .catch(err => {
-        if (err.message.includes('User')) {
+      .catch((err) => {
+        if (err.message.includes("User")) {
           handleError({ errors: { username: [`${err.message}`] } }, setError);
         } else {
           handleError({ errors: { password: [`${err.message}`] } }, setError);
@@ -62,7 +62,7 @@ const Login2 = () => {
           </div>
           <div className="flex-col ">
             <div className="flex justify-center text-left">
-              {<Icon icon={petsIcon} />}
+              {/* {<Icon icon={petsIcon} />} */}
             </div>
             <div className="flex flex-col justify-center">
               <div className="w-full"></div>
@@ -101,9 +101,9 @@ const Login2 = () => {
                     id="username"
                     type="text"
                     hasError={errors.username}
-                    {...register('username', {
+                    {...register("username", {
                       required:
-                        'please provide your email, phone number, or username',
+                        "please provide your email, phone number, or username",
                     })}
                     placeholder="Enter your username"
                   />
@@ -116,15 +116,15 @@ const Login2 = () => {
                 >
                   <Input
                     id="password"
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword ? "text" : "password"}
                     hasError={errors.password}
-                    {...register('password', {
-                      required: 'please enter your password',
+                    {...register("password", {
+                      required: "please enter your password",
                       pattern: {
                         value:
                           /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#%&])(?=.{8,})/,
                         message:
-                          'Use 8 or more characters with letters, numbers & symbols',
+                          "Use 8 or more characters with letters, numbers & symbols",
                       },
                     })}
                     placeholder="Enter your password"
@@ -177,7 +177,7 @@ const Login2 = () => {
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Logging in' : 'Login'}
+                  {isSubmitting ? "Logging in" : "Login"}
                 </Button>
               </div>
               <label className="block text-black-50 font-normal text-sm mt-4 text-center">
