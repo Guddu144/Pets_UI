@@ -180,3 +180,5 @@ export const getNotification = () => request('GET', `${API_URL}/api/notification
 
 export const addTarget = payload =>
   request('POST', `${API_URL}/api/target`, true, payload);
+export const getTarget = payload =>
+  request('GET', `${API_URL}/api/target`, true, payload);

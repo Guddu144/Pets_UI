@@ -83,10 +83,6 @@ const TargetForm = ({ type, val, modelID }) => {
     }
   };
 
-  // const onSubmit = setError => payload => {
-  //   console.log(payload)
-  // }
-
   return (
     <form onSubmit={handleSubmit(onSubmit(setError))}>
       <FieldGroup
@@ -110,7 +106,7 @@ const TargetForm = ({ type, val, modelID }) => {
       </FieldGroup>
       <FieldGroup
         name="targetAmount"
-        label="Budget Amount"
+        label="Target Amount"
         hideLabel={false}
         error={errors.targetAmount}
         className="text-md my-4"

@@ -3,6 +3,7 @@ import { Modal, PageHeader, PageLayout } from '../common';
 import { Button } from '../inputs';
 import { IconPlus, IconX } from '@tabler/icons';
 import TargetForm from './TargetFOrm';
+import TargetTable from './TargetTable';
 
 const Target = () => {
   const [isTargetFormOpen, setIsTargetFormOpen] = useState(false);
@@ -59,7 +60,7 @@ const Target = () => {
       </Modal>
 
       <PageLayout>
-
+        <TargetTable />
       </PageLayout>
     </>
   );
