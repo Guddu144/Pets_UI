@@ -20,22 +20,7 @@ import Goal from "../goals/Goal";
 import GoalStatus from "../goal-status/GoalStatus";
 import Profile from "../user/Profile";
 import Notification from "../notification/Notification";
-import { io } from "socket.io-client";
-import { toast } from "react-toastify";
-const socket = io("http://localhost:3000");
 const App = () => {
-  useEffect(() => {
-    const handleNotification = (message) => {
-      console.log("Received notification:", message);
-      toast(message);
-    };
-
-    socket.on("notification", handleNotification);
-
-    return () => {
-      socket.off("notification", handleNotification);
-    };
-  }, []);
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
