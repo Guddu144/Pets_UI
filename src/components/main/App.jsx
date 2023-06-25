@@ -39,7 +39,7 @@ const App = () => {
             <Route path="/party" element={<Party />} />
             <Route path="/transaction" element={<Transcation />} />
             <Route path="/budget" element={<Goal />} />
-            <Route path="/target" element={<Target />} />
+            {/* <Route path="/target" element={<Target />} /> */}
             <Route path="/budget-status" element={<GoalStatus />} />
             <Route path="/profile" element={<Profile />} />
           </Route>

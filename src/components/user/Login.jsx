@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { FieldGroup, Input, Button, Icon } from "../../components/inputs";
@@ -7,8 +7,44 @@ import { classNames } from "../../utils";
 // import petsIcon from '../../icons/Pets-icon.svg';
 import logoIcon from "../../icons/Logo-white.svg";
 import { loginUser } from "../../infra";
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { initializeApp } from "firebase/app";
 
 const Login = () => {
+  const [token, setToken] = useState(null);
+  const firebaseConfig = {
+    apiKey: "AIzaSyCU0xSooXc1mUjWqXbrb6NOP8mfOxrDbHY",
+    authDomain: "pets-b05f2.firebaseapp.com",
+    projectId: "pets-b05f2",
+    storageBucket: "pets-b05f2.appspot.com",
+    messagingSenderId: "110053211145",
+    appId: "1:110053211145:web:a707126e86216bcc770cd8",
+    measurementId: "G-F5TSGDDZCL",
+  };
+  const app = initializeApp(firebaseConfig);
+  const messaging = getMessaging(app);
+  useEffect(() => {
+    getToken(messaging, {
+      vapidKey:
+        "BHr2rSsZzHOpNpgq8hwLiYqqZ1Me15h5u6xTu4WQSpl_-gB1CHdEmdSQwtltxscAbQrfljpYuy0BhdG0lRY_fLg",
+    })
+      .then((currentToken) => {
+        if (currentToken) {
+          setToken(currentToken);
+          // Track the token -> client mapping, by sending to backend server
+          // show on the UI that permission is secured
+        } else {
+          console.log(
+            "No registration token available. Request permission to generate one."
+          );
+          // shows on the UI that permission is required
+        }
+      })
+      .catch((err) => {
+        console.log("An error occurred while retrieving token. ", err);
+        // catch error while creating client token
+      });
+  });
   localStorage.clear();
   const {
     handleSubmit,
@@ -21,6 +57,7 @@ const Login = () => {
 
   const onSubmit = (setError) => (payload) => {
     console.log(payload);
+    payload.deviceToken = token;
     return loginUser(payload)
       .then((data) => {
         if (data.status === 200) {
