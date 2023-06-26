@@ -149,21 +149,21 @@ const TargetForm = ({ type, val, modelID }) => {
       </FieldGroup>
       <div className="col-span-3">
         <FieldGroup
-          name="desiredDate"
+          name="desireDate"
           label="Desired Date"
           hideLabel={false}
-          error={errors.desiredDate}
+          error={errors.desireDate}
           className="text-md "
         >
           <Input
             placeholder="Enter date"
             type="date"
-            name="desiredDate"
+            name="desireDate"
             autoComplete="off"
-            hasError={errors.desiredDate}
-            {...register('desiredDate', {
+            hasError={errors.desireDate}
+            {...register('desireDate', {
               required: 'Please enter the date',
-              value: val?.data?.desiredDate ? formatDateYear(val?.data?.desiredDate) : null,
+              value: val?.data?.desireDate ? formatDateYear(val?.data?.desireDate) : null,
             })}
           />
         </FieldGroup>

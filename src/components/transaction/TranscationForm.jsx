@@ -5,6 +5,7 @@ import {
   FieldGroup,
   Input,
   SelectBox,
+  TextArea,
 } from '../inputs';
 import { useHandleError } from '../../hooks';
 import { Controller, useForm } from 'react-hook-form';
@@ -245,6 +246,25 @@ const TranscationForm = ({ type, val, modelID }) => {
           </FieldGroup>
         )}
       />
+      {/* <FieldGroup
+        name="description"
+        label="Description"
+        hideLabel={false}
+        error={errors.email}
+        className="text-md my-4"
+      >
+        <TextArea
+          placeholder="Enter the description"
+          type="textarea"
+          name="description"
+          autoComplete="off"
+          hasError={errors.description}
+          {...register('description', {
+            required: 'Please enter the description',
+            value: val?.data?.description,
+          })}
+        />
+      </FieldGroup> */}
 
       <Button className="mt-4 font-normal" full type="submit">
         Submit

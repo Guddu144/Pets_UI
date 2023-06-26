@@ -4,6 +4,7 @@ import { getTarget } from '../../infra';
 import { PlainButton } from '../inputs';
 import { EyeIcon, PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
 import toastify from '../../utils/toast';
+import { formatLongDate } from '../../utils/date';
 
 const TargetTable = ({ cat, setType, setModelID, setId }) => {
   toastify();
@@ -24,6 +25,11 @@ const TargetTable = ({ cat, setType, setModelID, setId }) => {
       {
         Header: 'Saved Already',
         accessor: 'savedAlready',
+      },
+      {
+        Header: 'Desired Date',
+        accessor: ({ desireDate }) => formatLongDate(desireDate),
+
       },
       {
         Header: 'Description',
