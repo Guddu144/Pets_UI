@@ -1,14 +1,50 @@
-import React, { useContext, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-import { FieldGroup, Input, Button, Icon } from '../../components/inputs';
-import { useHandleError } from '../../hooks';
-import { classNames } from '../../utils';
-import petsIcon from '../../icons/Pets-icon.svg';
-import logoIcon from '../../icons/Logo-white.svg';
-import { loginUser } from '../../infra';
+import React, { useContext, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { FieldGroup, Input, Button, Icon } from "../../components/inputs";
+import { useHandleError } from "../../hooks";
+import { classNames } from "../../utils";
+// import petsIcon from '../../icons/Pets-icon.svg';
+import logoIcon from "../../icons/Logo-white.svg";
+import { loginUser } from "../../infra";
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { initializeApp } from "firebase/app";
 
 const Login = () => {
+  const [token, setToken] = useState(null);
+  const firebaseConfig = {
+    apiKey: "AIzaSyCU0xSooXc1mUjWqXbrb6NOP8mfOxrDbHY",
+    authDomain: "pets-b05f2.firebaseapp.com",
+    projectId: "pets-b05f2",
+    storageBucket: "pets-b05f2.appspot.com",
+    messagingSenderId: "110053211145",
+    appId: "1:110053211145:web:a707126e86216bcc770cd8",
+    measurementId: "G-F5TSGDDZCL",
+  };
+  const app = initializeApp(firebaseConfig);
+  const messaging = getMessaging(app);
+  useEffect(() => {
+    getToken(messaging, {
+      vapidKey:
+        "BHr2rSsZzHOpNpgq8hwLiYqqZ1Me15h5u6xTu4WQSpl_-gB1CHdEmdSQwtltxscAbQrfljpYuy0BhdG0lRY_fLg",
+    })
+      .then((currentToken) => {
+        if (currentToken) {
+          setToken(currentToken);
+          // Track the token -> client mapping, by sending to backend server
+          // show on the UI that permission is secured
+        } else {
+          console.log(
+            "No registration token available. Request permission to generate one."
+          );
+          // shows on the UI that permission is required
+        }
+      })
+      .catch((err) => {
+        console.log("An error occurred while retrieving token. ", err);
+        // catch error while creating client token
+      });
+  });
   localStorage.clear();
   const {
     handleSubmit,
@@ -19,24 +55,25 @@ const Login = () => {
   const navigate = useNavigate();
   const handleError = useHandleError();
 
-  const onSubmit = setError => payload => {
+  const onSubmit = (setError) => (payload) => {
     console.log(payload);
+    payload.deviceToken = token;
     return loginUser(payload)
-      .then(data => {
+      .then((data) => {
         if (data.status === 200) {
           const loginData = data.data;
-          localStorage.setItem('token', loginData.token);
-          localStorage.setItem('message', data.message);
-          navigate('/');
+          localStorage.setItem("token", loginData.token);
+          localStorage.setItem("message", data.message);
+          navigate("/");
         } else {
           handleError(
-            { errors: { username: ['Invalid login credentials'] } },
-            setError,
+            { errors: { username: ["Invalid login credentials"] } },
+            setError
           );
         }
       })
-      .catch(err => {
-        if (err.message.includes('User')) {
+      .catch((err) => {
+        if (err.message.includes("User")) {
           handleError({ errors: { username: [`${err.message}`] } }, setError);
         } else {
           handleError({ errors: { password: [`${err.message}`] } }, setError);
@@ -53,7 +90,7 @@ const Login = () => {
           </div>
           <div className="flex-col ">
             <div className="flex justify-center text-left">
-              {<Icon icon={petsIcon} />}
+              {/* {<Icon icon={petsIcon} />} */}
             </div>
             <div className="flex flex-col justify-center">
               <div className="w-full"></div>
@@ -92,9 +129,9 @@ const Login = () => {
                     id="username"
                     type="text"
                     hasError={errors.username}
-                    {...register('username', {
+                    {...register("username", {
                       required:
-                        'please provide your email, phone number, or username',
+                        "please provide your email, phone number, or username",
                     })}
                     placeholder="Enter your username"
                   />
@@ -109,8 +146,8 @@ const Login = () => {
                     id="password"
                     type="password"
                     hasError={errors.password}
-                    {...register('password', {
-                      required: 'please enter your password',
+                    {...register("password", {
+                      required: "please enter your password",
                     })}
                     placeholder="Enter your password"
                   />
@@ -132,7 +169,7 @@ const Login = () => {
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Logging in' : 'Login'}
+                  {isSubmitting ? "Logging in" : "Login"}
                 </Button>
               </div>
               <label className="block text-black-50 font-normal text-sm mt-4 text-center">

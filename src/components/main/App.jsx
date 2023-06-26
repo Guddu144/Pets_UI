@@ -1,6 +1,6 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { Dashboard } from '../dashboard';
+import React, { useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import { Dashboard } from "../dashboard";
 import {
   ForgottenPassword,
   Login,
@@ -8,20 +8,18 @@ import {
   SignUp,
   SignUp2,
   UpdatePassword,
-} from '../user';
-import Earning from '../earning/Earning';
-import Expense from '../expenses/Expense';
-import Auth from '../user/Auth';
-import Layout from './Layout';
-import MainLayout from './MainLayout';
-import Party from '../party/Party';
-import Transcation from '../transaction/Transcation';
-import Goal from '../goals/Goal';
-import GoalStatus from '../goal-status/GoalStatus';
-import Profile from '../user/Profile';
-import Notification from '../notification/Notification';
-import Target from '../target/Target';
-
+} from "../user";
+import Earning from "../earning/Earning";
+import Expense from "../expenses/Expense";
+import Auth from "../user/Auth";
+import Layout from "./Layout";
+import MainLayout from "./MainLayout";
+import Party from "../party/Party";
+import Transcation from "../transaction/Transcation";
+import Goal from "../goals/Goal";
+import GoalStatus from "../goal-status/GoalStatus";
+import Profile from "../user/Profile";
+import Notification from "../notification/Notification";
 const App = () => {
   return (
     <Routes>
@@ -41,7 +39,7 @@ const App = () => {
             <Route path="/party" element={<Party />} />
             <Route path="/transaction" element={<Transcation />} />
             <Route path="/budget" element={<Goal />} />
-            <Route path="/target" element={<Target />} />
+            {/* <Route path="/target" element={<Target />} /> */}
             <Route path="/budget-status" element={<GoalStatus />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
