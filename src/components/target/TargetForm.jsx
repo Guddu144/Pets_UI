@@ -4,6 +4,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useHandleError } from '../../hooks';
 import { addGoal, addTarget, editGoal } from '../../infra';
 import { toast } from 'react-toastify';
+import { formatDateYear } from '../../utils/date';
 
 const TargetForm = ({ type, val, modelID }) => {
   const handleError = useHandleError();
@@ -19,35 +20,39 @@ const TargetForm = ({ type, val, modelID }) => {
   const categories = [
     {
       id: '1',
-      name: 'Foods and Drinks',
+      name: 'New Vehicle',
     },
     {
       id: '2',
-      name: 'Transportation',
+      name: 'New Home',
     },
     {
       id: '3',
-      name: 'Entertainment',
+      name: 'Holiday Trip',
     },
     {
       id: '4',
-      name: 'Health',
-    },
-    {
-      id: '5',
       name: 'Education',
     },
     {
+      id: '5',
+      name: 'Emergency Fund',
+    },
+    {
       id: '6',
-      name: 'Debt payments',
+      name: 'Health Care',
     },
     {
       id: '7',
-      name: 'Housing',
+      name: 'Party',
     },
     {
       id: '8',
-      name: 'Miscellaneous',
+      name: 'Kids Spoiling',
+    },
+    {
+      id: '9',
+      name: 'Charity',
     },
   ];
   useEffect(() => {
@@ -142,7 +147,27 @@ const TargetForm = ({ type, val, modelID }) => {
           })}
         />
       </FieldGroup>
-
+      <div className="col-span-3">
+        <FieldGroup
+          name="desiredDate"
+          label="Desired Date"
+          hideLabel={false}
+          error={errors.desiredDate}
+          className="text-md "
+        >
+          <Input
+            placeholder="Enter date"
+            type="date"
+            name="desiredDate"
+            autoComplete="off"
+            hasError={errors.desiredDate}
+            {...register('desiredDate', {
+              required: 'Please enter the date',
+              value: val?.data?.desiredDate ? formatDateYear(val?.data?.desiredDate) : null,
+            })}
+          />
+        </FieldGroup>
+      </div>
       <FieldGroup
         name="category"
         label="Category"
